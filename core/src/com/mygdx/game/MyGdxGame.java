@@ -54,7 +54,7 @@ public class MyGdxGame implements ApplicationListener {
 	}
 
 	public void update(){
-		
+
 	}
 
 	public void dispose () {
