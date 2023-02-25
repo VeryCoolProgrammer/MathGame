@@ -10,7 +10,14 @@ public class MyContactListener implements com.badlogic.gdx.physics.box2d.Contact
     public void beginContact(Contact c) {
         Fixture fa = c.getFixtureA();
         Fixture fb = c.getFixtureB();
-        System.out.println(fa.getUserData() + ", " + fb.getUserData());
+
+        if (fa.getUserData() != null && fa.getUserData().equals("foot")) {
+            System.out.println("fa is foot");
+        }
+        if (fb.getUserData() != null && fb.getUserData().equals("foot")) {
+            System.out.println("fb is foot");
+        }
+        //System.out.println(fa.getUserData() + ", " + fb.getUserData());
     }
 
     @Override

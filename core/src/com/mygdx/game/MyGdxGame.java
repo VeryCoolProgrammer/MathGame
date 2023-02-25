@@ -1,16 +1,13 @@
 package com.mygdx.game;
 
-import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.utils.ScreenUtils;
+import com.mygdx.game.handlers.GameKeys;
 import com.mygdx.game.handlers.GameStateManager;
+import com.mygdx.game.handlers.MyInputProcessor;
 
 import java.util.Vector;
 
@@ -26,6 +23,8 @@ public class MyGdxGame implements ApplicationListener {
 	private float accum;
 
 	public void create () {
+		Gdx.input.setInputProcessor(new MyInputProcessor());
+
 		sb = new SpriteBatch();
 		cam = new OrthographicCamera();
 		cam.setToOrtho(false, V_WIDTH, V_HEIGHT);
@@ -37,16 +36,13 @@ public class MyGdxGame implements ApplicationListener {
 	public void render () {
 		//update();
 
-		Gdx.gl.glClearColor(1,1,1,1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
 		accum += Gdx.graphics.getDeltaTime();
 		while(accum >= STEP){
 			accum -= STEP;
 			gsm.update(STEP);
 			gsm.render();
+			GameKeys.update();
 		}
-
 		/*sb.begin();
 		bg.render(sb);
 		gg.render(sb);
