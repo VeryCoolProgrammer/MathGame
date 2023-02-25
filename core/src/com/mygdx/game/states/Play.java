@@ -17,11 +17,13 @@ public class Play extends GameState{
     private Body playerBody;
     private Box2DDebugRenderer b2dr;
     private OrthographicCamera b2dCam;
+    private MyContactListener cl;
 
     public Play(GameStateManager gsm) {
         super(gsm);
         world = new World(new Vector2(0, -25), true);
-        world.setContactListener(new MyContactListener());
+        cl = new MyContactListener();
+        world.setContactListener(cl);
         b2dr = new Box2DDebugRenderer();
 
         //create block
