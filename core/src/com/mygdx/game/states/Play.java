@@ -2,31 +2,54 @@ package com.mygdx.game.states;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
+import com.mygdx.game.MyGdxGame;
+import com.mygdx.game.handlers.MyContactListener;
 import com.mygdx.game.handlers.GameStateManager;
+
+import static com.mygdx.game.handlers.B2DVars.*;
 
 public class Play extends GameState{
     private World world;
     private Box2DDebugRenderer b2dr;
+    private OrthographicCamera b2dCam;
 
     public Play(GameStateManager gsm) {
         super(gsm);
-        world = new World(new Vector2(0, 0), true);
+        world = new World(new Vector2(0, -5), true);
+        world.setContactListener(new MyContactListener());
         b2dr = new Box2DDebugRenderer();
 
-        //create body
+        //create box
         BodyDef bdef = new BodyDef();
-        bdef.position.set(500, 200);
+        bdef.position.set(500 / PPM, 500 / PPM);
         bdef.type = BodyDef.BodyType.DynamicBody;
         Body body = world.createBody(bdef);
 
         PolygonShape ps = new PolygonShape();
-        ps.setAsBox(20, 20);
+        ps.setAsBox(25 / PPM, 25 / PPM);
         FixtureDef fdef = new FixtureDef();
         fdef.shape = ps;
-        body.createFixture(fdef);
+        fdef.filter.categoryBits = BIT_BOX;
+        fdef.filter.maskBits = BIT_BLOCK;
+        body.createFixture(fdef).setUserData("box");
 
+        //create block
+        bdef.position.set(500 / PPM, 300 / PPM);
+        bdef.type = BodyDef.BodyType.StaticBody;
+        body = world.createBody(bdef);
+        ps.setAsBox(100 / PPM, 30 / PPM);
+
+        fdef.shape = ps;
+        fdef.filter.categoryBits = BIT_BLOCK;
+        fdef.filter.maskBits = BIT_BOX;
+        Fixture fixture = body.createFixture(fdef);
+        fixture.setUserData("block");
+
+        b2dCam = new OrthographicCamera();
+        b2dCam.setToOrtho(false, MyGdxGame.V_WIDTH / PPM, MyGdxGame.V_HEIGHT / PPM);
     }
 
     @Override
@@ -41,8 +64,9 @@ public class Play extends GameState{
 
     @Override
     public void render() {
+        Gdx.gl20.glClearColor(0,0,0,1);
         Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        b2dr.render(world, cam.combined);
+        b2dr.render(world, b2dCam.combined);
     }
 
     @Override

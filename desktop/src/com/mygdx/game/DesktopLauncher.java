@@ -11,6 +11,7 @@ public class DesktopLauncher {
 		config.setForegroundFPS(60);
 		config.setWindowedMode(1215, 675);
 		config.setTitle("Game");
+		//config.setWindowIcon("kotik.gif");
 		new Lwjgl3Application(new MyGdxGame(), config);
 	}
 }
