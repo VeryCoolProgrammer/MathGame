@@ -41,31 +41,21 @@ public class Play extends GameState{
         body.createFixture(fdef).setUserData("block");
 
         //create player
-        bdef.position.set(500 / PPM, 500 / PPM);
-        bdef.type = BodyDef.BodyType.DynamicBody;
-        playerBody = world.createBody(bdef);
+        createPlayer();
 
-        ps.setAsBox(25 / PPM, 25 / PPM);
-        fdef.shape = ps;
-        fdef.filter.categoryBits = BIT_PLAYER;
-        fdef.filter.maskBits = BIT_BLOCK;
-        playerBody.createFixture(fdef).setUserData("player");
-
-        //create foot sensor
-        ps.setAsBox(10 / PPM, 10 / PPM, new Vector2(0, -20/PPM), 0);
-        fdef.shape = ps;
-        fdef.filter.categoryBits = BIT_PLAYER;
-        fdef.filter.maskBits = BIT_BLOCK;
-        fdef.isSensor = true;
-        playerBody.createFixture(fdef).setUserData("foot");
+        //create map/tiles
+        createTiles();
 
         b2dCam = new OrthographicCamera();
         b2dCam.setToOrtho(false, MyGdxGame.V_WIDTH / PPM, MyGdxGame.V_HEIGHT / PPM);
     }
 
+
     @Override
     public void handleInput() {
-
+        if(GameKeys.isPressed(GameKeys.KEY_W)){
+            playerBody.applyForceToCenter(200, 0, true);
+        }
     }
 
     @Override
@@ -84,5 +74,32 @@ public class Play extends GameState{
     @Override
     public void dispose() {
 
+    }
+
+    private void createPlayer() {
+        BodyDef bdef = new BodyDef();
+        PolygonShape ps = new PolygonShape();
+        FixtureDef fdef = new FixtureDef();
+
+        bdef.position.set(500 / PPM, 500 / PPM);
+        bdef.type = BodyDef.BodyType.DynamicBody;
+        playerBody = world.createBody(bdef);
+
+        ps.setAsBox(25 / PPM, 25 / PPM);
+        fdef.shape = ps;
+        fdef.filter.categoryBits = BIT_PLAYER;
+        fdef.filter.maskBits = BIT_BLOCK;
+        playerBody.createFixture(fdef).setUserData("player");
+
+        //create foot sensor
+        ps.setAsBox(10 / PPM, 10 / PPM, new Vector2(0, -20/PPM), 0);
+        fdef.shape = ps;
+        fdef.filter.categoryBits = BIT_PLAYER;
+        fdef.filter.maskBits = BIT_BLOCK;
+        fdef.isSensor = true;
+        playerBody.createFixture(fdef).setUserData("foot");
+    }
+    private void createTiles() {
+        //5-6вид
     }
 }

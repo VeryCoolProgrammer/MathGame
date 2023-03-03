@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.game.handlers.Content;
 import com.mygdx.game.handlers.GameKeys;
 import com.mygdx.game.handlers.GameStateManager;
 import com.mygdx.game.handlers.MyInputProcessor;
@@ -21,9 +22,13 @@ public class MyGdxGame implements ApplicationListener {
 	private GameStateManager gsm;
 	public static final float STEP = 1 / 60f;
 	private float accum;
+	public static Content res;
 
 	public void create () {
 		Gdx.input.setInputProcessor(new MyInputProcessor());
+
+		res = new Content();
+		res.loadTexture("gnomik.png", "gnomik");
 
 		sb = new SpriteBatch();
 		cam = new OrthographicCamera();
@@ -43,10 +48,10 @@ public class MyGdxGame implements ApplicationListener {
 			gsm.render();
 			GameKeys.update();
 		}
-		/*sb.begin();
-		bg.render(sb);
-		gg.render(sb);
-		sb.end();*/
+		sb.setProjectionMatrix(hudcam.combined);
+		sb.begin();
+		//sb.draw(res.getTexture("gnomik"), 100, 200);
+		sb.end();
 	}
 
 	public void update(){
