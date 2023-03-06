@@ -29,7 +29,7 @@ public class B2DSprite {
         sb.begin();
         sb.draw(animation.getFrames(),
                 body.getPosition().x * B2DVars.PPM - width / 2,
-                body.getPosition().x * B2DVars.PPM - height / 2);
+                body.getPosition().y * B2DVars.PPM - height / 2);
         sb.end();
     }
     public Body getBody(){

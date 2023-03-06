@@ -48,7 +48,6 @@ public class Play extends GameState{
         b2dCam.setToOrtho(false, MyGdxGame.V_WIDTH / PPM, MyGdxGame.V_HEIGHT / PPM);
     }
 
-
     @Override
     public void handleInput() {
         if(GameKeys.isPressed(GameKeys.KEY_W)){
@@ -90,7 +89,7 @@ public class Play extends GameState{
         bdef.type = BodyDef.BodyType.DynamicBody;
         Body body = world.createBody(bdef);
 
-        ps.setAsBox(25 / PPM, 25 / PPM);
+        ps.setAsBox(50 / PPM, 50 / PPM);
         fdef.shape = ps;
         fdef.filter.categoryBits = BIT_PLAYER;
         fdef.filter.maskBits = BIT_BLOCK;
