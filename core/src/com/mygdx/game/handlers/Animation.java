@@ -22,7 +22,7 @@ public class Animation {
         setFrames(frames, delay);
     }
 
-    private void setFrames(TextureRegion[] frames, float delay) {
+    public void setFrames(TextureRegion[] frames, float delay) {
         this.frames = frames;
         this.delay = delay;
         time = 0;

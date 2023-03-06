@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.mygdx.game.MyGdxGame;
+import com.mygdx.game.entities.Player;
 import com.mygdx.game.handlers.GameKeys;
 import com.mygdx.game.handlers.MyContactListener;
 import com.mygdx.game.handlers.GameStateManager;
@@ -14,10 +15,10 @@ import static com.mygdx.game.handlers.B2DVars.*;
 
 public class Play extends GameState{
     private World world;
-    private Body playerBody;
     private Box2DDebugRenderer b2dr;
     private OrthographicCamera b2dCam;
     private MyContactListener cl;
+    private Player player;
 
     public Play(GameStateManager gsm) {
         super(gsm);
@@ -40,10 +41,7 @@ public class Play extends GameState{
         fdef.filter.maskBits = BIT_PLAYER;
         body.createFixture(fdef).setUserData("block");
 
-        //create player
         createPlayer();
-
-        //create map/tiles
         createTiles();
 
         b2dCam = new OrthographicCamera();
@@ -54,7 +52,7 @@ public class Play extends GameState{
     @Override
     public void handleInput() {
         if(GameKeys.isPressed(GameKeys.KEY_W)){
-            playerBody.applyForceToCenter(200, 0, true);
+            //playerBody.applyForceToCenter(200, 0, true);
         }
     }
 
@@ -62,12 +60,19 @@ public class Play extends GameState{
     public void update(float dt) {
         handleInput();
         world.step(dt, 6, 2);
+        player.update(dt);
     }
 
     @Override
     public void render() {
         Gdx.gl20.glClearColor(0,0,0,1);
         Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        //draw player
+        sb.setProjectionMatrix(cam.combined);
+        player.render(sb);
+
+        //world
         b2dr.render(world, b2dCam.combined);
     }
 
@@ -83,13 +88,13 @@ public class Play extends GameState{
 
         bdef.position.set(500 / PPM, 500 / PPM);
         bdef.type = BodyDef.BodyType.DynamicBody;
-        playerBody = world.createBody(bdef);
+        Body body = world.createBody(bdef);
 
         ps.setAsBox(25 / PPM, 25 / PPM);
         fdef.shape = ps;
         fdef.filter.categoryBits = BIT_PLAYER;
         fdef.filter.maskBits = BIT_BLOCK;
-        playerBody.createFixture(fdef).setUserData("player");
+        body.createFixture(fdef).setUserData("player");
 
         //create foot sensor
         ps.setAsBox(10 / PPM, 10 / PPM, new Vector2(0, -20/PPM), 0);
@@ -97,7 +102,9 @@ public class Play extends GameState{
         fdef.filter.categoryBits = BIT_PLAYER;
         fdef.filter.maskBits = BIT_BLOCK;
         fdef.isSensor = true;
-        playerBody.createFixture(fdef).setUserData("foot");
+        body.createFixture(fdef).setUserData("foot");
+
+        player = new Player(body);
     }
     private void createTiles() {
         //5-6вид

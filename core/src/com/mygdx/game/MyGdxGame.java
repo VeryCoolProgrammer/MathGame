@@ -48,10 +48,6 @@ public class MyGdxGame implements ApplicationListener {
 			gsm.render();
 			GameKeys.update();
 		}
-		sb.setProjectionMatrix(hudcam.combined);
-		sb.begin();
-		//sb.draw(res.getTexture("gnomik"), 100, 200);
-		sb.end();
 	}
 
 	public void update(){
