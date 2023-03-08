@@ -2,19 +2,24 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.mygdx.game.handlers.Content;
 import com.mygdx.game.handlers.GameKeys;
 import com.mygdx.game.handlers.GameStateManager;
 import com.mygdx.game.handlers.MyInputProcessor;
 
+import java.awt.*;
 import java.util.Vector;
 
 public class MyGdxGame implements ApplicationListener {
-	public static final int V_WIDTH = 1215;
-	public static final int V_HEIGHT = 675;
+	public static final int V_WIDTH = 1216;
+	public static final int V_HEIGHT = 672;
 	public static final int SCALE = 2;
 	SpriteBatch sb;
 	private OrthographicCamera cam;
