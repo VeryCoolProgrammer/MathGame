@@ -33,7 +33,7 @@ public class MyGdxGame implements ApplicationListener {
 		Gdx.input.setInputProcessor(new MyInputProcessor());
 
 		res = new Content();
-		res.loadTexture("gnomik.png", "gnomik");
+		res.loadTexture("gnom1row.png", "gnomik"); // !!!
 
 		sb = new SpriteBatch();
 		cam = new OrthographicCamera();
