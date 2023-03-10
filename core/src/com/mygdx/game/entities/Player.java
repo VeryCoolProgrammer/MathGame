@@ -9,9 +9,9 @@ public class Player extends B2DSprite{
     public Player(Body body) {
         super(body);
         Texture tex = MyGdxGame.res.getTexture("gnomik");
-        TextureRegion[] sprites = TextureRegion.split(tex, 82,145)[0];
+        TextureRegion[] sprites = TextureRegion.split(tex, 124,145)[0];
 
-        setAnimation(sprites, 1/12f); //82x104 Pr=27
+        setAnimation(sprites, 1/12f); //82x104 Pr=27 //124
     }
 
 }
