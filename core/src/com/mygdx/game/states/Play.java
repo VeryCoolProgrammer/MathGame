@@ -50,7 +50,7 @@ public class Play extends GameState{
 
         // ----------------------------- load map ----------------------------- 
         
-        tiledMap = new TmxMapLoader().load("sprites/mystic_woods_free_2.1/map.tmx");
+        /*tiledMap = new TmxMapLoader().load("sprites/mystic_woods_free_2.1/map.tmx");
         tmr = new OrthogonalTiledMapRenderer(tiledMap, 1); // !!!
 
         TiledMapTileLayer layer = (TiledMapTileLayer) tiledMap.getLayers().get("tropa borders");
@@ -84,7 +84,7 @@ public class Play extends GameState{
                 fdef.isSensor = false;
                 world.createBody(bdef).createFixture(fdef);
             }
-        }
+        }*/
         // ----------------------------- continue -----------------------------
 
         createPlayer();
@@ -113,8 +113,8 @@ public class Play extends GameState{
         Gdx.gl20.glClearColor(0,0,0,1);
         Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        tmr.setView(cam);
-        tmr.render();
+        /*tmr.setView(cam);
+        tmr.render();*/
 
         //draw player
         sb.setProjectionMatrix(cam.combined);

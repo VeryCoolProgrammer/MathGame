@@ -34,7 +34,7 @@ public class Animation {
         if (delay <= 0) {
             return;
         }
-        time-=dt;
+        time+=dt;
         while (time >= delay){
             step();
         }
