@@ -74,7 +74,7 @@ public class Play extends GameState{
         Gdx.gl20.glClearColor(0,0,0,1);
         Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        cam.position.set(player.getPosition().x * PPM + MyGdxGame.V_WIDTH /8, player.getPosition().y * PPM + MyGdxGame.V_HEIGHT /8, 0);
+        cam.position.set(player.getPosition().x * PPM + MyGdxGame.V_WIDTH /35, player.getPosition().y * PPM + MyGdxGame.V_HEIGHT /35, 0);
         //cam.position.set(player.getPosition().x * PPM / 2, player.getPosition().y * PPM / 2, 0);
         cam.update();
 
@@ -110,6 +110,7 @@ public class Play extends GameState{
         fdef.filter.categoryBits = BIT_PLAYER;
         fdef.filter.maskBits = BIT_PENEK;
         body.createFixture(fdef).setUserData("player");
+        ps.dispose();
 
         //create foot sensor
         /*ps.setAsBox(10f / PPM, 10f / PPM, new Vector2(0, -50f/PPM), 0);
@@ -162,6 +163,7 @@ public class Play extends GameState{
                 fdef.filter.maskBits = BIT_PLAYER;
                 fdef.isSensor = false;
                 world.createBody(bdef).createFixture(fdef);
+                cs.dispose();
             }
         }
     }

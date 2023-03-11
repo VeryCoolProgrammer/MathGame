@@ -2,24 +2,21 @@ package com.mygdx.game.entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.mygdx.game.MyGdxGame;
 
-import static com.mygdx.game.handlers.B2DVars.PPM;
+import static com.mygdx.game.handlers.B2DVars.*;
 
 public class Player extends B2DSprite{
-
     public Player(Body body) {
         super(body);
         Texture tex = MyGdxGame.res.getTexture("gnomik");
-        TextureRegion[] sprites = TextureRegion.split(tex, 110,145)[0];
+        TextureRegion[] sprites = TextureRegion.split(tex, 110,130)[0]; //110 130 - 1row, 120 130 - step
 
-        this.speed = 40f;
-        setAnimation(sprites, 1/6f);
+        speed = 40f;
+        setAnimation(sprites, 1/12f);
     }
     public void updatePL(){
         x = body.getPosition().x * PPM;
