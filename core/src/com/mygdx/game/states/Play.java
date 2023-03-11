@@ -36,12 +36,12 @@ public class Play extends GameState{
 
         //create block
         BodyDef bdef = new BodyDef();
-        bdef.position.set(500 / PPM, 300 / PPM);
+        bdef.position.set(500f / PPM, 300f / PPM);
         bdef.type = BodyDef.BodyType.StaticBody;
         Body body = world.createBody(bdef);
 
         PolygonShape ps = new PolygonShape();
-        ps.setAsBox(100 / PPM, 30 / PPM);
+        ps.setAsBox(100f / PPM, 30f / PPM);
         FixtureDef fdef = new FixtureDef();
         fdef.shape = ps;
         fdef.filter.categoryBits = BIT_BLOCK;
@@ -134,7 +134,7 @@ public class Play extends GameState{
         PolygonShape ps = new PolygonShape();
         FixtureDef fdef = new FixtureDef();
 
-        bdef.position.set(500 / PPM, 500 / PPM);
+        bdef.position.set(500f / PPM, 500f / PPM);
         bdef.type = BodyDef.BodyType.DynamicBody;
         Body body = world.createBody(bdef);
 
@@ -153,6 +153,7 @@ public class Play extends GameState{
         body.createFixture(fdef).setUserData("foot");
 
         player = new Player(body);
+        body.setUserData(player);
     }
     private void createTiles() {
         //5-6вид
