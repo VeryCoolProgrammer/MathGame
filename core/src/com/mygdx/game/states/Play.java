@@ -125,7 +125,7 @@ public class Play extends GameState{
     }
     private void createTiles() {
         tiledMap = new TmxMapLoader().load("sprites/mystic_woods_free_2.1/map.tmx");
-        tmr = new OrthogonalTiledMapRenderer(tiledMap, 3); // !!!
+        tmr = new OrthogonalTiledMapRenderer(tiledMap, 4); // !!!
         tileSize = (int) tiledMap.getProperties().get("tilewidth");
 
         TiledMapTileLayer layer;
