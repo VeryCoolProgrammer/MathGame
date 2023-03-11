@@ -30,7 +30,7 @@ public class MyGdxGame implements ApplicationListener {
 	public static Content res;
 
 	public void create () {
-		Gdx.input.setInputProcessor(new MyInputProcessor());
+		//Gdx.input.setInputProcessor(new MyInputProcessor());
 
 		res = new Content();
 		res.loadTexture("gnom1rowP1.png", "gnomik"); // !!!

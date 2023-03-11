@@ -12,9 +12,16 @@ public class B2DSprite {
     protected Animation animation;
     protected float width;
     protected float height;
+    protected float x, y, velx, vely, speed;
 
     public B2DSprite(Body body){
         this.body = body;
+        this.x = body.getPosition().x;
+        this.y = body.getPosition().y;
+        this.velx = 0;
+        this.vely = 0;
+        this.speed = 0;
+
         animation = new Animation();
     }
     public void setAnimation(TextureRegion[] reg, float delay){
