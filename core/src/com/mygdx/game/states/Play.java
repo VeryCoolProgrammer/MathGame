@@ -11,6 +11,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.entities.Player;
+import com.mygdx.game.handlers.BoundedCamera;
 import com.mygdx.game.handlers.GameKeys;
 import com.mygdx.game.handlers.MyContactListener;
 import com.mygdx.game.handlers.GameStateManager;
@@ -21,12 +22,14 @@ public class Play extends GameState{
     private boolean debug = false;
     private World world;
     private Box2DDebugRenderer b2dr;
-    private OrthographicCamera b2dCam;
+    private BoundedCamera b2dCam;
     private MyContactListener cl;
     private Player player;
     private TiledMap tiledMap;
     private OrthogonalTiledMapRenderer tmr;
     private float tileSize;
+    private int tileMapWidth;
+    private int tileMapHeight;
 
     public Play(GameStateManager gsm) {
         super(gsm);
@@ -51,9 +54,11 @@ public class Play extends GameState{
 
         createPlayer();
         createTiles();
+        cam.setBounds(0, tileMapWidth * tileSize, 0, tileMapHeight * tileSize);
 
-        b2dCam = new OrthographicCamera();
+        b2dCam = new BoundedCamera();
         b2dCam.setToOrtho(false, MyGdxGame.V_WIDTH / PPM, MyGdxGame.V_HEIGHT / PPM);
+        b2dCam.setBounds(0, (tileMapWidth * tileSize) / PPM, 0, (tileMapHeight * tileSize) / PPM);
     }
 
     @Override
@@ -63,6 +68,7 @@ public class Play extends GameState{
 
     @Override
     public void update(float dt) {
+        //System.out.println(cam.position.y);
         handleInput();
         world.step(dt, 6, 2);
         player.update(dt);
@@ -74,9 +80,12 @@ public class Play extends GameState{
         Gdx.gl20.glClearColor(0,0,0,1);
         Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        cam.position.set(player.getPosition().x * PPM + MyGdxGame.V_WIDTH /35, player.getPosition().y * PPM + MyGdxGame.V_HEIGHT /35, 0);
+        cam.setPosition(player.getPosition().x * PPM + MyGdxGame.V_WIDTH /35, player.getPosition().y * PPM + MyGdxGame.V_HEIGHT /35);
         //cam.position.set(player.getPosition().x * PPM / 2, player.getPosition().y * PPM / 2, 0);
         cam.update();
+
+        System.out.println(cam.position.x + " x cam " + player.getPosition().x + " x player");
+        //System.out.println(cam.position.y + " y cam " + player.getPosition().y + " y player");
 
         //draw map
         tmr.setView(cam);
@@ -88,6 +97,8 @@ public class Play extends GameState{
 
         //draw box?
         if (debug) {
+            b2dCam.setPosition(player.getPosition().x + MyGdxGame.V_WIDTH / 35 , MyGdxGame.V_HEIGHT / 35 );
+            b2dCam.update();
             b2dr.render(world, b2dCam.combined);
         }
     }
@@ -127,6 +138,9 @@ public class Play extends GameState{
         tiledMap = new TmxMapLoader().load("sprites/mystic_woods_free_2.1/map.tmx");
         tmr = new OrthogonalTiledMapRenderer(tiledMap, 4); // !!!
         tileSize = (int) tiledMap.getProperties().get("tilewidth");
+
+        tileMapWidth = (int) tiledMap.getProperties().get("width");
+        tileMapHeight = (int) tiledMap.getProperties().get("height");
 
         TiledMapTileLayer layer;
         layer = (TiledMapTileLayer) tiledMap.getLayers().get("tropa borders");

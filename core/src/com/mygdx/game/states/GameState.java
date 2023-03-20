@@ -3,13 +3,15 @@ package com.mygdx.game.states;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.MyGdxGame;
+import com.mygdx.game.handlers.B2DVars;
+import com.mygdx.game.handlers.BoundedCamera;
 import com.mygdx.game.handlers.GameStateManager;
 
 public abstract class GameState {
     protected GameStateManager gsm;
     protected MyGdxGame game;
     protected SpriteBatch sb;
-    protected OrthographicCamera cam;
+    protected BoundedCamera cam;
     protected OrthographicCamera hudCam;
 
     public GameState(GameStateManager gsm) {
