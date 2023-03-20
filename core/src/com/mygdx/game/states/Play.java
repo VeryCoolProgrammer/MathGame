@@ -84,9 +84,6 @@ public class Play extends GameState{
         //cam.position.set(player.getPosition().x * PPM / 2, player.getPosition().y * PPM / 2, 0);
         cam.update();
 
-        System.out.println(cam.position.x + " x cam " + player.getPosition().x + " x player" + "\n y player    " + player.getPosition().y);
-        //System.out.println(cam.position.y + " y cam " + player.getPosition().y + " y player");
-
         //draw map
         tmr.setView(cam);
         tmr.render();
