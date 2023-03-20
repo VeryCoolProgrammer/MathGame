@@ -39,17 +39,14 @@ public class BoundedCamera extends OrthographicCamera {
         if(position.x < xmin + viewportWidth / 2) {
             position.x = xmin + viewportWidth / 2;
         }
-        if(position.x > xmax - viewportWidth / 70) {
-            System.out.println(" MAX X");
-            position.x = xmax - viewportWidth / 70;
+        if(position.x > xmax - viewportWidth / 2) {
+            position.x = xmax - viewportWidth / 2;
         }
-        if(position.y < ymin + viewportHeight / 35 ) {
-            //System.out.println(ymin + viewportHeight / 35 + " MIN Y");
-            position.y = ymin + viewportHeight / 35;
+        if(position.y < ymin + viewportHeight / 2 ) {
+            position.y = ymin + viewportHeight / 2;
         }
-        if(position.y > ymax - viewportHeight / 35) {
-            //System.out.println(ymax - viewportHeight / 35 + " MAX Y");
-            position.y = ymax - viewportHeight / 35;
+        if(position.y > ymax - viewportHeight / 2) {
+            position.y = ymax - viewportHeight / 2;
         }
     }
 }

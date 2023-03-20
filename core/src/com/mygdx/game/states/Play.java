@@ -54,7 +54,7 @@ public class Play extends GameState{
 
         createPlayer();
         createTiles();
-        cam.setBounds(0, tileMapWidth * tileSize, 0, tileMapHeight * tileSize);
+        cam.setBounds(0, tileMapWidth * tileSize * 4, 0, tileMapHeight * tileSize * 4);
 
         b2dCam = new BoundedCamera();
         b2dCam.setToOrtho(false, MyGdxGame.V_WIDTH / PPM, MyGdxGame.V_HEIGHT / PPM);
@@ -84,7 +84,7 @@ public class Play extends GameState{
         //cam.position.set(player.getPosition().x * PPM / 2, player.getPosition().y * PPM / 2, 0);
         cam.update();
 
-        System.out.println(cam.position.x + " x cam " + player.getPosition().x + " x player");
+        System.out.println(cam.position.x + " x cam " + player.getPosition().x + " x player" + "\n y player    " + player.getPosition().y);
         //System.out.println(cam.position.y + " y cam " + player.getPosition().y + " y player");
 
         //draw map
