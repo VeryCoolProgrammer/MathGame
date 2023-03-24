@@ -2,17 +2,10 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.mygdx.game.handlers.*;
-
-import java.awt.*;
-import java.util.Vector;
+import com.mygdx.game.inputs.GameKeys;
 
 public class MyGdxGame implements ApplicationListener {
 	public static final int V_WIDTH = 1216;
@@ -30,7 +23,7 @@ public class MyGdxGame implements ApplicationListener {
 		//Gdx.input.setInputProcessor(new MyInputProcessor());
 
 		res = new Content();
-		res.loadTexture("gnomikStep.png", "gnomik"); // !!!
+		res.loadTexture("gnom1rowP1.png", "gnomik"); // !!!
 
 		sb = new SpriteBatch();
 		cam = new BoundedCamera();

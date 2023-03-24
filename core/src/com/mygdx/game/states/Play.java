@@ -2,7 +2,6 @@ package com.mygdx.game.states;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -12,13 +11,15 @@ import com.badlogic.gdx.physics.box2d.*;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.entities.Player;
 import com.mygdx.game.handlers.BoundedCamera;
-import com.mygdx.game.handlers.GameKeys;
 import com.mygdx.game.handlers.MyContactListener;
 import com.mygdx.game.handlers.GameStateManager;
 
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+
 import static com.mygdx.game.handlers.B2DVars.*;
 
-public class Play extends GameState{
+public class Play extends GameState implements StateMethods{
     private boolean debug = false;
     private World world;
     private Box2DDebugRenderer b2dr;
@@ -68,7 +69,6 @@ public class Play extends GameState{
 
     @Override
     public void update(float dt) {
-        //System.out.println(cam.position.y);
         handleInput();
         world.step(dt, 6, 2);
         player.update(dt);
@@ -177,5 +177,40 @@ public class Play extends GameState{
                 cs.dispose();
             }
         }
+    }
+
+    @Override
+    public void draw() {
+
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent k) {
+
+    }
+
+    @Override
+    public void keyReleased(KeyEvent k) {
+
     }
 }

@@ -6,9 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.mygdx.game.MyGdxGame;
-import com.mygdx.game.handlers.Animation;
-import com.mygdx.game.handlers.GameKeys;
-import com.mygdx.game.handlers.MyInputProcessor;
+import com.mygdx.game.inputs.MyInputProcessor;
 
 import static com.mygdx.game.handlers.B2DVars.*;
 
@@ -22,18 +20,18 @@ public class Player extends B2DSprite {
     public Player(Body body) {
         super(body);
         tex = MyGdxGame.res.getTexture("gnomik");
-        //sprites = TextureRegion.split(tex, 110, 130)[0]; //110 130 - 1row, 120 130 - step
+        sprites = TextureRegion.split(tex, 110, 130)[0]; //110 130 - 1row, 120 130 - step
 
         speed = 40f;
-        animUpdate(); // ?????
-        //setAnimation(sprites, 1 / 12f);
+        //animUpdate(); // ?????
+        setAnimation(sprites, 1 / 12f);
     }
 
     public void updatePL() {
         x = body.getPosition().x * PPM;
         y = body.getPosition().y * PPM;
         checkUserInput();
-        checkAnim();
+        //checkAnim();
     }
 
     private void checkUserInput() {
@@ -47,10 +45,10 @@ public class Player extends B2DSprite {
         }
         if (Gdx.input.isKeyPressed(Input.Keys.W)) {
             vely = 1;
-            canGo = true;
+            //canGo = true;
         }
         if (!Gdx.input.isKeyPressed(Input.Keys.W)) {
-            canGo = false; // -------
+            //canGo = false; // -------
         }
         if (Gdx.input.isKeyPressed(Input.Keys.S)) {
             vely = -1;
