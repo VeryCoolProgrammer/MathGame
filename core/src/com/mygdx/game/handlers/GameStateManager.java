@@ -17,7 +17,7 @@ public class GameStateManager {
     public GameStateManager(MyGdxGame game) {
         this.game = game;
         gameStates = new Stack<GameState>();
-        pushState(PLAY);
+        pushState(MENU);
     }
 
     public MyGdxGame game(){
@@ -35,7 +35,7 @@ public class GameStateManager {
         if (state == PLAY) {
             return new Play(this);
         } else if (state == MENU) {
-
+            return new Menu(this);
         }
         return null;
     }

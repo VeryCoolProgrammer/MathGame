@@ -14,6 +14,7 @@ import com.mygdx.game.handlers.BoundedCamera;
 import com.mygdx.game.handlers.MyContactListener;
 import com.mygdx.game.handlers.GameStateManager;
 
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
@@ -180,8 +181,7 @@ public class Play extends GameState implements StateMethods{
     }
 
     @Override
-    public void draw() {
-
+    public void draw(Graphics g) {
     }
 
     @Override
