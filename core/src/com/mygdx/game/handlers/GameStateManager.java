@@ -13,11 +13,12 @@ public class GameStateManager {
     private Stack<GameState> gameStates;
     public static final int PLAY = 912837;
     public static final int MENU = 0;
+    public static final int QUIT = 1;
 
     public GameStateManager(MyGdxGame game) {
         this.game = game;
         gameStates = new Stack<GameState>();
-        pushState(PLAY);
+        pushState(MENU);
     }
 
     public MyGdxGame game(){

@@ -3,6 +3,10 @@ package com.mygdx.game.handlers;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 
 public class Content {
@@ -16,6 +20,30 @@ public class Content {
         Texture tex = new Texture(Gdx.files.internal(path));
         textures.put(key, tex);
     }
+
+    /*public static BufferedImage getBISprite(String path){
+        BufferedImage bimg = null;
+        InputStream is = Content.class.getResourceAsStream("/" + path);
+        try {
+            bimg = ImageIO.read(is);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try{
+                is.close();
+            } catch (IOException e){
+                e.printStackTrace();
+            }
+        }
+        return bimg;
+    }*/
+    /*public void loadBufImg(String path, String key){
+        BufferedImage bimg = getBISprite(path);
+        bufImgs.put(key, bimg);
+    }*/
+    /*public BufferedImage getBufImg(String key) {
+        return bufImgs.get(key);
+    }*/
 
     public Texture getTexture(String key) {
         return textures.get(key);
