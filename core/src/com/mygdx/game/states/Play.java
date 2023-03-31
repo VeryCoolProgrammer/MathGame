@@ -59,7 +59,7 @@ public class Play extends GameState implements StateMethods{
         cam.setBounds(0, tileMapWidth * tileSize * 4, 0, tileMapHeight * tileSize * 4);
 
         b2dCam = new BoundedCamera();
-        b2dCam.setToOrtho(false, MyGdxGame.V_WIDTH / PPM, MyGdxGame.V_HEIGHT / PPM);
+        b2dCam.setToOrtho(false, MyGdxGame.V_WIDTH / PPM, MyGdxGame.V_HEIGHT / PPM); // /2?
         b2dCam.setBounds(0, (tileMapWidth * tileSize) / PPM, 0, (tileMapHeight * tileSize) / PPM);
     }
 
@@ -93,9 +93,9 @@ public class Play extends GameState implements StateMethods{
         sb.setProjectionMatrix(cam.combined);
         player.render(sb);
 
-        //draw box?
-        if (debug) {
-            b2dCam.setPosition(player.getPosition().x + MyGdxGame.V_WIDTH / 35 , MyGdxGame.V_HEIGHT / 35 );
+        //draw box?     ---need fix---
+        if (!debug) {
+            b2dCam.setPosition(player.getPosition().x * PPM + MyGdxGame.V_WIDTH /35, player.getPosition().y * PPM + MyGdxGame.V_HEIGHT /35);
             b2dCam.update();
             b2dr.render(world, b2dCam.combined);
         }
@@ -117,7 +117,7 @@ public class Play extends GameState implements StateMethods{
         ps.setAsBox(55f / PPM, 59f / PPM);
         fdef.shape = ps;
         fdef.filter.categoryBits = BIT_PLAYER;
-        fdef.filter.maskBits = BIT_PENEK;
+        fdef.filter.maskBits = BIT_TROPA;
         body.createFixture(fdef).setUserData("player");
         ps.dispose();
 
@@ -141,7 +141,7 @@ public class Play extends GameState implements StateMethods{
         tileMapHeight = (int) tiledMap.getProperties().get("height");
 
         TiledMapTileLayer layer;
-        layer = (TiledMapTileLayer) tiledMap.getLayers().get("tropa borders");
+        layer = (TiledMapTileLayer) tiledMap.getLayers().get("delete2"); //tropa borders
         createLayer(layer, BIT_TROPA);
         //layer = (TiledMapTileLayer) tiledMap.getLayers().get("grass");
     }
@@ -165,13 +165,13 @@ public class Play extends GameState implements StateMethods{
                         (row + 0.5f) * tileSize / PPM);
                 ChainShape cs = new ChainShape();
                 Vector2[] v = new Vector2[3];
-                v[0] = new Vector2(-tileSize / 2 / PPM, -tileSize / 2 / PPM);
-                v[1] = new Vector2(-tileSize / 2 / PPM, tileSize / 2 / PPM);
-                v[2] = new Vector2( tileSize / 2 / PPM, tileSize / 2 / PPM);
+                v[0] = new Vector2(-tileSize / 5 , -tileSize /5);
+                v[1] = new Vector2(-tileSize / 5 , tileSize / 5);
+                v[2] = new Vector2( tileSize / 5 , tileSize / 5);
                 cs.createChain(v);
                 fdef.friction = 0;
                 fdef.shape = cs;
-                //fdef.filter.categoryBits = BIT_PENEK;
+                fdef.filter.categoryBits = BIT_TROPA;
                 fdef.filter.maskBits = BIT_PLAYER;
                 fdef.isSensor = false;
                 world.createBody(bdef).createFixture(fdef);

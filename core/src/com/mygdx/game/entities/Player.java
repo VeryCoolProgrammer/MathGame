@@ -27,11 +27,11 @@ public class Player extends B2DSprite {
     public Player(Body body) {
         super(body);
         tex = MyGdxGame.res.getTexture("gnomik");
-        //sprites = TextureRegion.split(tex, 110, 130)[0]; //110 130 - 1row, 120 130 - step
+        sprites = TextureRegion.split(tex, 120, 130)[0]; //110 130 - 1row, 120 130 - step
 
         speed = 40f;
-        animUpdate(); // ?????
-        //setAnimation(sprites, 1 / 12f);
+        //animUpdate(); // ?????
+        setAnimation(sprites, 1 / 12f);
     }
 
     public void updatePL() {
@@ -39,7 +39,7 @@ public class Player extends B2DSprite {
         x = body.getPosition().x * PPM;
         y = body.getPosition().y * PPM;
         checkUserInput();
-        checkAnim();
+        //checkAnim();
     }
 
     private void checkUserInput() {

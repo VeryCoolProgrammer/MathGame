@@ -24,7 +24,7 @@ import static com.mygdx.game.handlers.GameStateManager.QUIT;
 
 public class Menu extends GameState implements StateMethods{
     private World world;
-    private MenuBtn[] btns = new MenuBtn[2];
+    //private MenuBtn[] btns = new MenuBtn[2];
 
     public Menu(GameStateManager gsm) {
         super(gsm);
@@ -33,8 +33,8 @@ public class Menu extends GameState implements StateMethods{
     }
 
     private void loadBtn() {
-        btns[0] = new MenuBtn(V_WIDTH / 2, 250*4, 0, PLAY, gsm);
-        btns[1] = new MenuBtn(V_WIDTH / 2, 500*4, 3, QUIT, gsm);
+        //btns[0] = new MenuBtn(V_WIDTH / 2, 250*4, 0, PLAY, gsm);
+        //btns[1] = new MenuBtn(V_WIDTH / 2, 500*4, 3, QUIT, gsm);
     }
 
     @Override
@@ -48,14 +48,14 @@ public class Menu extends GameState implements StateMethods{
         if (Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
             gsm.setState(PLAY);
         }
-        for (MenuBtn mb : btns)
-            mb.update();
+        //for (MenuBtn mb : btns)
+        //    mb.update();
     }
 
     @Override
     public void render() {
-        for (MenuBtn mb : btns)
-            mb.render(sb);
+        //for (MenuBtn mb : btns)
+        //    mb.render(sb);
     }
 
     @Override
@@ -65,8 +65,8 @@ public class Menu extends GameState implements StateMethods{
 
     @Override
     public void draw(Graphics g) {
-        for (MenuBtn mb : btns)
-            mb.draw(g);
+        //for (MenuBtn mb : btns)
+        //    mb.draw(g);
         g.drawString("asdsad", 123, 123);
         g.setColor(Color.CYAN);
     }
@@ -78,41 +78,41 @@ public class Menu extends GameState implements StateMethods{
 
     @Override
     public void mousePressed(MouseEvent e) {
-        for (MenuBtn mb : btns){
+        /*for (MenuBtn mb : btns){
             if(mb.isIn(e, mb)){
                 mb.setMousePressed(true);
                 break;
             }
-        }
+        }*/
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        for (MenuBtn mb : btns){
+        /*for (MenuBtn mb : btns){
             if(mb.isIn(e,mb)){
                 if(mb.isMousePressed())
                     mb.applyGameState();
                 break;
             }
         }
-        resetBtns();
+        resetBtns();*/
     }
 
     private void resetBtns() {
-        for (MenuBtn mb : btns){
+        /*for (MenuBtn mb : btns){
             mb.resetBooleans();
-        }
+        }*/
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        for (MenuBtn mb : btns)
+       /* for (MenuBtn mb : btns)
             mb.setMouseOver(false);
         for (MenuBtn mb : btns)
             if(mb.isIn(e,mb)) {
                 mb.setMouseOver(true);
                 break;
-            }
+            }*/
     }
 
     @Override

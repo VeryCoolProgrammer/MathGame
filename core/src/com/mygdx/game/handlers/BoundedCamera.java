@@ -38,6 +38,7 @@ public class BoundedCamera extends OrthographicCamera {
     private void fixBounds() {
         if(position.x < xmin + viewportWidth / 2) {
             position.x = xmin + viewportWidth / 2;
+            System.out.println("min x = " + position.x);
         }
         if(position.x > xmax - viewportWidth / 2) {
             position.x = xmax - viewportWidth / 2;
