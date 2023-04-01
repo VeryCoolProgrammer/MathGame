@@ -94,7 +94,7 @@ public class Play extends GameState implements StateMethods{
         player.render(sb);
 
         //draw box?     ---need fix---
-        if (!debug) {
+        if (debug) {
             b2dCam.setPosition(player.getPosition().x * PPM + MyGdxGame.V_WIDTH /35, player.getPosition().y * PPM + MyGdxGame.V_HEIGHT /35);
             b2dCam.update();
             b2dr.render(world, b2dCam.combined);
@@ -114,7 +114,7 @@ public class Play extends GameState implements StateMethods{
         bdef.type = BodyDef.BodyType.DynamicBody;
         Body body = world.createBody(bdef);
 
-        ps.setAsBox(55f / PPM, 59f / PPM);
+        ps.setAsBox(47f / PPM, 59f / PPM);
         fdef.shape = ps;
         fdef.filter.categoryBits = BIT_PLAYER;
         fdef.filter.maskBits = BIT_TROPA;
@@ -161,13 +161,13 @@ public class Play extends GameState implements StateMethods{
 
                 bdef.type = BodyDef.BodyType.StaticBody;
                 bdef.position.set(
-                        (col + 0.5f) * tileSize / PPM,
-                        (row + 0.5f) * tileSize / PPM);
+                        (col + 0.2f) * tileSize / 2.5f,
+                        (row + 0.4f) * tileSize / 2.5f);
                 ChainShape cs = new ChainShape();
                 Vector2[] v = new Vector2[3];
-                v[0] = new Vector2(-tileSize / 5 , -tileSize /5);
-                v[1] = new Vector2(-tileSize / 5 , tileSize / 5);
-                v[2] = new Vector2( tileSize / 5 , tileSize / 5);
+                v[0] = new Vector2(-tileSize / 6 , -tileSize /6);
+                v[1] = new Vector2(-tileSize / 6 , tileSize / 6);
+                v[2] = new Vector2( tileSize / 6 , tileSize / 6);
                 cs.createChain(v);
                 fdef.friction = 0;
                 fdef.shape = cs;

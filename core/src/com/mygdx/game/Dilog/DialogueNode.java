@@ -1,4 +1,4 @@
-package com.mygdx.game.Dilogue;
+package com.mygdx.game.Dilog;
 
 import java.util.ArrayList;
 

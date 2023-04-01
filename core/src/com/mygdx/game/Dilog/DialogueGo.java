@@ -1,12 +1,12 @@
-package com.mygdx.game.Dilogue;
+package com.mygdx.game.Dilog;
 
 import java.util.List;
 
 public class DialogueGo {
-    private Dialogue dialogue;
+    private Dialog dialogue;
     private DialogueNode currentNode;
 
-    public DialogueGo(Dialogue dialogue){
+    public DialogueGo(Dialog dialogue){
         this.dialogue = dialogue;
         currentNode = dialogue.getNode(dialogue.getStart());
     }

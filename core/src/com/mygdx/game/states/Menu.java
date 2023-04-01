@@ -48,14 +48,14 @@ public class Menu extends GameState implements StateMethods{
         if (Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
             gsm.setState(PLAY);
         }
-        //for (MenuBtn mb : btns)
-        //    mb.update();
+        /*for (MenuBtn mb : btns)
+            mb.update();*/
     }
 
     @Override
     public void render() {
-        //for (MenuBtn mb : btns)
-        //    mb.render(sb);
+        /*for (MenuBtn mb : btns)
+            mb.render(sb);*/
     }
 
     @Override
@@ -65,10 +65,10 @@ public class Menu extends GameState implements StateMethods{
 
     @Override
     public void draw(Graphics g) {
-        //for (MenuBtn mb : btns)
-        //    mb.draw(g);
+        /*for (MenuBtn mb : btns)
+            mb.draw(g);
         g.drawString("asdsad", 123, 123);
-        g.setColor(Color.CYAN);
+        g.setColor(Color.CYAN);*/
     }
 
     @Override
@@ -78,7 +78,7 @@ public class Menu extends GameState implements StateMethods{
 
     @Override
     public void mousePressed(MouseEvent e) {
-        /*for (MenuBtn mb : btns){
+       /* for (MenuBtn mb : btns){
             if(mb.isIn(e, mb)){
                 mb.setMousePressed(true);
                 break;
@@ -88,7 +88,7 @@ public class Menu extends GameState implements StateMethods{
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        /*for (MenuBtn mb : btns){
+       /* for (MenuBtn mb : btns){
             if(mb.isIn(e,mb)){
                 if(mb.isMousePressed())
                     mb.applyGameState();
@@ -106,7 +106,7 @@ public class Menu extends GameState implements StateMethods{
 
     @Override
     public void mouseMoved(MouseEvent e) {
-       /* for (MenuBtn mb : btns)
+        /*for (MenuBtn mb : btns)
             mb.setMouseOver(false);
         for (MenuBtn mb : btns)
             if(mb.isIn(e,mb)) {
