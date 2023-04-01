@@ -1,8 +1,8 @@
-package com.mygdx.game.Dilog;
+package com.mygdx.game.Dialog;
 
 import java.util.ArrayList;
 
-public class DialogueNode {
+public class DialogNode {
     private ArrayList<Integer> pointers = new ArrayList<Integer>();
     private ArrayList<String> labels = new ArrayList<String>();
 
@@ -16,7 +16,7 @@ public class DialogueNode {
         LINEAR,
         END;
     }
-    public DialogueNode(String text, int id){
+    public DialogNode(String text, int id){
         this.text = text;
         this.id = id;
         type = NODE_TYPE.END;

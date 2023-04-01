@@ -1,15 +1,15 @@
-package com.mygdx.game.Dilog;
+package com.mygdx.game.Dialog;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class Dialog {
-    private Map<Integer, DialogueNode> nodes = new HashMap<Integer, DialogueNode>();
+    private Map<Integer, DialogNode> nodes = new HashMap<Integer, DialogNode>();
 
-    public DialogueNode getNode(int id){
+    public DialogNode getNode(int id){
         return nodes.get(id);
     }
-    public void addNode(DialogueNode node){
+    public void addNode(DialogNode node){
         this.nodes.put(node.getId(), node);
     }
     public int getStart(){

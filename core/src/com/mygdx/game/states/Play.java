@@ -8,6 +8,12 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.mygdx.game.Dialog.DialogBox;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.entities.Player;
 import com.mygdx.game.handlers.BoundedCamera;
@@ -21,6 +27,7 @@ import java.awt.event.MouseEvent;
 import static com.mygdx.game.handlers.B2DVars.*;
 
 public class Play extends GameState implements StateMethods{
+    private MyGdxGame game;
     private boolean debug = false;
     private World world;
     private Box2DDebugRenderer b2dr;
@@ -32,6 +39,10 @@ public class Play extends GameState implements StateMethods{
     private float tileSize;
     private int tileMapWidth;
     private int tileMapHeight;
+    private Stage uiStage;
+    private Table dialogRoot;
+    private DialogBox dialogueBox;
+    private Skin skin_this;
 
     public Play(GameStateManager gsm) {
         super(gsm);
@@ -39,6 +50,7 @@ public class Play extends GameState implements StateMethods{
         cl = new MyContactListener();
         world.setContactListener(cl);
         b2dr = new Box2DDebugRenderer();
+        game = gsm.game();
 
         //create block
         /* BodyDef bdef = new BodyDef();
@@ -54,6 +66,7 @@ public class Play extends GameState implements StateMethods{
         fdef.filter.maskBits = BIT_PLAYER;
         body.createFixture(fdef).setUserData("block");*/
 
+        initUI();
         createPlayer();
         createTiles();
         cam.setBounds(0, tileMapWidth * tileSize * 4, 0, tileMapHeight * tileSize * 4);
@@ -104,7 +117,6 @@ public class Play extends GameState implements StateMethods{
     @Override
     public void dispose() {
     }
-
     private void createPlayer() {
         BodyDef bdef = new BodyDef();
         PolygonShape ps = new PolygonShape();
@@ -178,6 +190,27 @@ public class Play extends GameState implements StateMethods{
                 cs.dispose();
             }
         }
+    }
+
+    private void initUI(){
+        skin_this = game.getSkin();
+        uiStage = new Stage(new ScreenViewport());
+        uiStage.getViewport().update(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2, true);
+
+        dialogRoot = new Table();
+        dialogRoot.setFillParent(true);
+        uiStage.addActor(dialogRoot);
+
+        dialogueBox = new DialogBox(skin_this);
+        dialogueBox.setVisible(true);
+
+        Table dialogTable = new Table();
+        dialogTable.add(dialogueBox)
+                .expand().align(Align.bottom)
+                .space(8f)
+                .row();
+
+        dialogRoot.add(dialogTable).expand().align(Align.bottom);
     }
 
     @Override

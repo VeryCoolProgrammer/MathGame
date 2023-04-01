@@ -1,17 +1,17 @@
-package com.mygdx.game.Dilog;
+package com.mygdx.game.Dialog;
 
 import java.util.List;
 
-public class DialogueGo {
+public class DialogGo {
     private Dialog dialogue;
-    private DialogueNode currentNode;
+    private DialogNode currentNode;
 
-    public DialogueGo(Dialog dialogue){
+    public DialogGo(Dialog dialogue){
         this.dialogue = dialogue;
         currentNode = dialogue.getNode(dialogue.getStart());
     }
-    public DialogueNode getNextNode(int pointerIndex){
-        DialogueNode nextNode = dialogue.getNode(currentNode.getPointers().get(pointerIndex));
+    public DialogNode getNextNode(int pointerIndex){
+        DialogNode nextNode = dialogue.getNode(currentNode.getPointers().get(pointerIndex));
         currentNode = nextNode;
         return nextNode;
     }
@@ -21,7 +21,7 @@ public class DialogueGo {
     public String getText(){
         return currentNode.getText();
     }
-    public DialogueNode.NODE_TYPE getType(){
+    public DialogNode.NODE_TYPE getType(){
         return currentNode.getType();
     }
 }
