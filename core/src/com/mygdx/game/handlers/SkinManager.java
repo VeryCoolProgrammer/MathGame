@@ -10,8 +10,8 @@ public class SkinManager {
         Skin skin = new Skin();
         TextureAtlas uiAtlas = assetManager.get("uipack.atlas");
 
-        NinePatch buttonSquareBlue = new NinePatch(uiAtlas.findRegion("dialoguebox"), 10, 10, 5, 5);
-        skin.add("dialoguebox", buttonSquareBlue);
+        NinePatch dialog = new NinePatch(uiAtlas.findRegion("dialoguebox"), 10, 10, 5, 5);
+        skin.add("dialoguebox", dialog);
 
         return skin;
     }

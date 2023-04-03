@@ -1,5 +1,6 @@
 package com.mygdx.game.Dialog;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -12,6 +13,7 @@ public class DialogBox extends Table {
     private float TIME_PER_CHARACTER = 0.05f;
     private STATE state = STATE.IDLE;
     private Label textLabel;
+    private Skin skinDialog;
 
     private enum STATE {
         ANIMATING,
@@ -22,6 +24,7 @@ public class DialogBox extends Table {
     public DialogBox(Skin skin) {
         super(skin);
         this.setBackground("dialoguebox");
+        //skinDialog = new Skin((Gdx.files.internal("style.json"))); ?????
         textLabel = new Label("\n", skin);
         this.add(textLabel).expand().align(Align.left).pad(5f);
     }
