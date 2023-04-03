@@ -1,8 +1,7 @@
 {
-  "com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle": {
-    "lstyle": {
-      "font": "default-font",
-      "fontColor": { "a": 1, "b": 0.7, "g": 0.7, "r": 0.7 }
-    }
+  LabelStyle: {
+  default: {
+    font: default-font,
+    fontColor: white }
   }
 }

@@ -24,7 +24,7 @@ public class DialogBox extends Table {
     public DialogBox(Skin skin) {
         super(skin);
         this.setBackground("dialoguebox");
-        //skinDialog = new Skin((Gdx.files.internal("style.json"))); ?????
+        //skinDialog = new Skin((Gdx.files.internal("style.json")));
         textLabel = new Label("\n", skin);
         this.add(textLabel).expand().align(Align.left).pad(5f);
     }
