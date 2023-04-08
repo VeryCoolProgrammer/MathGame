@@ -1,0 +1,15 @@
+
+testAtlas.png
+size: 1024, 512
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+GUI_img
+  rotate: false
+  xy: 2, 2
+  size: 768, 352
+  split: 0, 0, 0, 0
+  pad: 0, 0, 0, 0
+  orig: 768, 352
+  offset: 0, 0
+  index: -1

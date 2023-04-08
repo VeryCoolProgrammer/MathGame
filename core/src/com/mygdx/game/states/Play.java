@@ -194,8 +194,8 @@ public class Play extends GameState implements StateMethods{
 
     private void initUI(){
         skin_this = game.getSkin();
-        uiStage = new Stage(new ScreenViewport());
-        uiStage.getViewport().update(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2, true);
+        uiStage = new Stage(new ScreenViewport()); //    <-----
+        uiStage.getViewport().update((int) (MyGdxGame.V_WIDTH /35 * PPM), (int) (MyGdxGame.V_HEIGHT /35 * PPM), true);
 
         dialogRoot = new Table();
         dialogRoot.setFillParent(true);
@@ -203,14 +203,16 @@ public class Play extends GameState implements StateMethods{
 
         dialogueBox = new DialogBox(skin_this);
         dialogueBox.setVisible(true);
+        dialogueBox.animateText("qweqwfsfsdfsefwqweqweeeweewwe");
+        dialogueBox.isFinished();
 
         Table dialogTable = new Table();
         dialogTable.add(dialogueBox)
-                .expand().align(Align.bottom)
+                .expand().align(Align.top)
                 .space(8f)
                 .row();
 
-        dialogRoot.add(dialogTable).expand().align(Align.bottom);
+        dialogRoot.add(dialogTable).expand().align(Align.top);
     }
 
     @Override

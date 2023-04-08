@@ -1,7 +1,0 @@
-{
-  LabelStyle: {
-  default: {
-    font: default-font,
-    fontColor: white }
-  }
-}

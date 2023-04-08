@@ -9,7 +9,7 @@ import com.mygdx.game.states.Play;
 import java.util.Stack;
 
 public class GameStateManager {
-        private MyGdxGame game;
+    private MyGdxGame game;
     private Stack<GameState> gameStates;
     public static final int PLAY = 912837;
     public static final int MENU = 0;

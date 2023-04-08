@@ -4,6 +4,7 @@ import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -32,7 +33,8 @@ public class MyGdxGame implements ApplicationListener {
 		res.loadTexture("allBtn.png", "btn");
 
 		assetManager = new AssetManager();
-		assetManager.load("uipack.atlas", TextureAtlas.class);
+		assetManager.load("testAtlas.atlas", TextureAtlas.class);
+		assetManager.load("mcFont.fnt", BitmapFont.class);
 		assetManager.finishLoading();
 		skin = SkinManager.generateSkin(assetManager);
 

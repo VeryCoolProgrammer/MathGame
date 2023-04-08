@@ -1,6 +1,8 @@
 package com.mygdx.game.Dialog;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -23,9 +25,11 @@ public class DialogBox extends Table {
 
     public DialogBox(Skin skin) {
         super(skin);
-        this.setBackground("dialoguebox");
+        this.setBackground("GUI_img");
+        BitmapFont font = new BitmapFont(Gdx.files.internal("mcFont.fnt"));
+        Label.LabelStyle lStyle = new Label.LabelStyle(font, Color.WHITE);
         //skinDialog = new Skin((Gdx.files.internal("style.json")));
-        textLabel = new Label("\n", skin);
+        textLabel = new Label("\n", skin, "defJson");
         this.add(textLabel).expand().align(Align.left).pad(5f);
     }
 
@@ -53,6 +57,7 @@ public class DialogBox extends Table {
 
     @Override
     public void act(float delta) {
+        super.act(delta);
         if (state == STATE.ANIMATING) {
             animTimer += delta;
             if (animTimer > animationTotalTime) {
