@@ -13,3 +13,12 @@ GUI_img
   orig: 768, 352
   offset: 0, 0
   index: -1
+background
+rotate: false
+  xy: 417, 41
+  size: 22, 96
+  split: 0, 0, 0, 0
+  pad: 0, 0, 0, 0
+  orig: 768, 352
+  offset: 0, 0
+  index: -1

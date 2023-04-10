@@ -27,10 +27,9 @@ public class DialogBox extends Table {
         super(skin);
         this.setBackground("GUI_img");
         BitmapFont font = new BitmapFont(Gdx.files.internal("mcFont.fnt"));
-        Label.LabelStyle lstyle = new Label.LabelStyle(font, Color.BLUE);
-        //skinDialog = new Skin((Gdx.files.internal("style.json")));
+        Label.LabelStyle lstyle = new Label.LabelStyle(font, Color.BLACK);
         textLabel = new Label("\n", lstyle);
-        this.add(textLabel).expand().align(Align.left).pad(5f);
+        this.add(textLabel).expand().align(Align.center).padTop(20f).padLeft(15f).padRight(15f).padBottom(-10f);
     }
 
     public void animateText(String text) {

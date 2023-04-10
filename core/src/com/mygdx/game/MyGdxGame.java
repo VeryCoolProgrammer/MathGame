@@ -34,6 +34,7 @@ public class MyGdxGame implements ApplicationListener {
 
 		assetManager = new AssetManager();
 		assetManager.load("testAtlas.atlas", TextureAtlas.class);
+		assetManager.load("uipack.atlas", TextureAtlas.class);
 		assetManager.load("mcFont.fnt", BitmapFont.class);
 		assetManager.finishLoading();
 		skin = SkinManager.generateSkin(assetManager);

@@ -208,7 +208,7 @@ public class Play extends GameState implements StateMethods{
 
     private void initUI(){
         skin_this = game.getSkin();
-        uiStage = new Stage(new ScreenViewport()); //    <-----
+        uiStage = new Stage(new ScreenViewport());
         uiStage.getViewport().update(1215, 675, true);
 
         dialogRoot = new Table();
@@ -217,7 +217,7 @@ public class Play extends GameState implements StateMethods{
 
         dialogueBox = new DialogBox(skin_this);
         dialogueBox.setVisible(true);
-        dialogueBox.animateText("qweqwfsfsdfsefwqweqweeeweewwe");
+        dialogueBox.animateText("Russian font doesn't support!");
         dialogueBox.isFinished();
 
         Table dialogTable = new Table();
@@ -226,7 +226,7 @@ public class Play extends GameState implements StateMethods{
                 .space(8f)
                 .row();
 
-        dialogRoot.add(dialogTable).expand().align(Align.bottom);
+        dialogRoot.add(dialogTable).expand().align(Align.bottom).pad(15f);
     }
 
     @Override
