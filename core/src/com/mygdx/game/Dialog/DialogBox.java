@@ -27,9 +27,9 @@ public class DialogBox extends Table {
         super(skin);
         this.setBackground("GUI_img");
         BitmapFont font = new BitmapFont(Gdx.files.internal("mcFont.fnt"));
-        Label.LabelStyle lStyle = new Label.LabelStyle(font, Color.WHITE);
+        Label.LabelStyle lstyle = new Label.LabelStyle(font, Color.BLUE);
         //skinDialog = new Skin((Gdx.files.internal("style.json")));
-        textLabel = new Label("\n", skin, "defJson");
+        textLabel = new Label("\n", lstyle);
         this.add(textLabel).expand().align(Align.left).pad(5f);
     }
 
@@ -57,7 +57,6 @@ public class DialogBox extends Table {
 
     @Override
     public void act(float delta) {
-        super.act(delta);
         if (state == STATE.ANIMATING) {
             animTimer += delta;
             if (animTimer > animationTotalTime) {
