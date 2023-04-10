@@ -217,7 +217,7 @@ public class Play extends GameState implements StateMethods{
 
         dialogueBox = new DialogBox(skin_this);
         dialogueBox.setVisible(true);
-        dialogueBox.animateText("Russian font doesn't support!");
+        dialogueBox.animateText("RU font doesn't support!");
         dialogueBox.isFinished();
 
         Table dialogTable = new Table();

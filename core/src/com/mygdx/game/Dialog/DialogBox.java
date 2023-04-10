@@ -29,6 +29,7 @@ public class DialogBox extends Table {
         BitmapFont font = new BitmapFont(Gdx.files.internal("mcFont.fnt"));
         Label.LabelStyle lstyle = new Label.LabelStyle(font, Color.BLACK);
         textLabel = new Label("\n", lstyle);
+        //textLabel.setFontScale(0.8f);
         this.add(textLabel).expand().align(Align.center).padTop(20f).padLeft(15f).padRight(15f).padBottom(-10f);
     }
 
