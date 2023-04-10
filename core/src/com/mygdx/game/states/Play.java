@@ -98,6 +98,7 @@ public class Play extends GameState implements StateMethods{
         world.step(dt, 6, 2);
         player.update(dt);
         player.updatePL();
+        uiStage.act(dt);
     }
 
     @Override
@@ -116,6 +117,7 @@ public class Play extends GameState implements StateMethods{
         //draw player
         sb.setProjectionMatrix(cam.combined);
         player.render(sb);
+        //uiStage.getViewport().update(MyGdxGame.V_WIDTH /4, MyGdxGame.V_HEIGHT /4, true);
 
         //draw box?     ---need fix---
         if (debug) {
@@ -123,6 +125,7 @@ public class Play extends GameState implements StateMethods{
             b2dCam.update();
             b2dr.render(world, b2dCam.combined);
         }
+        uiStage.draw();
     }
 
     @Override
@@ -206,7 +209,7 @@ public class Play extends GameState implements StateMethods{
     private void initUI(){
         skin_this = game.getSkin();
         uiStage = new Stage(new ScreenViewport()); //    <-----
-        uiStage.getViewport().update((int) (MyGdxGame.V_WIDTH /35 * PPM), (int) (MyGdxGame.V_HEIGHT /35 * PPM), true);
+        uiStage.getViewport().update(1215, 675, true);
 
         dialogRoot = new Table();
         dialogRoot.setFillParent(true);
@@ -219,11 +222,11 @@ public class Play extends GameState implements StateMethods{
 
         Table dialogTable = new Table();
         dialogTable.add(dialogueBox)
-                .expand().align(Align.top)
+                .expand().align(Align.bottom)
                 .space(8f)
                 .row();
 
-        dialogRoot.add(dialogTable).expand().align(Align.top);
+        dialogRoot.add(dialogTable).expand().align(Align.bottom);
     }
 
     @Override
