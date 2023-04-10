@@ -15,8 +15,8 @@ GUI_img
   index: -1
 background
 rotate: false
-  xy: 417, 41
-  size: 22, 96
+  xy: 226, 34
+  size: 96, 96
   split: 0, 0, 0, 0
   pad: 0, 0, 0, 0
   orig: 768, 352
