@@ -17,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.game.Dialog.DialogBox;
+import com.mygdx.game.Dialog.OptionBox;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.entities.Player;
 import com.mygdx.game.handlers.BoundedCamera;
@@ -45,6 +46,7 @@ public class Play extends GameState implements StateMethods{
     private Stage uiStage;
     private Table dialogRoot;
     private DialogBox dialogueBox;
+    private OptionBox optionBox;
     private Skin skin_this;
 
     public Play(GameStateManager gsm) {
@@ -220,7 +222,16 @@ public class Play extends GameState implements StateMethods{
         dialogueBox.animateText("RU font doesn't support!");
         dialogueBox.isFinished();
 
+        optionBox = new OptionBox(skin_this);
+        optionBox.addOption("option 1");
+        optionBox.addOption("option 2");
+        optionBox.addOption("option 3");
+
         Table dialogTable = new Table();
+        dialogTable.add(optionBox)
+                .expand().align(Align.right)
+                .space(8f)
+                .row();
         dialogTable.add(dialogueBox)
                 .expand().align(Align.bottom)
                 .space(8f)
