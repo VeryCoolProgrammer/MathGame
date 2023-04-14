@@ -18,6 +18,7 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.game.Dialog.DialogBox;
 import com.mygdx.game.Dialog.OptionBox;
+import com.mygdx.game.Dialog.OptionBoxController;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.entities.Player;
 import com.mygdx.game.handlers.BoundedCamera;
@@ -48,6 +49,7 @@ public class Play extends GameState implements StateMethods{
     private DialogBox dialogueBox;
     private OptionBox optionBox;
     private Skin skin_this;
+    private OptionBoxController obc;
 
     public Play(GameStateManager gsm) {
         super(gsm);
@@ -56,6 +58,7 @@ public class Play extends GameState implements StateMethods{
         world.setContactListener(cl);
         b2dr = new Box2DDebugRenderer();
         game = gsm.game();
+        //obc = new OptionBoxController(optionBox);
 
         //create block
         /* BodyDef bdef = new BodyDef();
