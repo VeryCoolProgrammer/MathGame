@@ -1,6 +1,7 @@
 package com.mygdx.game.states;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -50,6 +51,7 @@ public class Play extends GameState implements StateMethods{
     private OptionBox optionBox;
     private Skin skin_this;
     private OptionBoxController obc;
+    private InputMultiplexer multiplexer;
 
     public Play(GameStateManager gsm) {
         super(gsm);
@@ -58,7 +60,7 @@ public class Play extends GameState implements StateMethods{
         world.setContactListener(cl);
         b2dr = new Box2DDebugRenderer();
         game = gsm.game();
-        //obc = new OptionBoxController(optionBox);
+        multiplexer = new InputMultiplexer();
 
         //create block
         /* BodyDef bdef = new BodyDef();
@@ -78,6 +80,10 @@ public class Play extends GameState implements StateMethods{
         createPlayer();
         createTiles();
         cam.setBounds(0, tileMapWidth * tileSize * 4, 0, tileMapHeight * tileSize * 4);
+
+        obc = new OptionBoxController(optionBox);
+        multiplexer.addProcessor(obc);
+        Gdx.input.setInputProcessor(multiplexer);
 
         b2dCam = new BoundedCamera();
         b2dCam.setToOrtho(false, MyGdxGame.V_WIDTH / PPM, MyGdxGame.V_HEIGHT / PPM); // /2?

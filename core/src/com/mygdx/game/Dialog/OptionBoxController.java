@@ -1,25 +1,23 @@
 package com.mygdx.game.Dialog;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 
 public class OptionBoxController extends InputAdapter {
-    private OptionBox optionB;
+    private OptionBox box;
 
     public OptionBoxController(OptionBox box){
-        this.optionB = box;
+        this.box = box;
     }
-
-    public boolean mouseUp(int key){
-        if(key == Input.Keys.E){
-            optionB.moveDown();
-        } else if(key == Input.Keys.Q){
-            optionB.moveUp();
+    @Override
+    public boolean keyUp(int keycode){
+        if(keycode == Input.Keys.E){
+            box.moveDown();
+        } else if(keycode == Input.Keys.Q){
+            box.moveUp();
         }
         return false;
     }
 
-    public boolean mouseUp(){
-        return false;
-    }
 }
