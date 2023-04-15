@@ -20,7 +20,7 @@ public class SkinManager {
         skin.add("optionbox", option);
         skin.add("arrow", uiAtlas2.findRegion("arrow"), TextureRegion.class);
 
-        BitmapFont font = assetManager.get("mcFont.fnt", BitmapFont.class);
+        BitmapFont font = assetManager.get("mcRus.fnt", BitmapFont.class);
         skin.add("font", font);
         //skin.add("defJson", Gdx.files.internal("uiskin.json"));
 

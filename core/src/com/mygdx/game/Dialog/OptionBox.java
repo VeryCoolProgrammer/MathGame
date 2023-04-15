@@ -28,7 +28,7 @@ public class OptionBox extends Table {
     }
 
     public void addOption(String option){
-        BitmapFont font = new BitmapFont(Gdx.files.internal("mcFont.fnt"));
+        BitmapFont font = new BitmapFont(Gdx.files.internal("mcRus.fnt"));
         Label.LabelStyle lstyle = new Label.LabelStyle(font, Color.BLACK);
         Label optionLabel = new Label(option, lstyle);
         options.add(optionLabel);

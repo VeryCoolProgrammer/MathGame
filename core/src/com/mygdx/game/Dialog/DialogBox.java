@@ -26,7 +26,7 @@ public class DialogBox extends Table {
     public DialogBox(Skin skin) {
         super(skin);
         this.setBackground("GUI_img");
-        BitmapFont font = new BitmapFont(Gdx.files.internal("mcFont.fnt"));
+        BitmapFont font = new BitmapFont(Gdx.files.internal("mcRus.fnt"));
         Label.LabelStyle lstyle = new Label.LabelStyle(font, Color.BLACK);
         textLabel = new Label("\n", lstyle);
         //textLabel.setFontScale(0.8f);

@@ -88,7 +88,7 @@ public class Play extends GameState implements StateMethods{
         Gdx.input.setInputProcessor(multiplexer);
 
         dialog = new Dialog();
-        DialogNode node1 = new DialogNode("Hi! It's first node", 0);
+        DialogNode node1 = new DialogNode("Привет! Это первая фраза", 0);
         DialogNode node2 = new DialogNode("And it's 2 node?", 1);
         DialogNode node3 = new DialogNode("Yep, you're right", 2);
         DialogNode node4 = new DialogNode("Nope, it's not :<", 4);
