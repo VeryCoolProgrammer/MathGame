@@ -70,7 +70,7 @@ public class OptionBox extends Table {
         arrowsVisibility();
     }
 
-    public int getSelected(){
+    public int getID(){
         return selectedIndex;
     }
 

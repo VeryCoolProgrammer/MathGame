@@ -17,9 +17,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.mygdx.game.Dialog.DialogBox;
-import com.mygdx.game.Dialog.OptionBox;
-import com.mygdx.game.Dialog.OptionBoxController;
+import com.mygdx.game.Dialog.*;
+import com.mygdx.game.Dialog.Dialog;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.entities.Player;
 import com.mygdx.game.handlers.BoundedCamera;
@@ -52,6 +51,8 @@ public class Play extends GameState implements StateMethods{
     private Skin skin_this;
     private OptionBoxController obc;
     private InputMultiplexer multiplexer;
+    private Dialog dialog;
+    private DialogController dcontroller;
 
     public Play(GameStateManager gsm) {
         super(gsm);
@@ -79,12 +80,31 @@ public class Play extends GameState implements StateMethods{
         initUI();
         createPlayer();
         createTiles();
-        cam.setBounds(0, tileMapWidth * tileSize * 4, 0, tileMapHeight * tileSize * 4);
 
         obc = new OptionBoxController(optionBox);
+        dcontroller = new DialogController(dialogueBox, optionBox);
         multiplexer.addProcessor(obc);
+        multiplexer.addProcessor(dcontroller);
         Gdx.input.setInputProcessor(multiplexer);
 
+        dialog = new Dialog();
+        DialogNode node1 = new DialogNode("Hi! It's first node", 0);
+        DialogNode node2 = new DialogNode("And it's 2 node?", 1);
+        DialogNode node3 = new DialogNode("Yep, you're right", 2);
+        DialogNode node4 = new DialogNode("Nope, it's not :<", 4);
+
+        node1.makeLinear(node2.getId());
+        node2.addChoice("yes", 2);
+        node2.addChoice("no", 4);
+
+        dialog.addNode(node1);
+        dialog.addNode(node2);
+        dialog.addNode(node3);
+        dialog.addNode(node4);
+
+        dcontroller.startDialog(dialog);
+
+        cam.setBounds(0, tileMapWidth * tileSize * 4, 0, tileMapHeight * tileSize * 4);
         b2dCam = new BoundedCamera();
         b2dCam.setToOrtho(false, MyGdxGame.V_WIDTH / PPM, MyGdxGame.V_HEIGHT / PPM); // /2?
         b2dCam.setBounds(0, (tileMapWidth * tileSize) / PPM, 0, (tileMapHeight * tileSize) / PPM);
@@ -110,6 +130,7 @@ public class Play extends GameState implements StateMethods{
         player.update(dt);
         player.updatePL();
         uiStage.act(dt);
+        dcontroller.update(dt);
     }
 
     @Override
@@ -227,14 +248,15 @@ public class Play extends GameState implements StateMethods{
         uiStage.addActor(dialogRoot);
 
         dialogueBox = new DialogBox(skin_this);
-        dialogueBox.setVisible(true);
-        dialogueBox.animateText("RU font doesn't support!");
-        dialogueBox.isFinished();
+        dialogueBox.setVisible(false);
+        /*dialogueBox.animateText("RU font doesn't support!");
+        dialogueBox.isFinished();*/
 
         optionBox = new OptionBox(skin_this);
-        optionBox.addOption("option 1");
+        optionBox.setVisible(false);
+        /*optionBox.addOption("option 1");
         optionBox.addOption("option 2");
-        optionBox.addOption("option 3");
+        optionBox.addOption("option 3");*/
 
         Table dialogTable = new Table();
         dialogTable.add(optionBox)
