@@ -1,5 +1,6 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import com.mygdx.game.MyGdxGame;
@@ -11,8 +12,12 @@ public class DesktopLauncher {
 		config.setForegroundFPS(60);
 		config.setWindowedMode(1216, 672);
 		config.setTitle("Game");
-		//config.setFullscreenMode(Lwjgl3ApplicationConfiguration.getDisplayMode());
+
+		Graphics.DisplayMode displayMode = Lwjgl3ApplicationConfiguration.getDisplayMode();
+		//config.setFullscreenMode(displayMode);
 		//config.setWindowIcon("kotik.gif");
 		new Lwjgl3Application(new MyGdxGame(), config);
 	}
 }
+//config.setWindowedMode(displayMode.width, displayMode.height);
+//config.setFullscreenMode(Lwjgl3ApplicationConfiguration.getDisplayMode());

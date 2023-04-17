@@ -29,7 +29,7 @@ public class MyGdxGame implements ApplicationListener {
 		//Gdx.input.setInputProcessor(new MyInputProcessor());
 
 		res = new Content();
-		res.loadTexture("gnomikStep.png", "gnomik");
+		res.loadTexture("gnomikS.png", "gnomik");
 		res.loadTexture("allBtn.png", "btn");
 
 		assetManager = new AssetManager();

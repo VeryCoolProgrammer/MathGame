@@ -2,6 +2,7 @@ package com.mygdx.game.handlers;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.mygdx.game.MyGdxGame;
+import com.mygdx.game.states.BattleState;
 import com.mygdx.game.states.GameState;
 import com.mygdx.game.states.Menu;
 import com.mygdx.game.states.Play;
@@ -14,6 +15,7 @@ public class GameStateManager {
     public static final int PLAY = 912837;
     public static final int MENU = 0;
     public static final int QUIT = 1;
+    public static final int BATTLE = 2;
 
     public GameStateManager(MyGdxGame game) {
         this.game = game;
@@ -37,6 +39,8 @@ public class GameStateManager {
             return new Play(this);
         } else if (state == MENU) {
             return new Menu(this);
+        } else if (state == BATTLE) {
+            return new BattleState(this);
         }
         return null;
     }

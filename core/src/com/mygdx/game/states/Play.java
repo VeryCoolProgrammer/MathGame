@@ -1,6 +1,7 @@
 package com.mygdx.game.states;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -17,6 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.mygdx.game.Battle.Events.BattleEventPlayer;
 import com.mygdx.game.Dialog.*;
 import com.mygdx.game.Dialog.Dialog;
 import com.mygdx.game.MyGdxGame;
@@ -30,6 +32,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
 import static com.mygdx.game.handlers.B2DVars.*;
+import static com.mygdx.game.handlers.GameStateManager.BATTLE;
+import static com.mygdx.game.handlers.GameStateManager.PLAY;
 
 public class Play extends GameState implements StateMethods{
     private MyGdxGame game;
@@ -77,11 +81,11 @@ public class Play extends GameState implements StateMethods{
         fdef.filter.maskBits = BIT_PLAYER;
         body.createFixture(fdef).setUserData("block");*/
 
-        initUI();
+        //initUI();
         createPlayer();
         createTiles();
 
-        obc = new OptionBoxController(optionBox);
+       /* obc = new OptionBoxController(optionBox);
         dcontroller = new DialogController(dialogueBox, optionBox);
         multiplexer.addProcessor(obc);
         multiplexer.addProcessor(dcontroller);
@@ -101,22 +105,13 @@ public class Play extends GameState implements StateMethods{
         dialog.addNode(node2);
         dialog.addNode(node3);
         dialog.addNode(node4);
-
-        dcontroller.startDialog(dialog);
+        dcontroller.startDialog(dialog);*/
 
         cam.setBounds(0, tileMapWidth * tileSize * 4, 0, tileMapHeight * tileSize * 4);
         b2dCam = new BoundedCamera();
         b2dCam.setToOrtho(false, MyGdxGame.V_WIDTH / PPM, MyGdxGame.V_HEIGHT / PPM); // /2?
         b2dCam.setBounds(0, (tileMapWidth * tileSize) / PPM, 0, (tileMapHeight * tileSize) / PPM);
     }
-
-    /*private void loadLabel() {
-        Label.LabelStyle lstyle = new Label.LabelStyle();
-        BitmapFont myFont = new BitmapFont(Gdx.files.internal("Roboto-Black.ttf"));
-        lstyle.font = myFont;
-        lstyle.fontColor = Color.WHITE;
-        Label label = new Label("label", lstyle);
-    }*/
 
     @Override
     public void handleInput() {
@@ -129,15 +124,17 @@ public class Play extends GameState implements StateMethods{
         world.step(dt, 6, 2);
         player.update(dt);
         player.updatePL();
-        uiStage.act(dt);
-        dcontroller.update(dt);
+        if (Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
+            gsm.setState(BATTLE);
+        }
+        //uiStage.act(dt);
+        //dcontroller.update(dt);
     }
 
     @Override
     public void render() {
         Gdx.gl20.glClearColor(0,0,0,1);
         Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
         cam.setPosition(player.getPosition().x * PPM + MyGdxGame.V_WIDTH /35, player.getPosition().y * PPM + MyGdxGame.V_HEIGHT /35);
         //cam.position.set(player.getPosition().x * PPM / 2, player.getPosition().y * PPM / 2, 0);
         cam.update();
@@ -157,7 +154,7 @@ public class Play extends GameState implements StateMethods{
             b2dCam.update();
             b2dr.render(world, b2dCam.combined);
         }
-        uiStage.draw();
+        //uiStage.draw();
     }
 
     @Override
