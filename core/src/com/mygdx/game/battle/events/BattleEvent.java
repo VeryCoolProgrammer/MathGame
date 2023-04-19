@@ -1,4 +1,4 @@
-package com.mygdx.game.Battle.Events;
+package com.mygdx.game.battle.events;
 
 public abstract class BattleEvent {
     private BattleEventPlayer player;

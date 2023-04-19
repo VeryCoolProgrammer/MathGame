@@ -1,4 +1,4 @@
-package com.mygdx.game.Battle.Events;
+package com.mygdx.game.battle.events;
 
 import com.mygdx.game.Dialog.DialogBox;
 

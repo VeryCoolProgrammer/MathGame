@@ -2,10 +2,7 @@ package com.mygdx.game.handlers;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.mygdx.game.MyGdxGame;
-import com.mygdx.game.states.BattleState;
-import com.mygdx.game.states.GameState;
-import com.mygdx.game.states.Menu;
-import com.mygdx.game.states.Play;
+import com.mygdx.game.states.*;
 
 import java.util.Stack;
 
@@ -40,7 +37,7 @@ public class GameStateManager {
         } else if (state == MENU) {
             return new Menu(this);
         } else if (state == BATTLE) {
-            return new BattleState(this);
+            return new BattleState2(this);
         }
         return null;
     }

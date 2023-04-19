@@ -1,9 +1,9 @@
-package com.mygdx.game.Battle;
+package com.mygdx.game.battle;
 
-import com.mygdx.game.Battle.Events.B_TextEvent;
-import com.mygdx.game.Battle.Events.BattleEvent;
-import com.mygdx.game.Battle.Events.BattleEventPlayer;
-import com.mygdx.game.Battle.Events.BattleEventQueue;
+import com.mygdx.game.battle.events.B_TextEvent;
+import com.mygdx.game.battle.events.BattleEvent;
+import com.mygdx.game.battle.events.BattleEventPlayer;
+import com.mygdx.game.battle.events.BattleEventQueue;
 import com.mygdx.game.entities.Player;
 
 public class Battle implements BattleEventQueue {

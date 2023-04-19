@@ -3,9 +3,7 @@ package com.mygdx.game.states;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputMultiplexer;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -13,12 +11,10 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.mygdx.game.Battle.Events.BattleEventPlayer;
 import com.mygdx.game.Dialog.*;
 import com.mygdx.game.Dialog.Dialog;
 import com.mygdx.game.MyGdxGame;
@@ -33,7 +29,6 @@ import java.awt.event.MouseEvent;
 
 import static com.mygdx.game.handlers.B2DVars.*;
 import static com.mygdx.game.handlers.GameStateManager.BATTLE;
-import static com.mygdx.game.handlers.GameStateManager.PLAY;
 
 public class Play extends GameState implements StateMethods{
     private MyGdxGame game;
@@ -85,27 +80,7 @@ public class Play extends GameState implements StateMethods{
         createPlayer();
         createTiles();
 
-       /* obc = new OptionBoxController(optionBox);
-        dcontroller = new DialogController(dialogueBox, optionBox);
-        multiplexer.addProcessor(obc);
-        multiplexer.addProcessor(dcontroller);
-        Gdx.input.setInputProcessor(multiplexer);
-
-        dialog = new Dialog();
-        DialogNode node1 = new DialogNode("Привет! Это первая фраза", 0);
-        DialogNode node2 = new DialogNode("And it's 2 node?", 1);
-        DialogNode node3 = new DialogNode("Yep, you're right", 2);
-        DialogNode node4 = new DialogNode("Nope, it's not :<", 4);
-
-        node1.makeLinear(node2.getId());
-        node2.addChoice("yes", 2);
-        node2.addChoice("no", 4);
-
-        dialog.addNode(node1);
-        dialog.addNode(node2);
-        dialog.addNode(node3);
-        dialog.addNode(node4);
-        dcontroller.startDialog(dialog);*/
+        /*была часть из initUI()*/
 
         cam.setBounds(0, tileMapWidth * tileSize * 4, 0, tileMapHeight * tileSize * 4);
         b2dCam = new BoundedCamera();
@@ -146,7 +121,6 @@ public class Play extends GameState implements StateMethods{
         //draw player
         sb.setProjectionMatrix(cam.combined);
         player.render(sb);
-        //uiStage.getViewport().update(MyGdxGame.V_WIDTH /4, MyGdxGame.V_HEIGHT /4, true);
 
         //draw box?     ---need fix---
         if (debug) {
@@ -266,6 +240,28 @@ public class Play extends GameState implements StateMethods{
                 .row();
 
         dialogRoot.add(dialogTable).expand().align(Align.bottom).pad(15f);
+
+        obc = new OptionBoxController(optionBox);
+        dcontroller = new DialogController(dialogueBox, optionBox);
+        multiplexer.addProcessor(obc);
+        multiplexer.addProcessor(dcontroller);
+        Gdx.input.setInputProcessor(multiplexer);
+
+        dialog = new Dialog();
+        DialogNode node1 = new DialogNode("Привет! Это первая фраза", 0);
+        DialogNode node2 = new DialogNode("И это вторая?", 1);
+        DialogNode node3 = new DialogNode("Да, ты прав", 2);
+        DialogNode node4 = new DialogNode("Неа, не угадал :(", 4);
+
+        node1.makeLinear(node2.getId());
+        node2.addChoice("Да", 2);
+        node2.addChoice("Нет", 4);
+
+        dialog.addNode(node1);
+        dialog.addNode(node2);
+        dialog.addNode(node3);
+        dialog.addNode(node4);
+        dcontroller.startDialog(dialog);
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.mygdx.game.Battle.Events;
+package com.mygdx.game.battle.events;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;

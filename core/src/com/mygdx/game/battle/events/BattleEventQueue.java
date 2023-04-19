@@ -1,6 +1,4 @@
-package com.mygdx.game.Battle.Events;
-
-import com.mygdx.game.Battle.Battle;
+package com.mygdx.game.battle.events;
 
 public interface BattleEventQueue {
     public void queueEvent(BattleEvent event);

@@ -34,6 +34,7 @@ public class MyGdxGame implements ApplicationListener {
 
 		assetManager = new AssetManager();
 		assetManager.load("testAtlas.atlas", TextureAtlas.class);
+		assetManager.load("testAtlas2.atlas", TextureAtlas.class);
 		assetManager.load("uipack.atlas", TextureAtlas.class);
 		assetManager.load("mcRus.fnt", BitmapFont.class);
 		assetManager.finishLoading();
@@ -49,7 +50,6 @@ public class MyGdxGame implements ApplicationListener {
 
 	public void render () {
 		//update();
-
 		accum += Gdx.graphics.getDeltaTime();
 		while(accum >= STEP){
 			accum -= STEP;
@@ -79,5 +79,8 @@ public class MyGdxGame implements ApplicationListener {
 	}
 	public OrthographicCamera getHudcam() {
 		return hudcam;
+	}
+	public AssetManager getAssetManager(){
+		return assetManager;
 	}
 }
