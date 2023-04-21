@@ -1,36 +1,35 @@
 package com.mygdx.game.states;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.maps.MapLayer;
+import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.Dialog.*;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.battle.Battle;
 import com.mygdx.game.battle.events.BattleEvent;
 import com.mygdx.game.battle.events.BattleEventPlayer;
 import com.mygdx.game.battle.render.BattleRenderer;
-import com.mygdx.game.entities.Player;
-import com.mygdx.game.handlers.BoundedCamera;
+import com.mygdx.game.entities.Boss;
 import com.mygdx.game.handlers.GameStateManager;
 import com.mygdx.game.handlers.MyContactListener;
 
 import java.util.ArrayDeque;
 import java.util.Queue;
 
-import static com.mygdx.game.handlers.B2DVars.PPM;
-import static com.mygdx.game.handlers.GameStateManager.BATTLE;
+import static com.mygdx.game.handlers.B2DVars.*;
 
 public class BattleState2 extends GameState implements BattleEventPlayer {
     private MyGdxGame game;
@@ -49,6 +48,12 @@ public class BattleState2 extends GameState implements BattleEventPlayer {
     private Queue<BattleEvent> queue = new ArrayDeque<BattleEvent>();
     private Battle battle;
     private BattleRenderer battleRenderer;
+    private TiledMap tiledMap;
+    private OrthogonalTiledMapRenderer tmr;
+    private float tileSize;
+    private int tileMapWidth;
+    private int tileMapHeight;
+    private Boss boss;
 
     public BattleState2(GameStateManager gsm) {
         super(gsm);
@@ -63,9 +68,11 @@ public class BattleState2 extends GameState implements BattleEventPlayer {
         battle = new Battle();
         battle.setEventPlayer(this);
 
-        battleRenderer = new BattleRenderer(game.getAssetManager());
+        //battleRenderer = new BattleRenderer(game.getAssetManager());
 
         initUI();
+        createLayers();
+        createEnemy();
 
         battle.beginBattle();
     }
@@ -88,9 +95,13 @@ public class BattleState2 extends GameState implements BattleEventPlayer {
         cam.setPosition(0, 0);
         cam.update();
 
-        sb.begin();
+        //draw map
+        tmr.setView(cam);
+        tmr.render();
+
+        /*sb.begin();
         battleRenderer.render(sb);
-        sb.end();
+        sb.end();*/
 
         sb.setProjectionMatrix(cam.combined);
 
@@ -106,10 +117,10 @@ public class BattleState2 extends GameState implements BattleEventPlayer {
         uiStage.addActor(dialogRoot);
 
         dialogBox = new DialogBox(game.getSkin());
-        dialogBox.setVisible(false);
+        dialogBox.setVisible(true);
 
         optionBox = new OptionBox(game.getSkin());
-        optionBox.setVisible(false);
+        optionBox.setVisible(true);
 
         Table dialogTable = new Table();
         dialogTable.add(optionBox)
@@ -122,7 +133,59 @@ public class BattleState2 extends GameState implements BattleEventPlayer {
                 .row();
 
         dialogRoot.add(dialogTable).expand().align(Align.bottom).pad(15f);
+
+        obc = new OptionBoxController(optionBox);
+        dcontroller = new DialogController(dialogBox, optionBox);
+        multiplexer.addProcessor(obc);
+        multiplexer.addProcessor(dcontroller);
+        Gdx.input.setInputProcessor(multiplexer);
+
+        dialog = new Dialog();
+        DialogNode node1 = new DialogNode("Привет! Это первая фраза", 0);
+        DialogNode node2 = new DialogNode("И это вторая?", 1);
+        DialogNode node3 = new DialogNode("Да, ты прав", 2);
+        DialogNode node4 = new DialogNode("Неа, не угадал :(", 4);
+
+        node1.makeLinear(node2.getId());
+        node2.addChoice("Да", 2);
+        node2.addChoice("Нет", 4);
+
+        dialog.addNode(node1);
+        dialog.addNode(node2);
+        dialog.addNode(node3);
+        dialog.addNode(node4);
+        dcontroller.startDialog(dialog);
     }
+
+    private void createLayers() {
+        tiledMap = new TmxMapLoader().load("sprites/mystic_woods_free_2.1/fightmap.tmx");
+        tmr = new OrthogonalTiledMapRenderer(tiledMap, 4); // !!!
+        tileSize = (int) tiledMap.getProperties().get("tilewidth");
+
+        tileMapWidth = (int) tiledMap.getProperties().get("width");
+        tileMapHeight = (int) tiledMap.getProperties().get("height");
+    }
+    private void createEnemy() {
+        PolygonShape ps = new PolygonShape();
+        MapLayer layer = tiledMap.getLayers().get("enemy");
+        BodyDef bdef = new BodyDef();
+        FixtureDef fdef = new FixtureDef();
+
+        bdef.type = BodyDef.BodyType.StaticBody;
+        float x = 150f / PPM;
+        float y = 50f / PPM;
+        bdef.position.set(x,y);
+        Body body = world.createBody(bdef);
+
+        ps.setAsBox(150 / PPM, 150f / PPM);
+        fdef.shape = ps;
+        body.createFixture(fdef);
+        ps.dispose();
+
+        boss = new Boss(body);
+        body.setUserData(boss);
+    }
+
     @Override
     public void dispose() {
 

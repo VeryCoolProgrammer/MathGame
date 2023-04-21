@@ -22,3 +22,12 @@ rotate: false
   orig: 768, 352
   offset: 0, 0
   index: -1
+background2
+rotate: false
+  xy: 226, 34
+  size: 96, 96
+  split: 0, 0, 0, 0
+  pad: 0, 0, 0, 0
+  orig: 768, 352
+  offset: 0, 0
+  index: -1
