@@ -11,8 +11,8 @@ public class Boss extends B2DSprite{
 
     public Boss(Body body) {
         super(body);
-        tex = MyGdxGame.res.getTexture("gnomik");
-        sprites = TextureRegion.split(tex, 80, 88)[0];
-        setAnimation(sprites, 1 / 12f);
+        tex = MyGdxGame.res.getTexture("enemy");
+        sprites = TextureRegion.split(tex, 186, 180)[0];
+        setAnimation(sprites, 1 / 5f);
     }
 }

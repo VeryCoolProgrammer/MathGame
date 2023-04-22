@@ -22,6 +22,7 @@ import com.mygdx.game.battle.Battle;
 import com.mygdx.game.battle.events.BattleEvent;
 import com.mygdx.game.battle.events.BattleEventPlayer;
 import com.mygdx.game.battle.render.BattleRenderer;
+import com.mygdx.game.battle.render.BattleScreenController;
 import com.mygdx.game.entities.Boss;
 import com.mygdx.game.handlers.GameStateManager;
 import com.mygdx.game.handlers.MyContactListener;
@@ -34,25 +35,25 @@ import static com.mygdx.game.handlers.B2DVars.*;
 public class BattleState2 extends GameState implements BattleEventPlayer {
     private MyGdxGame game;
     private World world;
-    private MyContactListener cl;
-    private Stage uiStage;
-    private Table dialogRoot;
-    private DialogBox dialogBox;
-    private OptionBox optionBox;
-    private Skin skin_this;
-    private OptionBoxController obc;
-    private InputMultiplexer multiplexer;
-    private Dialog dialog;
-    private DialogController dcontroller;
-    private BattleEvent currentEvent;
-    private Queue<BattleEvent> queue = new ArrayDeque<BattleEvent>();
-    private Battle battle;
-    private BattleRenderer battleRenderer;
     private TiledMap tiledMap;
     private OrthogonalTiledMapRenderer tmr;
     private float tileSize;
     private int tileMapWidth;
     private int tileMapHeight;
+    private MyContactListener cl;
+    private Stage uiStage;
+    private Dialog dialog;
+    private Table dialogRoot;
+    private DialogBox dialogBox;
+    private OptionBox optionBox;
+    private OptionBoxController obc;
+    private DialogController dcontroller;
+    private BattleScreenController bcontroller;
+    private InputMultiplexer multiplexer;
+    private BattleEvent currentEvent;
+    private Queue<BattleEvent> queue = new ArrayDeque<BattleEvent>();
+    private Battle battle;
+    private BattleRenderer battleRenderer;
     private Boss boss;
 
     public BattleState2(GameStateManager gsm) {
@@ -74,6 +75,8 @@ public class BattleState2 extends GameState implements BattleEventPlayer {
         createLayers();
         createEnemy();
 
+        bcontroller = new BattleScreenController(battle, dialogBox, optionBox);
+
         battle.beginBattle();
     }
 
@@ -86,6 +89,9 @@ public class BattleState2 extends GameState implements BattleEventPlayer {
     public void update(float dt) {
         world.step(dt, 6, 2);
         uiStage.act(dt);
+        boss.update(dt);
+        dcontroller.update(dt);
+        bcontroller.update(dt);
     }
 
     @Override
@@ -98,6 +104,8 @@ public class BattleState2 extends GameState implements BattleEventPlayer {
         //draw map
         tmr.setView(cam);
         tmr.render();
+        //draw enemy
+        boss.render(sb);
 
         /*sb.begin();
         battleRenderer.render(sb);
@@ -117,10 +125,10 @@ public class BattleState2 extends GameState implements BattleEventPlayer {
         uiStage.addActor(dialogRoot);
 
         dialogBox = new DialogBox(game.getSkin());
-        dialogBox.setVisible(true);
+        dialogBox.setVisible(false);
 
         optionBox = new OptionBox(game.getSkin());
-        optionBox.setVisible(true);
+        optionBox.setVisible(false);
 
         Table dialogTable = new Table();
         dialogTable.add(optionBox)
@@ -140,21 +148,21 @@ public class BattleState2 extends GameState implements BattleEventPlayer {
         multiplexer.addProcessor(dcontroller);
         Gdx.input.setInputProcessor(multiplexer);
 
-        dialog = new Dialog();
+        /*dialog = new Dialog();
         DialogNode node1 = new DialogNode("Привет! Это первая фраза", 0);
         DialogNode node2 = new DialogNode("И это вторая?", 1);
         DialogNode node3 = new DialogNode("Да, ты прав", 2);
-        DialogNode node4 = new DialogNode("Неа, не угадал :(", 4);
+        DialogNode node4 = new DialogNode("Неа, не угадал :(", 3);
 
         node1.makeLinear(node2.getId());
         node2.addChoice("Да", 2);
-        node2.addChoice("Нет", 4);
+        node2.addChoice("Нет", 3);
 
         dialog.addNode(node1);
         dialog.addNode(node2);
         dialog.addNode(node3);
         dialog.addNode(node4);
-        dcontroller.startDialog(dialog);
+        dcontroller.startDialog(dialog);*/
     }
 
     private void createLayers() {
@@ -172,15 +180,13 @@ public class BattleState2 extends GameState implements BattleEventPlayer {
         FixtureDef fdef = new FixtureDef();
 
         bdef.type = BodyDef.BodyType.StaticBody;
-        float x = 150f / PPM;
-        float y = 50f / PPM;
-        bdef.position.set(x,y);
+        bdef.position.set(600f / PPM, 530f / PPM);
         Body body = world.createBody(bdef);
 
-        ps.setAsBox(150 / PPM, 150f / PPM);
+        /*ps.setAsBox(150 / PPM, 150f / PPM);
         fdef.shape = ps;
         body.createFixture(fdef);
-        ps.dispose();
+        ps.dispose();*/
 
         boss = new Boss(body);
         body.setUserData(boss);

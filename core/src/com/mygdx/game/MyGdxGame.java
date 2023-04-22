@@ -31,7 +31,7 @@ public class MyGdxGame implements ApplicationListener {
 		res = new Content();
 		res.loadTexture("gnomikS.png", "gnomik");
 		res.loadTexture("allBtn.png", "btn");
-		res.loadTexture("enemySprite.png", "enemy");
+		res.loadTexture("enemySprite2.2.png", "enemy");
 
 		assetManager = new AssetManager();
 		assetManager.load("testAtlas.atlas", TextureAtlas.class);
