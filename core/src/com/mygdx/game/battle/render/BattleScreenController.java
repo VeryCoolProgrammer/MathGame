@@ -22,7 +22,7 @@ public class BattleScreenController extends InputAdapter {
         this.queue = queue;
     }
 
-    public void update() {
+    public void update(float dt) {
         if (dialogBox.isFinished() && !optionBox.isVisible()) {
             optionBox.clearChoices();
             optionBox.addOption("Да");
