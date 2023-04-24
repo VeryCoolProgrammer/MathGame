@@ -11,6 +11,7 @@ public class Battle implements BattleEventQueue {
         READY_FOR_NEXT,
         WIN,
         LOSE,
+        RUN,
         ;
     }
     private STATE state;
@@ -30,6 +31,15 @@ public class Battle implements BattleEventQueue {
         if(state != STATE.READY_FOR_NEXT){
             return;
         }
+    }
+
+    public void playerRun(){
+        queueEvent(new B_TextEvent("Убежал...", true));
+        this.state = STATE.RUN;
+    }
+
+    public STATE getState() {
+        return state;
     }
 
     public void setEventPlayer(BattleEventPlayer player) {

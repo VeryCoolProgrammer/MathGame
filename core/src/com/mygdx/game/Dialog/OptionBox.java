@@ -80,4 +80,8 @@ public class OptionBox extends Table {
         options.clear();
         selectedIndex = 0;
     }
+
+    public int getIndex() {
+        return selectedIndex;
+    }
 }

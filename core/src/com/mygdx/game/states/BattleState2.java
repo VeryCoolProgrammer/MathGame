@@ -75,7 +75,7 @@ public class BattleState2 extends GameState implements BattleEventPlayer {
         createLayers();
         createEnemy();
 
-        bcontroller = new BattleScreenController(battle, dialogBox, optionBox);
+        bcontroller = new BattleScreenController(battle, dialogBox, optionBox, queue);
 
         battle.beginBattle();
     }
@@ -90,12 +90,24 @@ public class BattleState2 extends GameState implements BattleEventPlayer {
         world.step(dt, 6, 2);
         uiStage.act(dt);
         boss.update(dt);
-        dcontroller.update(dt);
-        bcontroller.update(dt);
+        //dcontroller.update(dt);
+        //bcontroller.update(dt); <---- создает? кучу optionBox и не работает playerRun()
+        while (currentEvent == null || currentEvent.finished()) {
+            if (queue.peek() == null) {
+                currentEvent = null;
+                if(battle.getState() == Battle.STATE.RUN){
+                    gsm.setState(GameStateManager.PLAY);
+                }
+            } else {
+                currentEvent = queue.poll();
+                currentEvent.begin(this);
+            }
+        }
     }
 
     @Override
     public void render() {
+        Gdx.input.setInputProcessor(bcontroller);
         Gdx.gl20.glClearColor(0,0,0,1);
         Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
         cam.setPosition(0, 0);
@@ -142,11 +154,11 @@ public class BattleState2 extends GameState implements BattleEventPlayer {
 
         dialogRoot.add(dialogTable).expand().align(Align.bottom).pad(15f);
 
-        obc = new OptionBoxController(optionBox);
+        /*obc = new OptionBoxController(optionBox);
         dcontroller = new DialogController(dialogBox, optionBox);
         multiplexer.addProcessor(obc);
         multiplexer.addProcessor(dcontroller);
-        Gdx.input.setInputProcessor(multiplexer);
+        Gdx.input.setInputProcessor(multiplexer);*/
 
         /*dialog = new Dialog();
         DialogNode node1 = new DialogNode("Привет! Это первая фраза", 0);
@@ -183,11 +195,6 @@ public class BattleState2 extends GameState implements BattleEventPlayer {
         bdef.position.set(600f / PPM, 530f / PPM);
         Body body = world.createBody(bdef);
 
-        /*ps.setAsBox(150 / PPM, 150f / PPM);
-        fdef.shape = ps;
-        body.createFixture(fdef);
-        ps.dispose();*/
-
         boss = new Boss(body);
         body.setUserData(boss);
     }
@@ -199,11 +206,11 @@ public class BattleState2 extends GameState implements BattleEventPlayer {
 
     @Override
     public DialogBox getDialogBox() {
-        return null;
+        return dialogBox;
     }
 
     @Override
     public void queueEvent(BattleEvent event) {
-
+        queue.add(event);
     }
 }
