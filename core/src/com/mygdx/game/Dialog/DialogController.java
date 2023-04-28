@@ -2,6 +2,8 @@ package com.mygdx.game.Dialog;
 
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
+import com.mygdx.game.UI.DialogBox;
+import com.mygdx.game.UI.OptionBox;
 
 public class DialogController extends InputAdapter{
     private DialogGo dialogGo;

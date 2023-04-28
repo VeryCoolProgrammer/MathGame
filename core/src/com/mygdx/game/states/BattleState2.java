@@ -4,20 +4,20 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.maps.MapLayer;
-import com.badlogic.gdx.maps.MapObject;
-import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.game.Dialog.*;
 import com.mygdx.game.MyGdxGame;
+import com.mygdx.game.UI.DialogBox;
+import com.mygdx.game.UI.OptionBox;
+import com.mygdx.game.UI.SelectionBox;
 import com.mygdx.game.battle.Battle;
 import com.mygdx.game.battle.events.BattleEvent;
 import com.mygdx.game.battle.events.BattleEventPlayer;
@@ -41,13 +41,17 @@ public class BattleState2 extends GameState implements BattleEventPlayer {
     private int tileMapWidth;
     private int tileMapHeight;
     private MyContactListener cl;
+    // UI
     private Stage uiStage;
     private Dialog dialog;
     private Table dialogRoot;
     private DialogBox dialogBox;
     private OptionBox optionBox;
+    private Table selectionRoot;
+    private SelectionBox selectionBox;
     private OptionBoxController obc;
     private DialogController dcontroller;
+    // END UI
     private BattleScreenController bcontroller;
     private InputMultiplexer multiplexer;
     private BattleEvent currentEvent;
@@ -75,7 +79,7 @@ public class BattleState2 extends GameState implements BattleEventPlayer {
         createLayers();
         createEnemy();
 
-        bcontroller = new BattleScreenController(battle, dialogBox, optionBox, queue);
+        bcontroller = new BattleScreenController(battle, dialogBox, optionBox, selectionBox, queue);
 
         battle.beginBattle();
     }
@@ -91,17 +95,23 @@ public class BattleState2 extends GameState implements BattleEventPlayer {
         uiStage.act(dt);
         boss.update(dt);
         //dcontroller.update(dt);
-        //bcontroller.update(dt); <---- создает? кучу optionBox и не работает playerRun()
+        //bcontroller.update(dt); <----- only selectionBox
         while (currentEvent == null || currentEvent.finished()) {
             if (queue.peek() == null) {
                 currentEvent = null;
-                if(battle.getState() == Battle.STATE.RUN){
+                if(battle.getState() == Battle.STATE.READY_TO_PROGRESS){
+                    bcontroller.restart();
+                } else if (battle.getState() == Battle.STATE.RUN) {
                     gsm.setState(GameStateManager.PLAY);
                 }
             } else {
                 currentEvent = queue.poll();
                 currentEvent.begin(this);
             }
+        }
+
+        if (currentEvent != null) {  // <----- рендер очереди скорее всего фиксит это?
+            currentEvent.update(dt);
         }
     }
 
@@ -136,11 +146,18 @@ public class BattleState2 extends GameState implements BattleEventPlayer {
         dialogRoot.setFillParent(true);
         uiStage.addActor(dialogRoot);
 
+        selectionRoot = new Table();
+        selectionRoot.setFillParent(true);
+        uiStage.addActor(selectionRoot);
+
         dialogBox = new DialogBox(game.getSkin());
         dialogBox.setVisible(false);
 
         optionBox = new OptionBox(game.getSkin());
         optionBox.setVisible(false);
+
+        selectionBox = new SelectionBox(game.getSkin());
+        selectionBox.setVisible(false);
 
         Table dialogTable = new Table();
         dialogTable.add(optionBox)
@@ -152,6 +169,7 @@ public class BattleState2 extends GameState implements BattleEventPlayer {
                 .space(8f)
                 .row();
 
+        selectionRoot.add(selectionBox).expand().align(Align.bottom).pad(5f);
         dialogRoot.add(dialogTable).expand().align(Align.bottom).pad(15f);
 
         /*obc = new OptionBoxController(optionBox);
@@ -185,6 +203,7 @@ public class BattleState2 extends GameState implements BattleEventPlayer {
         tileMapWidth = (int) tiledMap.getProperties().get("width");
         tileMapHeight = (int) tiledMap.getProperties().get("height");
     }
+
     private void createEnemy() {
         PolygonShape ps = new PolygonShape();
         MapLayer layer = tiledMap.getLayers().get("enemy");

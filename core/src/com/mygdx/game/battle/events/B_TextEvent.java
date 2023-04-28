@@ -2,7 +2,7 @@ package com.mygdx.game.battle.events;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.mygdx.game.Dialog.DialogBox;
+import com.mygdx.game.UI.DialogBox;
 
 public class B_TextEvent extends BattleEvent{
     private boolean finished = false;

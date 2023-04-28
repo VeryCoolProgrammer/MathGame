@@ -1,0 +1,2 @@
+1. клик мышкой через labal.getLocation
+2. через buttons?

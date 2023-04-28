@@ -18,6 +18,8 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.game.Dialog.*;
 import com.mygdx.game.Dialog.Dialog;
 import com.mygdx.game.MyGdxGame;
+import com.mygdx.game.UI.DialogBox;
+import com.mygdx.game.UI.OptionBox;
 import com.mygdx.game.entities.Player;
 import com.mygdx.game.handlers.BoundedCamera;
 import com.mygdx.game.handlers.MyContactListener;

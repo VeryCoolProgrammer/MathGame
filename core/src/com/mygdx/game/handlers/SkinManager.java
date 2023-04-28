@@ -21,8 +21,8 @@ public class SkinManager {
         skin.add("GUI_2x", dialog2);
         NinePatch option = new NinePatch(uiAtlas3.findRegion("optionbox"),6, 6, 6, 6);
         skin.add("optionbox", option);
-        skin.add("arrow", uiAtlas3.findRegion("arrow"), TextureRegion.class);
 
+        skin.add("arrow", uiAtlas3.findRegion("arrow"), TextureRegion.class);
         BitmapFont font = assetManager.get("mcRus.fnt", BitmapFont.class);
         skin.add("font", font);
         //skin.add("defJson", Gdx.files.internal("uiskin.json"));

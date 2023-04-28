@@ -8,27 +8,25 @@ import com.mygdx.game.entities.Player;
 
 public class Battle implements BattleEventQueue {
     public enum STATE{
-        READY_FOR_NEXT,
+        READY_TO_PROGRESS,
         WIN,
         LOSE,
         RUN,
         ;
     }
     private STATE state;
-    private Player player;
     private BattleEventPlayer eventPlayer;
 
     public Battle(){
-        //this.player = player;
-        this.state = STATE.READY_FOR_NEXT;
+        this.state = STATE.READY_TO_PROGRESS;
     }
 
     public void beginBattle(){
-        queueEvent(new B_TextEvent("хехехехехех!", 1f));
+        queueEvent(new B_TextEvent("хехехехехех!", true));
     }
 
     public void progress(int input){
-        if(state != STATE.READY_FOR_NEXT){
+        if(state != STATE.READY_TO_PROGRESS){
             return;
         }
     }

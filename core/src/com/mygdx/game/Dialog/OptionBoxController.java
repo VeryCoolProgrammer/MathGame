@@ -1,8 +1,8 @@
 package com.mygdx.game.Dialog;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
+import com.mygdx.game.UI.OptionBox;
 
 public class OptionBoxController extends InputAdapter {
     private OptionBox box;

@@ -1,6 +1,6 @@
 package com.mygdx.game.battle.events;
 
-import com.mygdx.game.Dialog.DialogBox;
+import com.mygdx.game.UI.DialogBox;
 
 public interface BattleEventPlayer {
     public DialogBox getDialogBox();
