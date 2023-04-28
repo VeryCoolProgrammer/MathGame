@@ -22,7 +22,7 @@ public class Battle implements BattleEventQueue {
     }
 
     public void beginBattle(){
-        queueEvent(new B_TextEvent("хехехехехех!", true));
+        queueEvent(new B_TextEvent("хехехехехех!", 1f));
     }
 
     public void progress(int input){

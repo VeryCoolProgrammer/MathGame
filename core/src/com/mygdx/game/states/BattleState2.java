@@ -79,7 +79,7 @@ public class BattleState2 extends GameState implements BattleEventPlayer {
         createLayers();
         createEnemy();
 
-        bcontroller = new BattleScreenController(battle, dialogBox, optionBox, selectionBox, queue);
+        bcontroller = new BattleScreenController(battle, queue, dialogBox, optionBox, selectionBox);
 
         battle.beginBattle();
     }
@@ -92,8 +92,6 @@ public class BattleState2 extends GameState implements BattleEventPlayer {
     @Override
     public void update(float dt) {
         world.step(dt, 6, 2);
-        uiStage.act(dt);
-        boss.update(dt);
         //dcontroller.update(dt);
         //bcontroller.update(dt); <----- only selectionBox
         while (currentEvent == null || currentEvent.finished()) {
@@ -104,15 +102,20 @@ public class BattleState2 extends GameState implements BattleEventPlayer {
                 } else if (battle.getState() == Battle.STATE.RUN) {
                     gsm.setState(GameStateManager.PLAY);
                 }
+                break;
             } else {
                 currentEvent = queue.poll();
                 currentEvent.begin(this);
             }
         }
 
-        if (currentEvent != null) {  // <----- рендер очереди скорее всего фиксит это?
+        if (currentEvent != null) {
             currentEvent.update(dt);
+            System.out.println(currentEvent);
         }
+
+        uiStage.act(dt);
+        boss.update(dt);
     }
 
     @Override

@@ -26,7 +26,7 @@ public class BattleScreenController extends InputAdapter {
 
     private STATE state = STATE.DEACTIVATED;
 
-    public BattleScreenController(Battle battle, DialogBox dialogBox, OptionBox optionBox, SelectionBox selectionBox, Queue queue) {
+    public BattleScreenController(Battle battle, Queue queue, DialogBox dialogBox, OptionBox optionBox, SelectionBox selectionBox) {
         this.battle = battle;
         this.dialogBox = dialogBox;
         this.optionBox = optionBox;
