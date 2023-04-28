@@ -40,6 +40,10 @@ public class Battle implements BattleEventQueue {
         return state;
     }
 
+    public BattleEventPlayer getEventPlayer() {
+        return eventPlayer;
+    }
+
     public void setEventPlayer(BattleEventPlayer player) {
         this.eventPlayer = player;
     }

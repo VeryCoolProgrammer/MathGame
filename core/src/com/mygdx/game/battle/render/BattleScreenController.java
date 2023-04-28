@@ -6,6 +6,7 @@ import com.mygdx.game.UI.DialogBox;
 import com.mygdx.game.UI.OptionBox;
 import com.mygdx.game.UI.SelectionBox;
 import com.mygdx.game.battle.Battle;
+import com.mygdx.game.battle.events.B_TextEvent;
 import com.mygdx.game.battle.events.BattleEvent;
 
 import java.util.Queue;
@@ -63,18 +64,22 @@ public class BattleScreenController extends InputAdapter {
         if(selectionBox.isVisible()) {
             if (keycode == Input.Keys.X) {
                 int selection = selectionBox.getSelection();
-                /*battle.progress(selectionBox.getSelection()); //?
-                endTurn();*/
+                /*if (battle.getEventPlayer().getMove(selection) == null){
+                    queue.add(new B_TextEvent("Всё", 0.5f));
+                } else {
+                    battle.progress(selectionBox.getSelection()); <------
+                    endTurn();
+                }*/
             } else if (keycode == Input.Keys.W) {
                 selectionBox.moveUp();
                 return true;
             } else if (keycode == Input.Keys.S) {
                 selectionBox.moveDown();
                 return true;
-            } else if (keycode == Input.Keys.Q) {
+            } else if (keycode == Input.Keys.A) {
                 selectionBox.moveLeft();
                 return true;
-            } else if (keycode == Input.Keys.E) {
+            } else if (keycode == Input.Keys.D) {
                 selectionBox.moveRight();
                 return true;
             }

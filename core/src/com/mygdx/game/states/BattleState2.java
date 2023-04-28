@@ -111,7 +111,6 @@ public class BattleState2 extends GameState implements BattleEventPlayer {
 
         if (currentEvent != null) {
             currentEvent.update(dt);
-            System.out.println(currentEvent);
         }
 
         uiStage.act(dt);
