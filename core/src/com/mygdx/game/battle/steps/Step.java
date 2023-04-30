@@ -12,7 +12,7 @@ public abstract class Step {
     }
 
     public int useMove(BattleMechanics mechanics, BattleEntity user, BattleEntity enemy, BattleEventQueue eventQueue){
-        int damage = 0/*mechanics.calculateDamage(this, user, enemy)*/;
+        int damage = mechanics.calculateDamage(this, user, enemy);
         enemy.applyDamage(damage);
         return damage;
     }

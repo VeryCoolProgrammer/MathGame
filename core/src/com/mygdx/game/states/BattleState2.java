@@ -3,6 +3,7 @@ package com.mygdx.game.states;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -23,6 +24,7 @@ import com.mygdx.game.battle.events.BattleEvent;
 import com.mygdx.game.battle.events.BattleEventPlayer;
 import com.mygdx.game.battle.render.BattleRenderer;
 import com.mygdx.game.battle.render.BattleScreenController;
+import com.mygdx.game.entities.BattleEntity;
 import com.mygdx.game.entities.Boss;
 import com.mygdx.game.handlers.GameStateManager;
 import com.mygdx.game.handlers.MyContactListener;
@@ -59,6 +61,8 @@ public class BattleState2 extends GameState implements BattleEventPlayer {
     private Battle battle;
     private BattleRenderer battleRenderer;
     private Boss boss;
+    private Texture tex;
+    private Texture texEnemy;
 
     public BattleState2(GameStateManager gsm) {
         super(gsm);
@@ -70,7 +74,10 @@ public class BattleState2 extends GameState implements BattleEventPlayer {
 
         cam.setBounds(0, 4864, 0, 2688);
 
-        battle = new Battle();
+        tex = MyGdxGame.res.getTexture("gnomik");
+        tex = MyGdxGame.res.getTexture("enemy");
+        battle = new Battle(BattleEntity.generateEntity("player", tex, game.getStepDatabase()),
+                BattleEntity.generateEntity("enemy", texEnemy, game.getStepDatabase()));
         battle.setEventPlayer(this);
 
         //battleRenderer = new BattleRenderer(game.getAssetManager());

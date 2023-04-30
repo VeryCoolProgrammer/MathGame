@@ -2,6 +2,7 @@ package com.mygdx.game.states;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
@@ -14,6 +15,7 @@ import com.mygdx.game.UI.DialogBox;
 import com.mygdx.game.UI.OptionBox;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.battle.render.BattleRenderer;
+import com.mygdx.game.entities.BattleEntity;
 import com.mygdx.game.handlers.GameStateManager;
 
 import java.util.ArrayDeque;
@@ -36,7 +38,11 @@ public class BattleState extends GameState implements BattleEventPlayer {
         gameViewport = new ScreenViewport();
         game = gsm.game();
 
-        battle = new Battle();
+        Texture tex = MyGdxGame.res.getTexture("gnomik");
+        Texture texEnemy = MyGdxGame.res.getTexture("enemy");
+
+        battle = new Battle(BattleEntity.generateEntity("player", tex, game.getStepDatabase()),
+                BattleEntity.generateEntity("enemy", texEnemy, game.getStepDatabase()));
         battle.setEventPlayer(this);
 
         battleRenderer = new BattleRenderer(game.getAssetManager());

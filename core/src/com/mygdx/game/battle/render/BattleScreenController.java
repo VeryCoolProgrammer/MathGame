@@ -8,6 +8,7 @@ import com.mygdx.game.UI.SelectionBox;
 import com.mygdx.game.battle.Battle;
 import com.mygdx.game.battle.events.B_TextEvent;
 import com.mygdx.game.battle.events.BattleEvent;
+import com.mygdx.game.battle.steps.StepsDetails;
 
 import java.util.Queue;
 
@@ -64,12 +65,12 @@ public class BattleScreenController extends InputAdapter {
         if(selectionBox.isVisible()) {
             if (keycode == Input.Keys.X) {
                 int selection = selectionBox.getSelection();
-                /*if (battle.getEventPlayer().getMove(selection) == null){
-                    queue.add(new B_TextEvent("Всё", 0.5f));
+                if (battle.getPlayer().getSteps(selection) == null){
+                    queue.add(new B_TextEvent("Всё :0", 0.5f));
                 } else {
-                    battle.progress(selectionBox.getSelection()); <------
+                    battle.progress(selectionBox.getSelection());
                     endTurn();
-                }*/
+                }
             } else if (keycode == Input.Keys.W) {
                 selectionBox.moveUp();
                 return true;
@@ -92,7 +93,11 @@ public class BattleScreenController extends InputAdapter {
         dialogBox.setVisible(false);
         for (int i = 0; i <= 3; i++) {
             String label = "------";
-            selectionBox.setLabel(i, label.toUpperCase());
+            StepsDetails spec = battle.getPlayer().getDetails(i);
+            if (spec != null) {
+                label = spec.getName();
+            }
+            selectionBox.setLabel(i, label);
         }
         selectionBox.setVisible(true);
     }

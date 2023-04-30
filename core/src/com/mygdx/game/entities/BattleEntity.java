@@ -20,7 +20,7 @@ public class BattleEntity {
     public BattleEntity(String name, Texture tex){
         this.name = name;
         this.tex = tex;
-        this.level = 1; //?
+        this.level = 5; //?
 
         stats = new HashMap<STAT, Integer>();
         for (STAT stat : STAT.values()) {
@@ -64,8 +64,8 @@ public class BattleEntity {
         return tex;
     }
 
-    public Map<STAT, Integer> getStats() {
-        return stats;
+    public int getStats(STAT stat) {
+        return stats.get(stat);
     }
 
     public void setStats(STAT stat, int value) {
