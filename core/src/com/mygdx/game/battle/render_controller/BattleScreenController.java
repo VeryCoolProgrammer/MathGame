@@ -1,4 +1,4 @@
-package com.mygdx.game.battle.render;
+package com.mygdx.game.battle.render_controller;
 
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;

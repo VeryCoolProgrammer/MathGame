@@ -46,7 +46,6 @@ public class Battle implements BattleEventQueue {
             }*/
         }
     }
-
     private void playTurn(ENTITY_LIST entity, int input){
         ENTITY_LIST list = ENTITY_LIST.getEntities(entity);
         BattleEntity battleUser = null;

@@ -9,14 +9,14 @@ public class DamageStep extends Step{
     public DamageStep(StepsDetails details) {
         super(details);
     }
-
-    @Override
+    //for anim
+    /*@Override
     public int useMove(BattleMechanics mechanics, BattleEntity user, BattleEntity enemy, BattleEventQueue eventQueue){
         int hpBefore = enemy.getCurrentHitpoints();
         int damage = super.useMove(mechanics, user, enemy, eventQueue);
 
         return damage;
-    }
+    }*/
 
     @Override
     public String message() {

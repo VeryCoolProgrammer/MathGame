@@ -22,8 +22,8 @@ import com.mygdx.game.UI.SelectionBox;
 import com.mygdx.game.battle.Battle;
 import com.mygdx.game.battle.events.BattleEvent;
 import com.mygdx.game.battle.events.BattleEventPlayer;
-import com.mygdx.game.battle.render.BattleRenderer;
-import com.mygdx.game.battle.render.BattleScreenController;
+import com.mygdx.game.battle.render_controller.BattleRenderer;
+import com.mygdx.game.battle.render_controller.BattleScreenController;
 import com.mygdx.game.entities.BattleEntity;
 import com.mygdx.game.entities.Boss;
 import com.mygdx.game.handlers.GameStateManager;
@@ -98,7 +98,7 @@ public class BattleState2 extends GameState implements BattleEventPlayer {
 
     @Override
     public void update(float dt) {
-        //System.out.println(battle.getState() + " " + currentEvent);
+        //System.out.println(bcontroller.getState() + " " + currentEvent);
         world.step(dt, 6, 2);
         //dcontroller.update(dt);
         //bcontroller.update(dt); <----- only selectionBox
@@ -176,39 +176,17 @@ public class BattleState2 extends GameState implements BattleEventPlayer {
         selectionBox.setVisible(false);
 
         Table dialogTable = new Table();
-        dialogTable.add(optionBox)
-                .expand().align(Align.right)
+            dialogTable.add(dialogBox)
+                .expand().align(Align.top)
                 .space(8f)
                 .row();
-        dialogTable.add(dialogBox)
-                .expand().align(Align.bottom)
+        dialogTable.add(optionBox)
+                .expand().align(Align.bottomRight)
                 .space(8f)
                 .row();
 
         selectionRoot.add(selectionBox).expand().align(Align.bottom).pad(5f);
-        dialogRoot.add(dialogTable).expand().align(Align.bottom).pad(15f);
-
-        /*obc = new OptionBoxController(optionBox);
-        dcontroller = new DialogController(dialogBox, optionBox);
-        multiplexer.addProcessor(obc);
-        multiplexer.addProcessor(dcontroller);
-        Gdx.input.setInputProcessor(multiplexer);*/
-
-        /*dialog = new Dialog();
-        DialogNode node1 = new DialogNode("Привет! Это первая фраза", 0);
-        DialogNode node2 = new DialogNode("И это вторая?", 1);
-        DialogNode node3 = new DialogNode("Да, ты прав", 2);
-        DialogNode node4 = new DialogNode("Неа, не угадал :(", 3);
-
-        node1.makeLinear(node2.getId());
-        node2.addChoice("Да", 2);
-        node2.addChoice("Нет", 3);
-
-        dialog.addNode(node1);
-        dialog.addNode(node2);
-        dialog.addNode(node3);
-        dialog.addNode(node4);
-        dcontroller.startDialog(dialog);*/
+        dialogRoot.add(dialogTable).expand().align(Align.top);
     }
 
     private void createLayers() {

@@ -14,7 +14,7 @@ import com.mygdx.game.battle.events.BattleEventPlayer;
 import com.mygdx.game.UI.DialogBox;
 import com.mygdx.game.UI.OptionBox;
 import com.mygdx.game.MyGdxGame;
-import com.mygdx.game.battle.render.BattleRenderer;
+import com.mygdx.game.battle.render_controller.BattleRenderer;
 import com.mygdx.game.entities.BattleEntity;
 import com.mygdx.game.handlers.GameStateManager;
 
