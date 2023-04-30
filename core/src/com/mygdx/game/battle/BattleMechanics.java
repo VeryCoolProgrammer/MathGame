@@ -18,9 +18,6 @@ public class BattleMechanics {
     }*/
 
     public boolean isFirst(BattleEntity player, BattleEntity enemy){
-        /*if (player.getStats(STAT.FIRST) == enemy.getStats(STAT.FIRST)) {
-            return true;
-        }*/
         return true;
     }
     public boolean attemptHit(Step step, BattleEntity user, BattleEntity enemy) {
@@ -48,7 +45,7 @@ public class BattleMechanics {
         float base = step.getDamage();
 
         int damage = (int) (((2f*level+10f)/250f * (float)attack/defence * base + 2)); //?
-
+        System.out.println(damage + " damage");
         return damage;
     }
 

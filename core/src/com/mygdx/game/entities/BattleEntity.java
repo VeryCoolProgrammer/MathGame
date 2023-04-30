@@ -27,7 +27,6 @@ public class BattleEntity {
             stats.put(stat, 15);
         }
         stats.put(STAT.HP, 10);
-        System.out.println(STAT.HP);
         currentHP = stats.get(STAT.HP);
     }
 
@@ -50,6 +49,10 @@ public class BattleEntity {
 
     public boolean isDefeated(){
         return currentHP == 0;
+    }
+
+    public int getCurrentHP() {
+        return currentHP;
     }
 
     public String getName() {

@@ -8,6 +8,7 @@ import java.util.Stack;
 
 public class GameStateManager {
     private MyGdxGame game;
+    private Play play;
     private Stack<GameState> gameStates;
     public static final int PLAY = 912837;
     public static final int MENU = 0;
@@ -17,6 +18,7 @@ public class GameStateManager {
     public GameStateManager(MyGdxGame game) {
         this.game = game;
         gameStates = new Stack<GameState>();
+        play = new Play(this);
         pushState(PLAY);
     }
 
@@ -33,7 +35,7 @@ public class GameStateManager {
 
     private GameState getState(int state){
         if (state == PLAY) {
-            return new Play(this);
+            return play;
         } else if (state == MENU) {
             return new Menu(this);
         } else if (state == BATTLE) {

@@ -24,10 +24,6 @@ public class StepDatabase {
         mappings.put(step.getName(), steps.size()-1);
     }
 
-    /*public Step getSteps(String stepName) {
-        return steps.get(mappings.get(stepName)).clone(); ???
-    }*/
-
     public Step getSteps(int index) {
         return steps.get(index).clone();
     }

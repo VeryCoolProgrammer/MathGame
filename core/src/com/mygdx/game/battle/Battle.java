@@ -30,7 +30,7 @@ public class Battle implements BattleEventQueue {
     }
 
     public void beginBattle(){
-        queueEvent(new B_TextEvent("хехехехехех!", 1f));
+        queueEvent(new B_TextEvent("хехехехехех!", true));
     }
 
     public void progress(int input){
@@ -39,9 +39,11 @@ public class Battle implements BattleEventQueue {
         }
         if(mechanics.isFirst(player, enemy)){
             playTurn(ENTITY_LIST.PLAYER, input);
-            if (state == STATE.READY_TO_PROGRESS) {
+            System.out.println(player.getCurrentHP() + " " + enemy.getCurrentHP());
+            /*if (state == STATE.READY_TO_PROGRESS) { ???
+                System.out.println("enemy");
                 playTurn(ENTITY_LIST.ENEMY, 0);
-            }
+            }*/
         }
     }
 
@@ -60,10 +62,21 @@ public class Battle implements BattleEventQueue {
 
         Step step = battleUser.getSteps(input);
 
-        queueEvent(new B_TextEvent(battleUser.getName()+" used\n"+step.getName()+"!", 0.5f));
+        queueEvent(new B_TextEvent("Атака!", true));
 
         if(mechanics.attemptHit(step, battleUser, battleTarget)){
             step.useMove(mechanics, battleUser, battleTarget, this);
+        }
+
+        if(player.isDefeated()){
+            boolean isAlive = false;
+            if(isAlive){
+                queueEvent(new B_TextEvent("Прогирал...", true));
+                this.state = STATE.LOSE;
+            }
+        } else if(enemy.isDefeated()){
+            queueEvent(new B_TextEvent("Победа!", true));
+            this.state = STATE.WIN;
         }
     }
 

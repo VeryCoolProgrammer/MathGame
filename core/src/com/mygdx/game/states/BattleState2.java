@@ -98,6 +98,7 @@ public class BattleState2 extends GameState implements BattleEventPlayer {
 
     @Override
     public void update(float dt) {
+        //System.out.println(battle.getState() + " " + currentEvent);
         world.step(dt, 6, 2);
         //dcontroller.update(dt);
         //bcontroller.update(dt); <----- only selectionBox
@@ -106,6 +107,12 @@ public class BattleState2 extends GameState implements BattleEventPlayer {
                 currentEvent = null;
                 if(battle.getState() == Battle.STATE.READY_TO_PROGRESS){
                     bcontroller.restart();
+                } else if (battle.getState() == Battle.STATE.RUN) {
+                    gsm.setState(GameStateManager.PLAY);
+                } else if (battle.getState() == Battle.STATE.WIN) {
+                    gsm.setState(GameStateManager.PLAY);
+                } else if (battle.getState() == Battle.STATE.LOSE) {
+                    gsm.setState(GameStateManager.PLAY);
                 } else if (battle.getState() == Battle.STATE.RUN) {
                     gsm.setState(GameStateManager.PLAY);
                 }
