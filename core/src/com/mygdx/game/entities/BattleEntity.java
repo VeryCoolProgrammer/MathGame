@@ -2,6 +2,8 @@ package com.mygdx.game.entities;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.mygdx.game.battle.STAT;
+import com.mygdx.game.battle.examples.Example;
+import com.mygdx.game.battle.examples.ExampleDatabase;
 import com.mygdx.game.battle.steps.Step;
 import com.mygdx.game.battle.steps.StepDatabase;
 import com.mygdx.game.battle.steps.StepsDetails;
@@ -15,6 +17,7 @@ public class BattleEntity {
     private Map<STAT, Integer> stats;
     private int currentHP;
     private Step[] steps = new Step[4];
+    private Example[] examples = new Example[5];
     private Texture tex;
 
     public BattleEntity(String name, Texture tex){
@@ -30,12 +33,18 @@ public class BattleEntity {
         currentHP = stats.get(STAT.HP);
     }
 
-    public static BattleEntity generateEntity(String name, Texture tex, StepDatabase stepDatabase) {
+    public static BattleEntity generateEntity(String name, Texture tex, StepDatabase stepDatabase, ExampleDatabase exampleDatabase) {
         BattleEntity entity = new BattleEntity(name, tex);
         entity.setSteps(0, stepDatabase.getSteps(0));
         entity.setSteps(1, stepDatabase.getSteps(1));
         entity.setSteps(2, stepDatabase.getSteps(2));
         entity.setSteps(3, stepDatabase.getSteps(3));
+
+        entity.setExamples(1, exampleDatabase.getExample(0));
+        entity.setExamples(2, exampleDatabase.getExample(1));
+        entity.setExamples(3, exampleDatabase.getExample(2));
+        entity.setExamples(4, exampleDatabase.getExample(3));
+        entity.setExamples(5, exampleDatabase.getExample(4));
 
         return entity;
     }
@@ -95,4 +104,11 @@ public class BattleEntity {
         return steps[index].getStepDetails();
     }
 
+    public Example getExamples(int index) {
+        return examples[index].clone();
+    }
+
+    public void setExamples(int index, Example example) {
+        examples[index] = example;
+    }
 }

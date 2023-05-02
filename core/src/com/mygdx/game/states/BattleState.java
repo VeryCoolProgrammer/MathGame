@@ -21,7 +21,7 @@ import com.mygdx.game.handlers.GameStateManager;
 import java.util.ArrayDeque;
 import java.util.Queue;
 
-public class BattleState extends GameState implements BattleEventPlayer {
+/*public class BattleState extends GameState implements BattleEventPlayer {
     private MyGdxGame game;
     private BattleEvent currentEvent;
     private Queue<BattleEvent> queue = new ArrayDeque<BattleEvent>();
@@ -117,4 +117,4 @@ public class BattleState extends GameState implements BattleEventPlayer {
     public void queueEvent(BattleEvent event) {
 
     }
-}
+}*/

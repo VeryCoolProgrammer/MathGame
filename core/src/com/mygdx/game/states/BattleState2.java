@@ -76,8 +76,8 @@ public class BattleState2 extends GameState implements BattleEventPlayer {
 
         tex = MyGdxGame.res.getTexture("gnomik");
         tex = MyGdxGame.res.getTexture("enemy");
-        battle = new Battle(BattleEntity.generateEntity("player", tex, game.getStepDatabase()),
-                BattleEntity.generateEntity("enemy", texEnemy, game.getStepDatabase()));
+        battle = new Battle(BattleEntity.generateEntity("player", tex, game.getStepDatabase(), game.getExampleDatabase()),
+                BattleEntity.generateEntity("enemy", texEnemy, game.getStepDatabase(), game.getExampleDatabase()));
         battle.setEventPlayer(this);
 
         //battleRenderer = new BattleRenderer(game.getAssetManager());
@@ -106,7 +106,7 @@ public class BattleState2 extends GameState implements BattleEventPlayer {
             if (queue.peek() == null) {
                 currentEvent = null;
                 if(battle.getState() == Battle.STATE.READY_TO_PROGRESS){
-                    bcontroller.restart();
+                    bcontroller.restart(); // <-----
                 } else if (battle.getState() == Battle.STATE.RUN) {
                     gsm.setState(GameStateManager.PLAY);
                 } else if (battle.getState() == Battle.STATE.WIN) {

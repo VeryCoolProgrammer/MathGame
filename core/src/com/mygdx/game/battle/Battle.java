@@ -4,6 +4,8 @@ import com.mygdx.game.battle.events.B_TextEvent;
 import com.mygdx.game.battle.events.BattleEvent;
 import com.mygdx.game.battle.events.BattleEventPlayer;
 import com.mygdx.game.battle.events.BattleEventQueue;
+import com.mygdx.game.battle.examples.EXAMPLE_LIST;
+import com.mygdx.game.battle.examples.Example;
 import com.mygdx.game.battle.steps.Step;
 import com.mygdx.game.entities.BattleEntity;
 import com.mygdx.game.entities.Player;
@@ -61,7 +63,7 @@ public class Battle implements BattleEventQueue {
 
         Step step = battleUser.getSteps(input);
 
-        queueEvent(new B_TextEvent("Атака!", true));
+        queueEvent(new B_TextEvent("Молодец!", true));
 
         if(mechanics.attemptHit(step, battleUser, battleTarget)){
             step.useMove(mechanics, battleUser, battleTarget, this);
@@ -74,8 +76,16 @@ public class Battle implements BattleEventQueue {
                 this.state = STATE.LOSE;
             }
         } else if(enemy.isDefeated()){
-            queueEvent(new B_TextEvent("Победа!", true));
+            queueEvent(new B_TextEvent("Ура, победа!", true));
             this.state = STATE.WIN;
+        }
+    }
+
+    public void playExamples(Example example, int input){
+        if(example.getList() == EXAMPLE_LIST.EXAMPLE_1){
+            queueEvent(new B_TextEvent(example.getName(), true));
+        } else if(example.getList() == EXAMPLE_LIST.EXAMPLE_2){
+            queueEvent(new B_TextEvent(example.getName(), true));
         }
     }
 

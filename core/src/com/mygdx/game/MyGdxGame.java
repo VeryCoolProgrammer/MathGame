@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.mygdx.game.battle.examples.ExampleDatabase;
 import com.mygdx.game.battle.steps.StepDatabase;
 import com.mygdx.game.handlers.*;
 import com.mygdx.game.inputs.GameKeys;
@@ -26,6 +27,7 @@ public class MyGdxGame implements ApplicationListener {
 	public static Content res;
 	private Skin skin;
 	private StepDatabase stepDatabase;
+	private ExampleDatabase exampleDatabase;
 
 	public void create () {
 		//Gdx.input.setInputProcessor(new MyInputProcessor());
@@ -50,6 +52,7 @@ public class MyGdxGame implements ApplicationListener {
 		hudcam.setToOrtho(false, V_WIDTH, V_HEIGHT);
 		gsm = new GameStateManager(this);
 		stepDatabase = new StepDatabase();
+		exampleDatabase = new ExampleDatabase();
 	}
 
 	public void render () {
@@ -89,5 +92,8 @@ public class MyGdxGame implements ApplicationListener {
 	}
 	public StepDatabase getStepDatabase() {
 		return stepDatabase;
+	}
+	public ExampleDatabase getExampleDatabase(){
+		return exampleDatabase;
 	}
 }
