@@ -89,6 +89,7 @@ public class BattleScreenController extends InputAdapter {
     }
 
     public void restart() {
+        battle.playExamples(battle.getPlayer().getExamples(battle.currentIndex));
         this.state = STATE.SELECT_ACTION;
         dialogBox.setVisible(false);
         for (int i = 0; i <= 3; i++) {

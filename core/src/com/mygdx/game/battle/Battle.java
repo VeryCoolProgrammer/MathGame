@@ -23,7 +23,7 @@ public class Battle implements BattleEventQueue {
     private BattleEntity player;
     private BattleEntity enemy;
     private BattleMechanics mechanics;
-    private int currentIndex;
+    public int currentIndex;
 
     public Battle(BattleEntity player, BattleEntity enemy){
         this.player = player;
@@ -65,7 +65,7 @@ public class Battle implements BattleEventQueue {
 
         Step step = battleUser.getSteps(input);
 
-        playExamples(battleUser.getExamples(currentIndex)); //вызов метода в другое место поставить
+        //playExamples(battleUser.getExamples(currentIndex)); //вызов метода в другое место поставить
 
         queueEvent(new B_TextEvent("Молодец!", true));
 
