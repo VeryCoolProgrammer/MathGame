@@ -83,12 +83,7 @@ public class Battle implements BattleEventQueue {
         }
     }
 
-    public Example nextExample(int input){
-        Example currentExample = player.getExamples(input);
-        return currentExample;
-    }
-
-    public void playExamples(Example example){
+    public void playExamples(Example example){ //if else???
         System.out.println(example.getList());
         Example thisEx = example;
         if(example.getList() == EXAMPLE_LIST.EXAMPLE_1){
