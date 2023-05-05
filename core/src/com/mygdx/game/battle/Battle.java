@@ -65,8 +65,6 @@ public class Battle implements BattleEventQueue {
 
         Step step = battleUser.getSteps(input);
 
-        //playExamples(battleUser.getExamples(currentIndex)); //вызов метода в другое место поставить
-
         queueEvent(new B_TextEvent("Молодец!", true));
 
         if(mechanics.attemptHit(step, battleUser, battleTarget)){
