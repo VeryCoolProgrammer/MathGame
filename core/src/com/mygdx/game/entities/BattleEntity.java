@@ -17,7 +17,7 @@ public class BattleEntity {
     private Map<STAT, Integer> stats;
     private int currentHP;
     private Step[] steps = new Step[4];
-    private Example[] examples = new Example[5];
+    private Example[] examples = new Example[6];
     private Texture tex;
 
     public BattleEntity(String name, Texture tex){

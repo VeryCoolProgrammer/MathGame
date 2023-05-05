@@ -19,6 +19,10 @@ public abstract class Example {
         return details.getExampleList();
     }
 
+    public void setList(EXAMPLE_LIST exampleList) {
+        details.setExampleList(exampleList);
+    }
+
     public ExampleDetails getExampleDetails() {
         return details;
     }

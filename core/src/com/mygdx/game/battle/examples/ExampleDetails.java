@@ -15,6 +15,10 @@ public class ExampleDetails {
       return exampleList;
    }
 
+   public void setExampleList(EXAMPLE_LIST exampleList) {
+      this.exampleList = exampleList;
+   }
+
    public String getName() {
       return name;
    }

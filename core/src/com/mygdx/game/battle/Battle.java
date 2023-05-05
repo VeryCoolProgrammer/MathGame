@@ -23,12 +23,14 @@ public class Battle implements BattleEventQueue {
     private BattleEntity player;
     private BattleEntity enemy;
     private BattleMechanics mechanics;
+    private int currentIndex;
 
     public Battle(BattleEntity player, BattleEntity enemy){
         this.player = player;
         this.enemy = enemy;
         mechanics = new BattleMechanics();
         this.state = STATE.READY_TO_PROGRESS;
+        currentIndex = 1;
     }
 
     public void beginBattle(){
@@ -41,7 +43,7 @@ public class Battle implements BattleEventQueue {
         }
         if(mechanics.isFirst(player, enemy)){
             playTurn(ENTITY_LIST.PLAYER, input);
-            System.out.println(player.getCurrentHP() + " " + enemy.getCurrentHP());
+            System.out.println(player.getCurrentHP() + " HP " + enemy.getCurrentHP());
             /*if (state == STATE.READY_TO_PROGRESS) { ???
                 System.out.println("enemy");
                 playTurn(ENTITY_LIST.ENEMY, 0);
@@ -63,6 +65,8 @@ public class Battle implements BattleEventQueue {
 
         Step step = battleUser.getSteps(input);
 
+        playExamples(battleUser.getExamples(currentIndex)); //вызов метода в другое место поставить
+
         queueEvent(new B_TextEvent("Молодец!", true));
 
         if(mechanics.attemptHit(step, battleUser, battleTarget)){
@@ -81,11 +85,29 @@ public class Battle implements BattleEventQueue {
         }
     }
 
-    public void playExamples(Example example, int input){
+    public Example nextExample(int input){
+        Example currentExample = player.getExamples(input);
+        return currentExample;
+    }
+
+    public void playExamples(Example example){
+        System.out.println(example.getList());
+        Example thisEx = example;
         if(example.getList() == EXAMPLE_LIST.EXAMPLE_1){
-            queueEvent(new B_TextEvent(example.getName(), true));
+            queueEvent(new B_TextEvent(thisEx.getName(), true));
+            currentIndex++;
         } else if(example.getList() == EXAMPLE_LIST.EXAMPLE_2){
-            queueEvent(new B_TextEvent(example.getName(), true));
+            queueEvent(new B_TextEvent(thisEx.getName(), true));
+            currentIndex++;
+        } else if(example.getList() == EXAMPLE_LIST.EXAMPLE_3){
+            queueEvent(new B_TextEvent(thisEx.getName(), true));
+            currentIndex++;
+        } else if(example.getList() == EXAMPLE_LIST.EXAMPLE_4){
+            queueEvent(new B_TextEvent(thisEx.getName(), true));
+            currentIndex++;
+        } else if(example.getList() == EXAMPLE_LIST.EXAMPLE_5){
+            queueEvent(new B_TextEvent(thisEx.getName(), true));
+            currentIndex++;
         }
     }
 
