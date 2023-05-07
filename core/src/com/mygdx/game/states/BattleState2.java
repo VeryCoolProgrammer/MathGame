@@ -16,10 +16,9 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.game.Dialog.*;
 import com.mygdx.game.MyGdxGame;
-import com.mygdx.game.UI.DialogBox;
-import com.mygdx.game.UI.OptionBox;
-import com.mygdx.game.UI.SelectionBox;
+import com.mygdx.game.UI.*;
 import com.mygdx.game.battle.Battle;
+import com.mygdx.game.battle.ENTITY_LIST;
 import com.mygdx.game.battle.events.BattleEvent;
 import com.mygdx.game.battle.events.BattleEventPlayer;
 import com.mygdx.game.battle.render_controller.BattleRenderer;
@@ -45,14 +44,16 @@ public class BattleState2 extends GameState implements BattleEventPlayer {
     private MyContactListener cl;
     // UI
     private Stage uiStage;
-    private Dialog dialog;
     private Table dialogRoot;
     private DialogBox dialogBox;
     private OptionBox optionBox;
     private Table selectionRoot;
+    private Table statusBoxRoot;
     private SelectionBox selectionBox;
     private OptionBoxController obc;
     private DialogController dcontroller;
+    private StatusBox statusBox;
+    private PlayerStatusBox playerStatus;
     // END UI
     private BattleScreenController bcontroller;
     private InputMultiplexer multiplexer;
@@ -70,14 +71,14 @@ public class BattleState2 extends GameState implements BattleEventPlayer {
         cl = new MyContactListener();
         world.setContactListener(cl);
         game = gsm.game();
-        multiplexer = new InputMultiplexer();
+        multiplexer = new InputMultiplexer(); //не нужен(?)
 
         cam.setBounds(0, 4864, 0, 2688);
 
         tex = MyGdxGame.res.getTexture("gnomik");
         tex = MyGdxGame.res.getTexture("enemy");
-        battle = new Battle(BattleEntity.generateEntity("player", tex, game.getStepDatabase(), game.getExampleDatabase()),
-                BattleEntity.generateEntity("enemy", texEnemy, game.getStepDatabase(), game.getExampleDatabase()));
+        battle = new Battle(BattleEntity.generateEntity("Игрок", tex, game.getStepDatabase(), game.getExampleDatabase()),
+                BattleEntity.generateEntity("Враг", texEnemy, game.getStepDatabase(), game.getExampleDatabase()));
         battle.setEventPlayer(this);
 
         //battleRenderer = new BattleRenderer(game.getAssetManager());
@@ -166,6 +167,10 @@ public class BattleState2 extends GameState implements BattleEventPlayer {
         selectionRoot.setFillParent(true);
         uiStage.addActor(selectionRoot);
 
+        statusBoxRoot = new Table();
+        statusBoxRoot.setFillParent(true);
+        uiStage.addActor(statusBoxRoot);
+
         dialogBox = new DialogBox(game.getSkin());
         dialogBox.setVisible(false);
 
@@ -175,8 +180,14 @@ public class BattleState2 extends GameState implements BattleEventPlayer {
         selectionBox = new SelectionBox(game.getSkin());
         selectionBox.setVisible(false);
 
+        playerStatus = new PlayerStatusBox(game.getSkin());
+        playerStatus.setText(battle.getPlayer().getName());
+
+        statusBox = new StatusBox(game.getSkin());
+        statusBox.setText(battle.getEnemy().getName());
+
         Table dialogTable = new Table();
-            dialogTable.add(dialogBox)
+        dialogTable.add(dialogBox)
                 .expand().align(Align.top)
                 .space(8f)
                 .row();
@@ -187,6 +198,8 @@ public class BattleState2 extends GameState implements BattleEventPlayer {
 
         selectionRoot.add(selectionBox).expand().align(Align.bottom).pad(5f);
         dialogRoot.add(dialogTable).expand().align(Align.top);
+        statusBoxRoot.add(statusBox).expand().align(Align.topLeft).pad(10f);
+        statusBoxRoot.add(playerStatus).expand().align(Align.topRight).pad(10f);
     }
 
     private void createLayers() {
@@ -220,6 +233,17 @@ public class BattleState2 extends GameState implements BattleEventPlayer {
     @Override
     public DialogBox getDialogBox() {
         return dialogBox;
+    }
+
+    @Override
+    public StatusBox getStatusBox(ENTITY_LIST entityList) {
+        if (entityList == ENTITY_LIST.PLAYER) {
+            return playerStatus;
+        } else if (entityList == ENTITY_LIST.ENEMY) {
+            return statusBox;
+        } else {
+            return null;
+        }
     }
 
     @Override

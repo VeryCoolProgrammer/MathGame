@@ -48,12 +48,12 @@ public class Battle implements BattleEventQueue {
         if(mechanics.isFirst(player, enemy)){
             playTurn(ENTITY_LIST.PLAYER, input);
             System.out.println(player.getCurrentHP() + " HP " + enemy.getCurrentHP());
-            /*if (state == STATE.READY_TO_PROGRESS) { ???
-                System.out.println("enemy");
+            if (state == STATE.READY_TO_PROGRESS) {
                 playTurn(ENTITY_LIST.ENEMY, 0);
-            }*/
+            }
         }
     }
+
     private void playTurn(ENTITY_LIST entity, int input){
         ENTITY_LIST list = ENTITY_LIST.getEntities(entity);
         BattleEntity battleUser = null;
@@ -69,10 +69,10 @@ public class Battle implements BattleEventQueue {
 
         Step step = battleUser.getSteps(input);
 
-        queueEvent(new B_TextEvent("Молодец!", true));
+        queueEvent(new B_TextEvent(battleUser.getName() + " атакует!", 0.5f));
 
         if(mechanics.attemptHit(step, battleUser, battleTarget)){
-            step.useMove(mechanics, battleUser, battleTarget, this);
+            step.useMove(mechanics, battleUser, battleTarget, entity, this);
         }
 
         if(player.isDefeated()){
@@ -88,8 +88,7 @@ public class Battle implements BattleEventQueue {
     }
 
     public void playAnswers(StepsDetails steps, SelectionBox selectionBox){
-        System.out.println(currentAnswer + " currentIndex");
-        StepsDetails details = steps;
+        System.out.println(currentAnswer + " currentAnswer");
         for (int i = 0; i <= 3; i++) {
             String label = "---";
             steps = player.getDetails(currentAnswer + i);

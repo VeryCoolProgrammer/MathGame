@@ -1,17 +1,19 @@
 package com.mygdx.game.battle.steps;
 
 import com.mygdx.game.battle.BattleMechanics;
+import com.mygdx.game.battle.ENTITY_LIST;
 import com.mygdx.game.battle.events.BattleEventQueue;
 import com.mygdx.game.entities.BattleEntity;
 
 public abstract class Step {
     protected StepsDetails details;
+    //protected Class<? extends BattleAnimation> animationClass;
 
     public Step(StepsDetails details){
         this.details = details;
     }
 
-    public int useMove(BattleMechanics mechanics, BattleEntity user, BattleEntity enemy, BattleEventQueue eventQueue){
+    public int useMove(BattleMechanics mechanics, BattleEntity user, BattleEntity enemy, ENTITY_LIST list, BattleEventQueue eventQueue){
         int damage = mechanics.calculateDamage(this, user, enemy);
         enemy.applyDamage(damage);
         return damage;

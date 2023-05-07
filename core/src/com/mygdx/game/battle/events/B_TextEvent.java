@@ -45,8 +45,8 @@ public class B_TextEvent extends BattleEvent{
                 }
             } else {
                 timer += dt;
-                if (timer >= dt){
-                    timer = dt;
+                if (timer >= delay){
+                    timer = delay;
                     finished = true;
                 }
             }
