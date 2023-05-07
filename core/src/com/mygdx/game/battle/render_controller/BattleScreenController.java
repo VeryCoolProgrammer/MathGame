@@ -92,14 +92,15 @@ public class BattleScreenController extends InputAdapter {
         battle.playExamples(battle.getPlayer().getExamples(battle.currentIndex));
         this.state = STATE.SELECT_ACTION;
         dialogBox.setVisible(false);
-        for (int i = 0; i <= 3; i++) {
+        battle.playAnswers(battle.getPlayer().getDetails(battle.currentAnswer), selectionBox);
+        /*for (int i = 0; i <= 3; i++) {
             String label = "------";
-            StepsDetails spec = battle.getPlayer().getDetails(i);
-            if (spec != null) {
-                label = spec.getName();
+            StepsDetails details = battle.getPlayer().getDetails(i);
+            if (details != null) {
+                label = details.getName();
             }
             selectionBox.setLabel(i, label);
-        }
+        }*/
         selectionBox.setVisible(true);
     }
 

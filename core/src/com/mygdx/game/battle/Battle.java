@@ -1,5 +1,6 @@
 package com.mygdx.game.battle;
 
+import com.mygdx.game.UI.SelectionBox;
 import com.mygdx.game.battle.events.B_TextEvent;
 import com.mygdx.game.battle.events.BattleEvent;
 import com.mygdx.game.battle.events.BattleEventPlayer;
@@ -7,6 +8,7 @@ import com.mygdx.game.battle.events.BattleEventQueue;
 import com.mygdx.game.battle.examples.EXAMPLE_LIST;
 import com.mygdx.game.battle.examples.Example;
 import com.mygdx.game.battle.steps.Step;
+import com.mygdx.game.battle.steps.StepsDetails;
 import com.mygdx.game.entities.BattleEntity;
 import com.mygdx.game.entities.Player;
 
@@ -24,6 +26,7 @@ public class Battle implements BattleEventQueue {
     private BattleEntity enemy;
     private BattleMechanics mechanics;
     public int currentIndex;
+    public int currentAnswer;
 
     public Battle(BattleEntity player, BattleEntity enemy){
         this.player = player;
@@ -31,6 +34,7 @@ public class Battle implements BattleEventQueue {
         mechanics = new BattleMechanics();
         this.state = STATE.READY_TO_PROGRESS;
         currentIndex = 1;
+        currentAnswer = 0;
     }
 
     public void beginBattle(){
@@ -81,6 +85,20 @@ public class Battle implements BattleEventQueue {
             queueEvent(new B_TextEvent("Ура, победа!", true));
             this.state = STATE.WIN;
         }
+    }
+
+    public void playAnswers(StepsDetails steps, SelectionBox selectionBox){
+        System.out.println(currentAnswer + " currentIndex");
+        StepsDetails details = steps;
+        for (int i = 0; i <= 3; i++) {
+            String label = "---";
+            steps = player.getDetails(currentAnswer + i);
+            if (steps != null) {
+                label = steps.getName();
+            }
+            selectionBox.setLabel(i, label);
+        }
+        currentAnswer++;
     }
 
     public void playExamples(Example example){ //if else???

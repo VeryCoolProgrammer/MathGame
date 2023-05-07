@@ -16,7 +16,7 @@ public class BattleEntity {
     private int level;
     private Map<STAT, Integer> stats;
     private int currentHP;
-    private Step[] steps = new Step[4];
+    private Step[] steps = new Step[11];
     private Example[] examples = new Example[6];
     private Texture tex;
 
@@ -35,10 +35,15 @@ public class BattleEntity {
 
     public static BattleEntity generateEntity(String name, Texture tex, StepDatabase stepDatabase, ExampleDatabase exampleDatabase) {
         BattleEntity entity = new BattleEntity(name, tex);
-        entity.setSteps(0, stepDatabase.getSteps(0));
+
+        for (int i = 0; i < 10; i++){
+            entity.setSteps(i, stepDatabase.getSteps(i));
+        }
+
+        /*entity.setSteps(0, stepDatabase.getSteps(0));
         entity.setSteps(1, stepDatabase.getSteps(1));
         entity.setSteps(2, stepDatabase.getSteps(2));
-        entity.setSteps(3, stepDatabase.getSteps(3));
+        entity.setSteps(3, stepDatabase.getSteps(3));*/
 
         entity.setExamples(1, exampleDatabase.getExample(0));
         entity.setExamples(2, exampleDatabase.getExample(1));
