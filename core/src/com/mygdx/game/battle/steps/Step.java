@@ -3,6 +3,7 @@ package com.mygdx.game.battle.steps;
 import com.mygdx.game.battle.BattleMechanics;
 import com.mygdx.game.battle.ENTITY_LIST;
 import com.mygdx.game.battle.events.BattleEventQueue;
+import com.mygdx.game.battle.examples.EXAMPLE_LIST;
 import com.mygdx.game.entities.BattleEntity;
 
 public abstract class Step {
@@ -37,6 +38,13 @@ public abstract class Step {
 
     public StepsDetails getStepDetails() {
         return details;
+    }
+
+    public STEP_BOOLEAN getStepBoolean(){
+        return details.getStepBoolean();
+    }
+    public void setStepBoolean(STEP_BOOLEAN stepBoolean) {
+        details.setStepBoolean(stepBoolean);
     }
 
     public abstract Step clone();

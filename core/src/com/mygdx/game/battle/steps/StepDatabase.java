@@ -13,16 +13,16 @@ public class StepDatabase {
     }
 
     private void initializeSteps() {
-        addStep(new DamageStep(new StepsDetails(STEP_TYPE.DEFAULT, 10, "ответ1")));
-        addStep(new DamageStep(new StepsDetails(STEP_TYPE.DEFAULT, 10, "ответ2")));
-        addStep(new DamageStep(new StepsDetails(STEP_TYPE.DEFAULT, 10, "ответ3")));
-        addStep(new DamageStep(new StepsDetails(STEP_TYPE.SPECIAL, 15, "ответ4")));
-        addStep(new DamageStep(new StepsDetails(STEP_TYPE.DEFAULT, 10, "ответ5")));
-        addStep(new DamageStep(new StepsDetails(STEP_TYPE.DEFAULT, 10, "ответ6")));
-        addStep(new DamageStep(new StepsDetails(STEP_TYPE.DEFAULT, 10, "ответ7")));
-        addStep(new DamageStep(new StepsDetails(STEP_TYPE.SPECIAL, 15, "ответ8")));
-        addStep(new DamageStep(new StepsDetails(STEP_TYPE.DEFAULT, 10, "ответ9")));
-        addStep(new DamageStep(new StepsDetails(STEP_TYPE.SPECIAL, 15, "ответ10")));
+        addStep(new DamageStep(new StepsDetails(STEP_TYPE.DEFAULT, 10, "ответ1", STEP_BOOLEAN.WRONG)));
+        addStep(new DamageStep(new StepsDetails(STEP_TYPE.DEFAULT, 10, "ответ2", STEP_BOOLEAN.WRONG)));
+        addStep(new DamageStep(new StepsDetails(STEP_TYPE.DEFAULT, 10, "ответ3", STEP_BOOLEAN.WRONG)));
+        addStep(new DamageStep(new StepsDetails(STEP_TYPE.SPECIAL, 15, "ответ4", STEP_BOOLEAN.WRONG)));
+        addStep(new DamageStep(new StepsDetails(STEP_TYPE.DEFAULT, 10, "ответ5", STEP_BOOLEAN.WRONG)));
+        addStep(new DamageStep(new StepsDetails(STEP_TYPE.DEFAULT, 10, "ответ6", STEP_BOOLEAN.WRONG)));
+        addStep(new DamageStep(new StepsDetails(STEP_TYPE.DEFAULT, 10, "ответ7", STEP_BOOLEAN.WRONG)));
+        addStep(new DamageStep(new StepsDetails(STEP_TYPE.SPECIAL, 15, "ответ8", STEP_BOOLEAN.WRONG)));
+        addStep(new DamageStep(new StepsDetails(STEP_TYPE.DEFAULT, 10, "ответ9", STEP_BOOLEAN.WRONG)));
+        addStep(new DamageStep(new StepsDetails(STEP_TYPE.SPECIAL, 15, "ответ10", STEP_BOOLEAN.WRONG)));
     }
 
     public void addStep(Step step){

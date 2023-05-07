@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.mygdx.game.battle.STAT;
 import com.mygdx.game.battle.examples.Example;
 import com.mygdx.game.battle.examples.ExampleDatabase;
+import com.mygdx.game.battle.steps.STEP_BOOLEAN;
 import com.mygdx.game.battle.steps.Step;
 import com.mygdx.game.battle.steps.StepDatabase;
 import com.mygdx.game.battle.steps.StepsDetails;
@@ -16,7 +17,7 @@ public class BattleEntity {
     private int level;
     private Map<STAT, Integer> stats;
     private int currentHP;
-    private Step[] steps = new Step[11];
+    private Step[] steps = new Step[10];
     private Example[] examples = new Example[6];
     private Texture tex;
 
@@ -45,7 +46,7 @@ public class BattleEntity {
         entity.setSteps(2, stepDatabase.getSteps(2));
         entity.setSteps(3, stepDatabase.getSteps(3));*/
 
-        entity.setExamples(1, exampleDatabase.getExample(0));
+        entity.setExamples(1, exampleDatabase.getExample(0)); //setExamples начинается с 1, а должен с 0 <-- fix?
         entity.setExamples(2, exampleDatabase.getExample(1));
         entity.setExamples(3, exampleDatabase.getExample(2));
         entity.setExamples(4, exampleDatabase.getExample(3));
@@ -107,6 +108,14 @@ public class BattleEntity {
 
     public StepsDetails getDetails(int index) {
         return steps[index].getStepDetails();
+    }
+
+    public STEP_BOOLEAN getBoolean(int index) {
+        return steps[index].getStepBoolean();
+    }
+
+    public void setStepBoolean(int index, STEP_BOOLEAN stepBoolean){
+        steps[index].setStepBoolean(stepBoolean);
     }
 
     public Example getExamples(int index) {
