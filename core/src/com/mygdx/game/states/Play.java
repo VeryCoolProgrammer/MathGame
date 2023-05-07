@@ -4,6 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.maps.MapLayer;
+import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -20,7 +23,9 @@ import com.mygdx.game.Dialog.Dialog;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.UI.DialogBox;
 import com.mygdx.game.UI.OptionBox;
+import com.mygdx.game.entities.Boss;
 import com.mygdx.game.entities.Player;
+import com.mygdx.game.handlers.B2DVars;
 import com.mygdx.game.handlers.BoundedCamera;
 import com.mygdx.game.handlers.MyContactListener;
 import com.mygdx.game.handlers.GameStateManager;
@@ -40,6 +45,7 @@ public class Play extends GameState implements StateMethods{
     private BoundedCamera b2dCam;
     private MyContactListener cl;
     private Player player;
+    private Boss boss;
     private TiledMap tiledMap;
     private OrthogonalTiledMapRenderer tmr;
     private float tileSize;
@@ -54,6 +60,7 @@ public class Play extends GameState implements StateMethods{
     private InputMultiplexer multiplexer;
     private Dialog dialog;
     private DialogController dcontroller;
+    public boolean canDraw = false;
 
     public Play(GameStateManager gsm) {
         super(gsm);
@@ -81,6 +88,7 @@ public class Play extends GameState implements StateMethods{
         //initUI();
         createPlayer();
         createTiles();
+        createNPC();
 
         /*была часть из initUI()*/
 
@@ -100,11 +108,14 @@ public class Play extends GameState implements StateMethods{
         handleInput();
         world.step(dt, 6, 2);
         player.update(dt);
+        boss.update(dt);
         player.updatePL();
         if (Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
             gsm.setState(BATTLE);
         }
-        //uiStage.act(dt);
+        if(canDraw){
+            uiStage.act(dt);
+        }
         //dcontroller.update(dt);
     }
 
@@ -120,17 +131,20 @@ public class Play extends GameState implements StateMethods{
         tmr.setView(cam);
         tmr.render();
 
-        //draw player
+        //draw player and npc
         sb.setProjectionMatrix(cam.combined);
         player.render(sb);
+        boss.render(sb);
 
-        //draw box?     ---need fix---
+        //draw box?     ---need fix?---
         if (debug) {
             b2dCam.setPosition(player.getPosition().x * PPM + MyGdxGame.V_WIDTH /35, player.getPosition().y * PPM + MyGdxGame.V_HEIGHT /35);
             b2dCam.update();
             b2dr.render(world, b2dCam.combined);
         }
-        //uiStage.draw();
+        if(canDraw) {
+            uiStage.draw();
+        }
     }
 
     @Override
@@ -208,6 +222,32 @@ public class Play extends GameState implements StateMethods{
                 world.createBody(bdef).createFixture(fdef);
                 cs.dispose();
             }
+        }
+    }
+    private void createNPC() {
+        MapLayer mlayer = tiledMap.getLayers().get("npcLayer");
+        if(mlayer == null) return;
+
+        for(MapObject mo : mlayer.getObjects()) {
+            BodyDef bdef = new BodyDef();
+            bdef.type = BodyDef.BodyType.StaticBody;
+            float x = (float) mo.getProperties().get("x") / PPM * 4;
+            float y = (float) mo.getProperties().get("y") / PPM * 4;
+            bdef.position.set(x, y);
+
+            Body body = world.createBody(bdef);
+            FixtureDef cdef = new FixtureDef();
+            CircleShape cshape = new CircleShape();
+            cshape.setRadius(50f / PPM);
+            cdef.shape = cshape;
+            cdef.isSensor = true;
+            cdef.filter.categoryBits = BIT_TROPA;
+            cdef.filter.maskBits = BIT_PLAYER;
+            cshape.dispose();
+
+            body.createFixture(cdef).setUserData("npc");
+            boss = new Boss(body);
+            body.setUserData(boss);
         }
     }
 

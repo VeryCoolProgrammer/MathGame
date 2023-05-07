@@ -4,8 +4,11 @@ import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
+import com.mygdx.game.MyGdxGame;
+import com.mygdx.game.states.Play;
 
 public class MyContactListener implements com.badlogic.gdx.physics.box2d.ContactListener {
+    private Play play;
     @Override
     public void beginContact(Contact c) {
         Fixture fa = c.getFixtureA();
@@ -16,6 +19,11 @@ public class MyContactListener implements com.badlogic.gdx.physics.box2d.Contact
         }
         if (fb.getUserData() != null && fb.getUserData().equals("foot")) {
             System.out.println("fb is foot");
+        }
+        if (fa.getUserData() != null && fb.getUserData().equals("npc")) {
+            System.out.println("npc contact");
+            play.canDraw = true;
+            //play.initUI();
         }
         //System.out.println(fa.getUserData() + ", " + fb.getUserData());
     }
