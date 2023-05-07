@@ -11,7 +11,6 @@ import com.mygdx.game.battle.steps.STEP_BOOLEAN;
 import com.mygdx.game.battle.steps.Step;
 import com.mygdx.game.battle.steps.StepsDetails;
 import com.mygdx.game.entities.BattleEntity;
-import com.mygdx.game.entities.Player;
 
 public class Battle implements BattleEventQueue {
     public enum STATE{
@@ -28,6 +27,7 @@ public class Battle implements BattleEventQueue {
     private BattleMechanics mechanics;
     public int currentIndex;
     public int currentAnswer;
+    public int currentStepNum;
     public boolean isRight = false;
 
     public Battle(BattleEntity player, BattleEntity enemy){
@@ -37,6 +37,7 @@ public class Battle implements BattleEventQueue {
         this.state = STATE.READY_TO_PROGRESS;
         currentIndex = 1;
         currentAnswer = 0;
+        currentStepNum = 0;
     }
 
     public void beginBattle(){
@@ -73,24 +74,22 @@ public class Battle implements BattleEventQueue {
 
         queueEvent(new B_TextEvent(battleUser.getName() + " атакует!", 0.5f));
 
-        if(player.getBoolean(input) == STEP_BOOLEAN.RIGHT && battleUser == player){
+        if(player.getBoolean(input + currentStepNum) == STEP_BOOLEAN.RIGHT && battleUser == player){
             if(mechanics.attemptHit(step, battleUser, battleTarget)){
                 step.useMove(mechanics, battleUser, battleTarget, entity, this);
             }
-        } else if(player.getBoolean(input) == STEP_BOOLEAN.WRONG && battleUser == player){
+        } else if(player.getBoolean(input + currentStepNum) == STEP_BOOLEAN.WRONG && battleUser == player){
             queueEvent(new B_TextEvent("Неправильный ответ. Промах!", 0.5f));
         } else if(battleUser == enemy){
             if(mechanics.attemptHit(step, battleUser, battleTarget)){
                 step.useMove(mechanics, battleUser, battleTarget, entity, this);
             }
+            currentStepNum++;
         }
 
         if(player.isDefeated()){
-            boolean isAlive = false;
-            if(isAlive){
-                queueEvent(new B_TextEvent("Прогирал...", true));
-                this.state = STATE.LOSE;
-            }
+            queueEvent(new B_TextEvent("Прогирал...", true));
+            this.state = STATE.LOSE;
         } else if(enemy.isDefeated()){
             queueEvent(new B_TextEvent("Ура, победа!", true));
             this.state = STATE.WIN;
@@ -100,7 +99,6 @@ public class Battle implements BattleEventQueue {
     public void playAnswers(StepsDetails steps, SelectionBox selectionBox){
         System.out.println(currentAnswer + " currentAnswer");
         for (int i = 0; i <= 3; i++) {
-            //checkBoolean(i);
             String label = "---";
             steps = player.getDetails(currentAnswer + i);
             if (steps != null) {
@@ -124,31 +122,20 @@ public class Battle implements BattleEventQueue {
             currentIndex++;
         } else if(example.getList() == EXAMPLE_LIST.EXAMPLE_2){
             queueEvent(new B_TextEvent(thisEx.getName(), true));
+            player.setStepBoolean(3, STEP_BOOLEAN.RIGHT);
             currentIndex++;
         } else if(example.getList() == EXAMPLE_LIST.EXAMPLE_3){
             queueEvent(new B_TextEvent(thisEx.getName(), true));
+            player.setStepBoolean(2, STEP_BOOLEAN.RIGHT);
             currentIndex++;
         } else if(example.getList() == EXAMPLE_LIST.EXAMPLE_4){
             queueEvent(new B_TextEvent(thisEx.getName(), true));
+            player.setStepBoolean(6, STEP_BOOLEAN.RIGHT);
             currentIndex++;
         } else if(example.getList() == EXAMPLE_LIST.EXAMPLE_5){
             queueEvent(new B_TextEvent(thisEx.getName(), true));
-            currentIndex++;
+            player.setStepBoolean(7, STEP_BOOLEAN.RIGHT);
         }
-    }
-
-    public void checkBoolean(int index){
-        switch (player.getBoolean(index)){
-            case RIGHT:
-                isRight = true;
-                break;
-            case WRONG:
-                isRight = false;
-                break;
-            default:
-                break;
-        }
-        System.out.println(isRight);
     }
 
     public BattleEntity getPlayer() {
