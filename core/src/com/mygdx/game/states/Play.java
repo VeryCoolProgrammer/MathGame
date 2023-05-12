@@ -76,7 +76,7 @@ public class Play extends GameState{ //implements StateMethods
         createTiles();
         createNPC();
 
-        //initFight();
+        initFight();
         /*была часть из initUI()*/
 
         cam.setBounds(0, tileMapWidth * tileSize * 4, 0, tileMapHeight * tileSize * 4);
@@ -100,10 +100,11 @@ public class Play extends GameState{ //implements StateMethods
         /*if (Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
             gsm.setState(BATTLE);
         }*/
-        if (cl.canGo) {
+        if (canDraw) {
             uiStage.act(dt);
             if(Gdx.input.isKeyPressed(Input.Keys.X) && dialogueBox.isFinished()){
                 gsm.setState(BATTLE);
+                canDraw = false;
             }
         }
         //dcontroller.update(dt);
@@ -132,7 +133,7 @@ public class Play extends GameState{ //implements StateMethods
             b2dCam.update();
             b2dr.render(world, b2dCam.combined);
         }
-        if(cl.canGo) {
+        if(canDraw) {
             uiStage.draw();
         }
     }
@@ -167,6 +168,7 @@ public class Play extends GameState{ //implements StateMethods
         player = new Player(body);
         body.setUserData(player);
     }
+
     private void createTiles() {
         tiledMap = new TmxMapLoader().load("sprites/mystic_woods_free_2.1/map.tmx");
         tmr = new OrthogonalTiledMapRenderer(tiledMap, 4); // !!!
@@ -180,6 +182,7 @@ public class Play extends GameState{ //implements StateMethods
         createLayer(layer, BIT_TROPA);
         //layer = (TiledMapTileLayer) tiledMap.getLayers().get("grass");
     }
+
     private void createLayer(TiledMapTileLayer layer, short bits){
         BodyDef bdef = new BodyDef();
         FixtureDef fdef = new FixtureDef();
@@ -214,6 +217,7 @@ public class Play extends GameState{ //implements StateMethods
             }
         }
     }
+
     private void createNPC() {
         MapLayer mlayer = tiledMap.getLayers().get("npcLayer");
         if(mlayer == null) return;

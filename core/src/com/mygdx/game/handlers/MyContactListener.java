@@ -10,10 +10,8 @@ import com.mygdx.game.states.Play;
 public class MyContactListener implements com.badlogic.gdx.physics.box2d.ContactListener {
     private Play play;
     private GameStateManager gsm;
-    public boolean canGo = false;
     public MyContactListener(GameStateManager gsm){
         this.gsm = gsm;
-        play = gsm.getPlay();
     }
     @Override
     public void beginContact(Contact c) {
@@ -27,10 +25,9 @@ public class MyContactListener implements com.badlogic.gdx.physics.box2d.Contact
             System.out.println("fb is foot");
         }
         if (fa.getUserData() != null && fb.getUserData().equals("npc")) {
+            play = gsm.getPlay();
             System.out.println("npc contact");
-            if(play.canDraw)
-                canGo = true;
-            //play.canDraw = true;
+            play.canDraw = true;
             //play.initUI();
         }
         //System.out.println(fa.getUserData() + ", " + fb.getUserData());

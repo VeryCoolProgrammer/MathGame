@@ -63,7 +63,7 @@ public class BattleEntity {
     }
 
     public boolean isDefeated(){
-        return currentHP == 0;
+        return currentHP == 10;
     }
 
     public int getCurrentHP() {

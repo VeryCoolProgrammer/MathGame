@@ -88,7 +88,7 @@ public class Battle implements BattleEventQueue {
         }
 
         if(player.isDefeated()){
-            queueEvent(new B_TextEvent("Прогирал...", true));
+            queueEvent(new B_TextEvent("Проиграл...", true));
             this.state = STATE.LOSE;
         } else if(enemy.isDefeated()){
             queueEvent(new B_TextEvent("Ура, победа!", true));
