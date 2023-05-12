@@ -55,4 +55,7 @@ public class GameStateManager {
         gameStates.push(getState(state));
     }
 
+    public Play getPlay() {
+        return play;
+    }
 }

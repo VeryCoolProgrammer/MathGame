@@ -41,7 +41,7 @@ public class Battle implements BattleEventQueue {
     }
 
     public void beginBattle(){
-        queueEvent(new B_TextEvent("хехехехехех!", true));
+        queueEvent(new B_TextEvent("Враг готов к атаке", true));
     }
 
     public void progress(int input){

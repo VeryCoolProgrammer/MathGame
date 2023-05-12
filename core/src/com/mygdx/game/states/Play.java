@@ -37,7 +37,7 @@ import java.awt.event.MouseEvent;
 import static com.mygdx.game.handlers.B2DVars.*;
 import static com.mygdx.game.handlers.GameStateManager.BATTLE;
 
-public class Play extends GameState implements StateMethods{
+public class Play extends GameState{ //implements StateMethods
     private MyGdxGame game;
     private boolean debug = false;
     private World world;
@@ -65,31 +65,18 @@ public class Play extends GameState implements StateMethods{
     public Play(GameStateManager gsm) {
         super(gsm);
         world = new World(new Vector2(0, 0), true);
-        cl = new MyContactListener();
-        world.setContactListener(cl);
         b2dr = new Box2DDebugRenderer();
         game = gsm.game();
         multiplexer = new InputMultiplexer();
-
-        //create block
-        /* BodyDef bdef = new BodyDef();
-        bdef.position.set(500f / PPM, 300f / PPM);
-        bdef.type = BodyDef.BodyType.StaticBody;
-        Body body = world.createBody(bdef);
-
-        PolygonShape ps = new PolygonShape();
-        ps.setAsBox(100f / PPM, 30f / PPM);
-        FixtureDef fdef = new FixtureDef();
-        fdef.shape = ps;
-        fdef.filter.categoryBits = BIT_BLOCK;
-        fdef.filter.maskBits = BIT_PLAYER;
-        body.createFixture(fdef).setUserData("block");*/
+        cl = new MyContactListener(gsm);
+        world.setContactListener(cl);
 
         //initUI();
         createPlayer();
         createTiles();
         createNPC();
 
+        //initFight();
         /*была часть из initUI()*/
 
         cam.setBounds(0, tileMapWidth * tileSize * 4, 0, tileMapHeight * tileSize * 4);
@@ -110,11 +97,14 @@ public class Play extends GameState implements StateMethods{
         player.update(dt);
         boss.update(dt);
         player.updatePL();
-        if (Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
+        /*if (Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
             gsm.setState(BATTLE);
-        }
-        if(canDraw){
+        }*/
+        if (cl.canGo) {
             uiStage.act(dt);
+            if(Gdx.input.isKeyPressed(Input.Keys.X) && dialogueBox.isFinished()){
+                gsm.setState(BATTLE);
+            }
         }
         //dcontroller.update(dt);
     }
@@ -142,7 +132,7 @@ public class Play extends GameState implements StateMethods{
             b2dCam.update();
             b2dr.render(world, b2dCam.combined);
         }
-        if(canDraw) {
+        if(cl.canGo) {
             uiStage.draw();
         }
     }
@@ -251,6 +241,40 @@ public class Play extends GameState implements StateMethods{
         }
     }
 
+    private void initFight(){
+        skin_this = game.getSkin();
+        uiStage = new Stage(new ScreenViewport());
+        uiStage.getViewport().update(1215, 675, true);
+
+        dialogRoot = new Table();
+        dialogRoot.setFillParent(true);
+        uiStage.addActor(dialogRoot);
+
+        dialogueBox = new DialogBox(skin_this);
+        dialogueBox.setVisible(false);
+
+        optionBox = new OptionBox(skin_this);
+        optionBox.setVisible(false);
+
+        Table dialogTable = new Table();
+        dialogTable.add(dialogueBox)
+                .expand().align(Align.bottom)
+                .space(8f)
+                .row();
+
+        dialogRoot.add(dialogTable).expand().align(Align.bottom).pad(15f);
+
+        dcontroller = new DialogController(dialogueBox, optionBox);
+        multiplexer.addProcessor(dcontroller);
+        Gdx.input.setInputProcessor(multiplexer);
+
+        dialog = new Dialog();
+        DialogNode node1 = new DialogNode("Враг атакует!", 0);
+
+        dialog.addNode(node1);
+        dcontroller.startDialog(dialog);
+    }
+
     private void initUI(){
         skin_this = game.getSkin();
         uiStage = new Stage(new ScreenViewport());
@@ -304,39 +328,5 @@ public class Play extends GameState implements StateMethods{
         dialog.addNode(node3);
         dialog.addNode(node4);
         dcontroller.startDialog(dialog);
-    }
-
-    @Override
-    public void draw(Graphics g) {
-    }
-
-    @Override
-    public void mouseClicked(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseMoved(MouseEvent e) {
-
-    }
-
-    @Override
-    public void keyPressed(KeyEvent k) {
-
-    }
-
-    @Override
-    public void keyReleased(KeyEvent k) {
-
     }
 }

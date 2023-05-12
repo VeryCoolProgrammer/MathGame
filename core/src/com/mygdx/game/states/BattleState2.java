@@ -68,7 +68,7 @@ public class BattleState2 extends GameState implements BattleEventPlayer {
     public BattleState2(GameStateManager gsm) {
         super(gsm);
         world = new World(new Vector2(0, 0), true);
-        cl = new MyContactListener();
+        cl = new MyContactListener(gsm);
         world.setContactListener(cl);
         game = gsm.game();
         multiplexer = new InputMultiplexer(); //не нужен(?)
@@ -218,7 +218,7 @@ public class BattleState2 extends GameState implements BattleEventPlayer {
         FixtureDef fdef = new FixtureDef();
 
         bdef.type = BodyDef.BodyType.StaticBody;
-        bdef.position.set(600f / PPM, 530f / PPM);
+        bdef.position.set(600f / PPM, 350f / PPM);
         Body body = world.createBody(bdef);
 
         boss = new Boss(body);
