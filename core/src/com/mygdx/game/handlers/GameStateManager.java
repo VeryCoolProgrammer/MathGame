@@ -37,7 +37,7 @@ public class GameStateManager {
         if (state == PLAY) {
             return play;
         } else if (state == MENU) {
-            return new Menu(this);
+            return new Menu2(this);
         } else if (state == BATTLE) {
             return new BattleState2(this);
         }

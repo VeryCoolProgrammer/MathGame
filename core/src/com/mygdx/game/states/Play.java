@@ -36,6 +36,7 @@ import java.awt.event.MouseEvent;
 
 import static com.mygdx.game.handlers.B2DVars.*;
 import static com.mygdx.game.handlers.GameStateManager.BATTLE;
+import static com.mygdx.game.handlers.GameStateManager.MENU;
 
 public class Play extends GameState{ //implements StateMethods
     private MyGdxGame game;
@@ -97,9 +98,9 @@ public class Play extends GameState{ //implements StateMethods
         player.update(dt);
         boss.update(dt);
         player.updatePL();
-        /*if (Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
-            gsm.setState(BATTLE);
-        }*/
+        if (Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
+            gsm.setState(MENU);
+        }
         if (canDraw) {
             uiStage.act(dt);
             if(Gdx.input.isKeyPressed(Input.Keys.X) && dialogueBox.isFinished()){

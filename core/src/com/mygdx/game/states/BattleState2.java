@@ -50,8 +50,6 @@ public class BattleState2 extends GameState implements BattleEventPlayer {
     private Table selectionRoot;
     private Table statusBoxRoot;
     private SelectionBox selectionBox;
-    private OptionBoxController obc;
-    private DialogController dcontroller;
     private StatusBox statusBox;
     private PlayerStatusBox playerStatus;
     // END UI
@@ -75,7 +73,7 @@ public class BattleState2 extends GameState implements BattleEventPlayer {
 
         cam.setBounds(0, 4864, 0, 2688);
 
-        tex = MyGdxGame.res.getTexture("gnomik");
+        tex = MyGdxGame.res.getTexture("gnomik"); //не юзается?
         tex = MyGdxGame.res.getTexture("enemy");
         battle = new Battle(BattleEntity.generateEntity("Игрок", tex, game.getStepDatabase(), game.getExampleDatabase()),
                 BattleEntity.generateEntity("Враг", texEnemy, game.getStepDatabase(), game.getExampleDatabase()));
@@ -133,7 +131,7 @@ public class BattleState2 extends GameState implements BattleEventPlayer {
     }
 
     @Override
-    public void render() {
+    public void render() { // fix update cam (F11)
         Gdx.input.setInputProcessor(bcontroller);
         Gdx.gl20.glClearColor(0,0,0,1);
         Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
