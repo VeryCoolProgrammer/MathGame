@@ -16,7 +16,7 @@ public class ExampleDatabase {
         initializeExamples();
     }
     private void initializeExamples() {
-        addExample(new TrueExample(new ExampleDetails(EXAMPLE_LIST.EXAMPLE_1, "пример 1", 1)));
+        addExample(new TrueExample(new ExampleDetails(EXAMPLE_LIST.EXAMPLE_1, "     59-36=       ", 1)));
         addExample(new TrueExample(new ExampleDetails(EXAMPLE_LIST.EXAMPLE_2, "пример 2", 2)));
         addExample(new TrueExample(new ExampleDetails(EXAMPLE_LIST.EXAMPLE_3, "пример 3", 3)));
         addExample(new TrueExample(new ExampleDetails(EXAMPLE_LIST.EXAMPLE_4, "пример 4", 4)));

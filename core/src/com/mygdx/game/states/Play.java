@@ -98,7 +98,7 @@ public class Play extends GameState{ //implements StateMethods
         player.update(dt);
         boss.update(dt);
         player.updatePL();
-        if (Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
             gsm.setState(MENU);
         }
         if (canDraw) {

@@ -88,7 +88,7 @@ public class Menu2 extends GameState{
                 .space(8f)
                 .row();
 
-        root.add(table).expand().align(Align.bottom).padBottom(110f);
+        root.add(table).expand().align(Align.bottom).padBottom(150f);
     }
 
     @Override
