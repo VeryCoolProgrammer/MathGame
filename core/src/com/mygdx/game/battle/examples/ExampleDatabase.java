@@ -17,10 +17,10 @@ public class ExampleDatabase {
     }
     private void initializeExamples() {
         addExample(new TrueExample(new ExampleDetails(EXAMPLE_LIST.EXAMPLE_1, "     59-36=       ", 1)));
-        addExample(new TrueExample(new ExampleDetails(EXAMPLE_LIST.EXAMPLE_2, "пример 2", 2)));
-        addExample(new TrueExample(new ExampleDetails(EXAMPLE_LIST.EXAMPLE_3, "пример 3", 3)));
-        addExample(new TrueExample(new ExampleDetails(EXAMPLE_LIST.EXAMPLE_4, "пример 4", 4)));
-        addExample(new TrueExample(new ExampleDetails(EXAMPLE_LIST.EXAMPLE_5, "пример 5", 5)));
+        addExample(new TrueExample(new ExampleDetails(EXAMPLE_LIST.EXAMPLE_2, "     236:4=       ", 2)));
+        addExample(new TrueExample(new ExampleDetails(EXAMPLE_LIST.EXAMPLE_3, "     23*3=        ", 3)));
+        addExample(new TrueExample(new ExampleDetails(EXAMPLE_LIST.EXAMPLE_4, "     75+46=       ", 4)));
+        addExample(new TrueExample(new ExampleDetails(EXAMPLE_LIST.EXAMPLE_5, "     32*3-7=      ", 5)));
     }
     public void addExample(Example example){
         examples.add(example);
