@@ -26,8 +26,8 @@ public class Player extends B2DSprite {
 
     public Player(Body body) {
         super(body);
-        tex = MyGdxGame.res.getTexture("gnomik");
-        sprites = TextureRegion.split(tex, 80, 88)[0]; //110 130 - 1row, 120 130 - step
+        tex = MyGdxGame.res.getTexture("gnomikFull");
+        sprites = TextureRegion.split(tex, 120, 140)[0]; //110 130 - 1row, 120 130 - step, 60 88 - s
 
         speed = 40f;
         //animUpdate(); // ?????

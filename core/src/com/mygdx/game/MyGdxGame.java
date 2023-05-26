@@ -34,6 +34,7 @@ public class MyGdxGame implements ApplicationListener {
 
 		res = new Content();
 		res.loadTexture("gnomikS.png", "gnomik");
+		res.loadTexture("gnomik.png", "gnomikFull");
 		res.loadTexture("allBtn.png", "btn");
 		res.loadTexture("enemySprite2.2.png", "enemy");
 

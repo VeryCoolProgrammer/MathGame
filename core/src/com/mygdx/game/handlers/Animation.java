@@ -26,7 +26,7 @@ public class Animation {
         this.frames = frames;
         this.delay = delay;
         time = 0;
-        currentFrame = 0;
+        currentFrame = 1;
         timesPlayed = 0;
     }
 
@@ -48,6 +48,16 @@ public class Animation {
             timesPlayed++;
         }
     }
+
+    /*private void unStep() {
+        System.out.println("unstep");
+        time -= delay;
+        currentFrame--;
+        if (currentFrame == -1) {
+            currentFrame = 2;
+            timesPlayed--;
+        }
+    }*/
 
     public TextureRegion getFrames() {
         return frames[currentFrame];
