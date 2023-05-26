@@ -25,6 +25,7 @@ import com.mygdx.game.UI.DialogBox;
 import com.mygdx.game.UI.OptionBox;
 import com.mygdx.game.entities.Boss;
 import com.mygdx.game.entities.Player;
+import com.mygdx.game.entities.Player2;
 import com.mygdx.game.handlers.B2DVars;
 import com.mygdx.game.handlers.BoundedCamera;
 import com.mygdx.game.handlers.MyContactListener;
@@ -45,7 +46,7 @@ public class Play extends GameState{ //implements StateMethods
     private Box2DDebugRenderer b2dr;
     private BoundedCamera b2dCam;
     private MyContactListener cl;
-    private Player player;
+    private Player2 player;
     private Boss boss;
     private TiledMap tiledMap;
     private OrthogonalTiledMapRenderer tmr;
@@ -166,7 +167,7 @@ public class Play extends GameState{ //implements StateMethods
         fdef.isSensor = true;
         body.createFixture(fdef).setUserData("foot");*/
 
-        player = new Player(body);
+        player = new Player2(body);
         body.setUserData(player);
     }
 
