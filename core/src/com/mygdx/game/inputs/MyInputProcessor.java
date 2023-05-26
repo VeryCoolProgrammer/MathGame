@@ -3,7 +3,11 @@ package com.mygdx.game.inputs;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
 public class MyInputProcessor extends InputAdapter {
+    @Override
     public boolean keyDown(int k){
         if (k == Input.Keys.W) {
             GameKeys.setKey(GameKeys.KEY_W, true);
@@ -19,6 +23,7 @@ public class MyInputProcessor extends InputAdapter {
         }
         return true;
     }
+    @Override
     public boolean keyUp(int k){
         if (k == Input.Keys.W) {
             GameKeys.setKey(GameKeys.KEY_W, false);

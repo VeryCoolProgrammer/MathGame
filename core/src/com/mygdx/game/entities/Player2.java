@@ -15,19 +15,25 @@ import static com.mygdx.game.handlers.B2DVars.PlayerAnim.*;
 public class Player2 extends B2DSprite {
     private TextureRegion[] sprites;
     private Texture tex;
+    private Texture tex2;
     private int dir = -1;
+    private boolean move = false;
+    private MyInputProcessor mip;
 
     public Player2(Body body) {
         super(body);
         tex = MyGdxGame.res.getTexture("gnomik");
+        tex2 = MyGdxGame.res.getTexture("gnomikrow");
         sprites = TextureRegion.split(tex, 80, 88)[0];
         speed = 40f;
         setAnimation(sprites, 1 / 12f);
+        mip = new MyInputProcessor();
     }
 
     public void updatePL() {
         x = body.getPosition().x * PPM;
         y = body.getPosition().y * PPM;
+
         checkUserInput();
     }
 
@@ -56,10 +62,22 @@ public class Player2 extends B2DSprite {
             vely = -1;
         }
         body.setLinearVelocity(velx * speed, vely * speed);
+
         if(Gdx.input.isKeyJustPressed(Input.Keys.ANY_KEY)){
             checkAnim();
-            setAnimation(sprites, 1/12f);
+            System.out.println(dir);
+        } else {
+            if(move) {
+                System.out.println("TRUE");
+                setDir(IDLE);
+                checkAnim();
+                move = false;
+            }
         }
+
+        /*if(mip.keyUp(Input.Keys.A) && mip.keyUp(Input.Keys.D) && mip.keyUp(Input.Keys.S) && mip.keyUp(Input.Keys.W)){
+            move = true;
+        }*/
     }
 
     private void checkAnim(){
@@ -76,13 +94,21 @@ public class Player2 extends B2DSprite {
             case DOWN:
                 sprites = TextureRegion.split(tex, 80, 88)[0];
                 break;
+            case IDLE:
+                sprites = TextureRegion.split(tex2, 110, 130)[0];
+                break;
             default:
                 return;
         }
+        setAnimation(sprites, 1/12f);
     }
 
     public void setDir(int dir){
         this.dir = dir;
+    }
+
+    public void setMove(boolean move){
+        this.move = move;
     }
 }
 
