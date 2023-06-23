@@ -3,6 +3,7 @@ package com.mygdx.game.states;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
@@ -62,6 +63,7 @@ public class Play extends GameState{ //implements StateMethods
     private InputMultiplexer multiplexer;
     private Dialog dialog;
     private DialogController dcontroller;
+    private Music music;
     public boolean canDraw = false;
 
     public Play(GameStateManager gsm) {
@@ -72,11 +74,13 @@ public class Play extends GameState{ //implements StateMethods
         multiplexer = new InputMultiplexer();
         cl = new MyContactListener(gsm);
         world.setContactListener(cl);
+        music = Gdx.audio.newMusic(Gdx.files.internal("song.wav"));
 
         //initUI();
         createPlayer();
         createTiles();
         createNPC();
+        createMusic();
 
         initFight();
         /*была часть из initUI()*/
@@ -245,6 +249,13 @@ public class Play extends GameState{ //implements StateMethods
             boss = new Boss(body);
             body.setUserData(boss);
         }
+    }
+
+    private void createMusic(){
+        music.setVolume(0.9f);
+        music.setLooping(true);
+        music.play();
+        //music.dispose();
     }
 
     private void initFight(){
