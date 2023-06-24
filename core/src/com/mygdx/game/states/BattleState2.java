@@ -2,6 +2,7 @@ package com.mygdx.game.states;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.maps.MapLayer;
@@ -62,6 +63,7 @@ public class BattleState2 extends GameState implements BattleEventPlayer {
     private Boss boss;
     private Texture tex;
     private Texture texEnemy;
+    private Music music;
 
     public BattleState2(GameStateManager gsm) {
         super(gsm);
@@ -70,6 +72,11 @@ public class BattleState2 extends GameState implements BattleEventPlayer {
         world.setContactListener(cl);
         game = gsm.game();
         multiplexer = new InputMultiplexer(); //не нужен(?)
+
+        music = Gdx.audio.newMusic(Gdx.files.internal("battleTheme.mp3"));
+        music.setVolume(0.9f);
+        music.setLooping(true);
+        music.play();
 
         cam.setBounds(0, 4864, 0, 2688);
 
@@ -107,12 +114,13 @@ public class BattleState2 extends GameState implements BattleEventPlayer {
                 if(battle.getState() == Battle.STATE.READY_TO_PROGRESS){
                     bcontroller.restart(); // <-----
                 } else if (battle.getState() == Battle.STATE.RUN) {
+                    music.dispose();
                     gsm.setState(GameStateManager.PLAY);
                 } else if (battle.getState() == Battle.STATE.WIN) {
+                    music.dispose();
                     gsm.setState(GameStateManager.PLAY);
                 } else if (battle.getState() == Battle.STATE.LOSE) {
-                    gsm.setState(GameStateManager.PLAY);
-                } else if (battle.getState() == Battle.STATE.RUN) {
+                    music.dispose();
                     gsm.setState(GameStateManager.PLAY);
                 }
                 break;

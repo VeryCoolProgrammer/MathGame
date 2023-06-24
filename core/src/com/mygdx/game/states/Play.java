@@ -85,7 +85,7 @@ public class Play extends GameState{ //implements StateMethods
         createPlayer();
         createTiles();
         createNPC();
-        //createMusic();
+        createMusic();
 
         initFight();
         /*была часть из initUI()*/
@@ -120,6 +120,7 @@ public class Play extends GameState{ //implements StateMethods
             uiStage.act(dt);
             if(Gdx.input.isKeyPressed(Input.Keys.X) && dialogueBox.isFinished()){
                 gsm.setState(BATTLE);
+                music.dispose();
                 canDraw = false;
             }
         }
