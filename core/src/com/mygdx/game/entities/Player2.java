@@ -16,7 +16,7 @@ public class Player2 extends B2DSprite {
     private TextureRegion[] sprites;
     private Texture tex;
     private Texture tex2;
-    private int dir = -1;
+    private int dir = IDLE;
     private boolean move = false;
     private MyInputProcessor mip;
 

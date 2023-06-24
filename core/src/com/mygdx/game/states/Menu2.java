@@ -38,6 +38,7 @@ import static com.mygdx.game.handlers.GameStateManager.PLAY;
 
 public class Menu2 extends GameState{
     private MyGdxGame game;
+    private Play play;
     private TiledMap tiledMap;
     private OrthogonalTiledMapRenderer tmr;
     private float tileSize;
@@ -53,6 +54,7 @@ public class Menu2 extends GameState{
     public Menu2(GameStateManager gsm) {
         super(gsm);
         game = gsm.game();
+        play = gsm.getPlay();
         multiplexer = new InputMultiplexer();
         cam.setBounds(0, 4864, 0, 2688);
 
@@ -79,7 +81,8 @@ public class Menu2 extends GameState{
 
         optionBox = new MenuOptionBox(game.getSkin());
         optionBox.setVisible(true);
-        optionBox.addOption("   Начать  ");
+        optionBox.addOption("   Новая игра  ");
+        optionBox.addOption("   Продолжить  ");
         optionBox.addOption("   Выход   ");
 
         Table table = new Table();
@@ -107,6 +110,9 @@ public class Menu2 extends GameState{
                 gsm.setState(PLAY);
             } else if (optionBox.getIndex() == 1) {
                 System.exit(0);
+            } else if (optionBox.getIndex() == 2) {
+                play.saveLoad.load();
+                gsm.setState(PLAY);
             }
         }
     }

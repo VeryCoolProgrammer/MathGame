@@ -24,6 +24,8 @@ import com.mygdx.game.Dialog.Dialog;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.UI.DialogBox;
 import com.mygdx.game.UI.OptionBox;
+import com.mygdx.game.data.DataStorage;
+import com.mygdx.game.data.SaveLoad;
 import com.mygdx.game.entities.Boss;
 import com.mygdx.game.entities.Player;
 import com.mygdx.game.entities.Player2;
@@ -64,7 +66,9 @@ public class Play extends GameState{ //implements StateMethods
     private Dialog dialog;
     private DialogController dcontroller;
     private Music music;
+    public SaveLoad saveLoad;
     public boolean canDraw = false;
+    public boolean save = false;
 
     public Play(GameStateManager gsm) {
         super(gsm);
@@ -75,12 +79,13 @@ public class Play extends GameState{ //implements StateMethods
         cl = new MyContactListener(gsm);
         world.setContactListener(cl);
         music = Gdx.audio.newMusic(Gdx.files.internal("song.wav"));
+        saveLoad = new SaveLoad(this);
 
         //initUI();
         createPlayer();
         createTiles();
         createNPC();
-        createMusic();
+        //createMusic();
 
         initFight();
         /*была часть из initUI()*/
@@ -105,6 +110,11 @@ public class Play extends GameState{ //implements StateMethods
         player.updatePL();
         if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
             gsm.setState(MENU);
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.R)) {
+            saveLoad.save();
+            save = true;
+            System.out.println("player pos x-y " + player.getPosition().x + " " + player.getPosition().y);
         }
         if (canDraw) {
             uiStage.act(dt);
@@ -148,11 +158,20 @@ public class Play extends GameState{ //implements StateMethods
     public void dispose() {
     }
     private void createPlayer() {
+        //saveLoad.load();
+        DataStorage ds = saveLoad.getDs();
         BodyDef bdef = new BodyDef();
         PolygonShape ps = new PolygonShape();
         FixtureDef fdef = new FixtureDef();
 
-        bdef.position.set(607f / PPM, 337f / PPM);
+        System.out.println(save + " save");
+
+        if(save){
+            bdef.position.set(ds.playerPosX);
+        } else {
+            bdef.position.set(607f / PPM, 337f / PPM);
+        }
+
         bdef.type = BodyDef.BodyType.DynamicBody;
         Body body = world.createBody(bdef);
 
@@ -345,5 +364,9 @@ public class Play extends GameState{ //implements StateMethods
         dialog.addNode(node3);
         dialog.addNode(node4);
         dcontroller.startDialog(dialog);
+    }
+
+    public Player2 getPlayer() {
+        return player;
     }
 }
