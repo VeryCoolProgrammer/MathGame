@@ -160,6 +160,7 @@ public class Play extends GameState{ //implements StateMethods
     private void createPlayer() {
         //saveLoad.load();
         DataStorage ds = saveLoad.getDs();
+
         BodyDef bdef = new BodyDef();
         PolygonShape ps = new PolygonShape();
         FixtureDef fdef = new FixtureDef();
