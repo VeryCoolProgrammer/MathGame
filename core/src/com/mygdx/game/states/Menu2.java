@@ -11,8 +11,11 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.game.Dialog.Dialog;
@@ -48,6 +51,7 @@ public class Menu2 extends GameState{
     private Table root;
     private Stage uiStage;
     private MenuOptionBox optionBox;
+    private MenuBtn2 btn;
     private BitmapFont font = new BitmapFont(Gdx.files.internal("mcRus.fnt"));
     // END UI
     public Menu2(GameStateManager gsm) {
@@ -83,6 +87,9 @@ public class Menu2 extends GameState{
         optionBox.addOption("   Новая игра  ");
         optionBox.addOption("   Продолжить  ");
         optionBox.addOption("   Выход   ");
+
+        /*btn = new MenuBtn2(game.getSkin());
+        btn.create();*/
 
         Table table = new Table();
         table.add(optionBox)
