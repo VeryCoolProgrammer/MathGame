@@ -19,7 +19,6 @@ public class SaveLoad {
             DataStorage ds = new DataStorage();
             ds.playerPosX = play.getPlayer().getPosition();
             ds.save = play.save;
-            //ds.playerPosY = play.getPlayer().getPosition().y;
 
             oos.writeObject(ds);
         } catch (Exception e) {
@@ -32,12 +31,10 @@ public class SaveLoad {
             ObjectInputStream ois = new ObjectInputStream(new FileInputStream(new File("save.dat")));
 
             DataStorage ds = (DataStorage) ois.readObject();
-
-            play.getPlayer().getPosition().set(ds.playerPosX);
+            //play.bdef.position.set(ds.playerPosX); <--- уже есть в play.createPlayer()
             play.save = ds.save;
-            //play.getPlayer().getPosition().y = ds.playerPosY;
             this_ds = ds;
-            System.out.println(ds.playerPosX);
+            System.out.println(ds.playerPosX + " save= "  + play.save);
 
         } catch (Exception e) {
             System.out.println("can't load");

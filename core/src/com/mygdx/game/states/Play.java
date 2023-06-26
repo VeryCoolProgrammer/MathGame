@@ -69,6 +69,7 @@ public class Play extends GameState{ //implements StateMethods
     public SaveLoad saveLoad;
     public boolean canDraw = false;
     public boolean save = false;
+    public BodyDef bdef;
 
     public Play(GameStateManager gsm) {
         super(gsm);
@@ -85,7 +86,7 @@ public class Play extends GameState{ //implements StateMethods
         createPlayer();
         createTiles();
         createNPC();
-        createMusic();
+        //createMusic();
 
         initFight();
         /*была часть из initUI()*/
@@ -108,6 +109,7 @@ public class Play extends GameState{ //implements StateMethods
         player.update(dt);
         boss.update(dt);
         player.updatePL();
+
         if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
             gsm.setState(MENU);
         }
@@ -159,17 +161,16 @@ public class Play extends GameState{ //implements StateMethods
     public void dispose() {
     }
     private void createPlayer() {
-        //saveLoad.load();
-        DataStorage ds = saveLoad.getDs();
-
-        BodyDef bdef = new BodyDef();
+        bdef = new BodyDef();
         PolygonShape ps = new PolygonShape();
         FixtureDef fdef = new FixtureDef();
 
-        System.out.println(save + " save");
+        saveLoad.load();
+        DataStorage ds = saveLoad.getDs();
 
         if(save){
             bdef.position.set(ds.playerPosX);
+            System.out.println("load position");
         } else {
             bdef.position.set(607f / PPM, 337f / PPM);
         }
