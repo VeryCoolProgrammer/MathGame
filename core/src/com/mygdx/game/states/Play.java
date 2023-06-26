@@ -68,7 +68,7 @@ public class Play extends GameState{ //implements StateMethods
     private Music music;
     public SaveLoad saveLoad;
     public boolean canDraw = false;
-    public boolean save = false;
+    public boolean savePlay;
     public BodyDef bdef;
 
     public Play(GameStateManager gsm) {
@@ -81,6 +81,8 @@ public class Play extends GameState{ //implements StateMethods
         world.setContactListener(cl);
         music = Gdx.audio.newMusic(Gdx.files.internal("song.wav"));
         saveLoad = new SaveLoad(this);
+
+        savePlay = game.save;
 
         //initUI();
         createPlayer();
@@ -114,8 +116,8 @@ public class Play extends GameState{ //implements StateMethods
             gsm.setState(MENU);
         }
         if (Gdx.input.isKeyPressed(Input.Keys.R)) {
+            //savePlay = true;
             saveLoad.save();
-            save = true;
             System.out.println("player pos x-y " + player.getPosition().x + " " + player.getPosition().y);
         }
         if (canDraw) {
@@ -168,7 +170,7 @@ public class Play extends GameState{ //implements StateMethods
         saveLoad.load();
         DataStorage ds = saveLoad.getDs();
 
-        if(save){
+        if(savePlay){
             bdef.position.set(ds.playerPosX);
             System.out.println("load position");
         } else {

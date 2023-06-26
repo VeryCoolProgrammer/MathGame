@@ -14,11 +14,12 @@ public class GameStateManager {
     public static final int MENU = 0;
     public static final int QUIT = 1;
     public static final int BATTLE = 2;
+    public static final int NEW_GAME = 4;
 
     public GameStateManager(MyGdxGame game) {
         this.game = game;
         gameStates = new Stack<GameState>();
-        play = new Play(this);
+        //play = new Play(this);
         pushState(MENU);
     }
 
@@ -40,6 +41,9 @@ public class GameStateManager {
             return new Menu2(this);
         } else if (state == BATTLE) {
             return new BattleState2(this);
+        } else if (state == NEW_GAME) {
+            play = new Play(this);
+            return play;
         }
         return null;
     }

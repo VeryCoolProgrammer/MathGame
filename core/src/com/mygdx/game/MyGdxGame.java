@@ -28,6 +28,7 @@ public class MyGdxGame implements ApplicationListener {
 	private Skin skin;
 	private StepDatabase stepDatabase;
 	private ExampleDatabase exampleDatabase;
+	public boolean save = false;
 
 	public void create () {
 		//Gdx.input.setInputProcessor(new MyInputProcessor());

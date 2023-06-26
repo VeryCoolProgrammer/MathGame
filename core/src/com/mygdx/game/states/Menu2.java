@@ -33,8 +33,7 @@ import java.util.ArrayDeque;
 import java.util.Queue;
 
 import static com.mygdx.game.handlers.B2DVars.PPM;
-import static com.mygdx.game.handlers.GameStateManager.MENU;
-import static com.mygdx.game.handlers.GameStateManager.PLAY;
+import static com.mygdx.game.handlers.GameStateManager.*;
 
 public class Menu2 extends GameState{
     private MyGdxGame game;
@@ -107,12 +106,12 @@ public class Menu2 extends GameState{
             optionBox.moveDown();
         } else if (Gdx.input.isKeyPressed(Input.Keys.X)) {
             if (optionBox.getIndex() == 0) {
-                gsm.setState(PLAY);
+                gsm.setState(NEW_GAME);
             } else if (optionBox.getIndex() == 1) {
                 System.exit(0);
             } else if (optionBox.getIndex() == 2) {
-                play.saveLoad.load();
-                gsm.setState(PLAY);
+                game.save = true;
+                gsm.setState(NEW_GAME);
             }
         }
     }

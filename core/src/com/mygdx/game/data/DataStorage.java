@@ -7,5 +7,5 @@ import java.io.Serializable;
 public class DataStorage implements Serializable {
     public Vector2 playerPosX;
     float playerPosY;
-    boolean save;
+    boolean save = false;
 }
