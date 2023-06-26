@@ -57,6 +57,7 @@ public class MenuOptionBox extends Table {
     }
 
     public void moveDown(){
+        System.out.println(selectedIndex);
         selectedIndex++;
         if (selectedIndex >= options.size()){
             selectedIndex = options.size()-1;
@@ -65,6 +66,7 @@ public class MenuOptionBox extends Table {
     }
 
     public void moveUp(){
+        System.out.println(selectedIndex);
         selectedIndex--;
         if (selectedIndex < 0){
             selectedIndex = 0;

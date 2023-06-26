@@ -34,7 +34,7 @@ public class SaveLoad {
             //play.bdef.position.set(ds.playerPosX); <--- уже есть в play.createPlayer()
             //play.savePlay = ds.save;
             this_ds = ds;
-            System.out.println(ds.playerPosX + " save= "  + play.savePlay);
+            System.out.println(ds.playerPosX + " save = "  + play.savePlay);
 
         } catch (Exception e) {
             System.out.println("can't load");

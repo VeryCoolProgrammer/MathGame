@@ -107,9 +107,9 @@ public class Menu2 extends GameState{
         } else if (Gdx.input.isKeyPressed(Input.Keys.X)) {
             if (optionBox.getIndex() == 0) {
                 gsm.setState(NEW_GAME);
-            } else if (optionBox.getIndex() == 1) {
-                System.exit(0);
             } else if (optionBox.getIndex() == 2) {
+                System.exit(0);
+            } else if (optionBox.getIndex() == 1) {
                 game.save = true;
                 gsm.setState(NEW_GAME);
             }

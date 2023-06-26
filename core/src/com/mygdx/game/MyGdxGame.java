@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.mygdx.game.battle.examples.ExampleDatabase;
 import com.mygdx.game.battle.steps.StepDatabase;
@@ -60,13 +61,19 @@ public class MyGdxGame implements ApplicationListener {
 
 	public void render () {
 		//update();
-		accum += Gdx.graphics.getDeltaTime();
+		/*accum += Gdx.graphics.getDeltaTime();
 		while(accum >= STEP){
 			accum -= STEP;
 			gsm.update(STEP);
 			gsm.render();
 			GameKeys.update();
-		}
+		}*/
+
+		//System.out.println("FPS: " + Gdx.graphics.getFramesPerSecond());
+		//MathUtils.clamp(Gdx.graphics.getDeltaTime(),-1f,0.0168f);???
+		//System.out.println(Gdx.graphics.getDeltaTime()-0.01f);
+		gsm.update(Gdx.graphics.getDeltaTime()); // ???
+		gsm.render();
 	}
 
 	public void update(){
