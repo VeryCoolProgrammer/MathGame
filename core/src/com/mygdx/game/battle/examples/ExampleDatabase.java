@@ -21,7 +21,6 @@ public class ExampleDatabase {
         addExample(new TrueExample(new ExampleDetails(EXAMPLE_LIST.EXAMPLE_3, "     23*3=        ", 3)));
         addExample(new TrueExample(new ExampleDetails(EXAMPLE_LIST.EXAMPLE_4, "     75+46=       ", 4)));
         addExample(new TrueExample(new ExampleDetails(EXAMPLE_LIST.EXAMPLE_5, "     32*3-7=      ", 5)));
-        //https://github.com/sssagawww/MathGame.git
     }
     public void addExample(Example example){
         examples.add(example);
